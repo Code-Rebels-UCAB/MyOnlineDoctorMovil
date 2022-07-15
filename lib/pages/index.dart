@@ -70,8 +70,8 @@ class _IndexPageState extends State<IndexPage> {
       _channelController.text.isEmpty ? _validateError = true : _validateError = false;
     });
     if(_channelController.text.isNotEmpty){
-      //await _handleCameraAndMic(Permission.camera);
-      //await _handleCameraAndMic(Permission.microphone);
+      await _handleCameraAndMic(Permission.camera);
+      await _handleCameraAndMic(Permission.microphone);
       await Navigator.push(
         context,
         MaterialPageRoute(
