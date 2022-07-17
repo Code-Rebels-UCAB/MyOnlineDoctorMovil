@@ -29,14 +29,24 @@ class citasLista extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        SizedBox(
-            height: 100,
-            child: Align(
-              alignment: Alignment.center,
-              child: Text(
-                  "Citas del dia de Hoy:      ${fechaHoy.year} / ${fechaHoy.month} / ${fechaHoy.day}",
-                  style: const TextStyle(fontSize: 28)),
-            )),
+        citapage == 0
+            ? SizedBox(
+                height: 100,
+                child: Align(
+                  alignment: Alignment.center,
+                  child: Text(
+                      "Citas del dia de Hoy: ${DateTime.now().year} / ${DateTime.now().month} / ${DateTime.now().day}",
+                      style: const TextStyle(fontSize: 28)),
+                ),
+              )
+            : const SizedBox(
+                height: 100,
+                child: Align(
+                  alignment: Alignment.center,
+                  child:
+                      Text("Todas las citas", style: TextStyle(fontSize: 28)),
+                ),
+              ),
         Expanded(
             child: ListView.builder(
           itemCount: citas.length,
@@ -84,8 +94,10 @@ class citasLista extends StatelessWidget {
                           style: const TextStyle(fontSize: 16),
                         )),
                   ),
-                  if (citas[index].Status == "Aceptada" &&) _mostrarBotones(),
-                  if (citas[index].Status == "Aceptada" &&) _mostrarBotones()
+                  if (citas[index].Status == "Aceptada" && citapage == 0)
+                    _mostrarBotones0(),
+                  if (citas[index].Status == "Aceptada" && citapage == 1)
+                    _mostrarBotones1()
                 ],
               ),
             ));
@@ -136,10 +148,10 @@ class citasLista extends StatelessWidget {
           height: 50.0,
           child: ElevatedButton(
               style: ElevatedButton.styleFrom(
-                primary: const Color.fromARGB(255, 15, 214, 18),
+                primary: Color.fromARGB(255, 255, 0, 0),
               ),
               child: const Text(
-                'Llamar',
+                'Suspender',
                 style: TextStyle(fontSize: 22),
               ),
               onPressed: () {}),

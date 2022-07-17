@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:myonlinedoctormovil/widgets/pages/citas_del_dia.dart';
+import 'package:myonlinedoctormovil/widgets/pages/citasLista.dart';
 
 import '../NavBar.dart';
 
