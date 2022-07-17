@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:agora_rtc_engine/rtc_local_view.dart' as rtc_local_view;
 import 'package:agora_rtc_engine/rtc_remote_view.dart' as rtc_remote_view;
 
-import '../Configuracion/config.dart';
+import 'config.dart';
 
 
 class CallPage extends StatefulWidget {
