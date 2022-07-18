@@ -40,7 +40,7 @@ class citasLista extends StatelessWidget {
                 ),
               )
             : const SizedBox(
-                height: 100,
+                height: 100, 
                 child: Align(
                   alignment: Alignment.center,
                   child:
