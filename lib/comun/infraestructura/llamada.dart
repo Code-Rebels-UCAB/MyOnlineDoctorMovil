@@ -18,6 +18,7 @@ class CallPage extends StatefulWidget {
 class _CallPageState extends State<CallPage> {
   final _users = <int>[];
   final _infoStrings = <String>[];
+  int ownUid = 0 ;
   bool muted = false;
   bool viewPanel = false;
   late RtcEngine _engine;
