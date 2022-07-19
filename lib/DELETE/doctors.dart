@@ -19,7 +19,7 @@ List<Map> doctorsf = [
     'sexo': 'gender',
     'correo': 'mail',
     'especialidades': ['specialty'],
-    'calificacion': 0,
+    'calificacion': 0.0,
     'photo':
         'https://drive.google.com/uc?export=view&id=1PvAN-EexVE_jiHRTg7kHJKb8HXUKSxyc',
   },
@@ -29,7 +29,7 @@ List<Map> doctorsf = [
     'sexo': 'gender',
     'correo': 'mail',
     'especialidades': ['specialty'],
-    'calificacion': 1,
+    'calificacion': 1.0,
     'photo':
         'https://drive.google.com/uc?export=view&id=1PvAN-EexVE_jiHRTg7kHJKb8HXUKSxyc',
   },
@@ -39,7 +39,7 @@ List<Map> doctorsf = [
     'sexo': 'gender',
     'correo': 'mail',
     'especialidades': ['specialty'],
-    'calificacion': 2,
+    'calificacion': 2.0,
     'photo':
         'https://drive.google.com/uc?export=view&id=1PvAN-EexVE_jiHRTg7kHJKb8HXUKSxyc',
   },
@@ -49,7 +49,7 @@ List<Map> doctorsf = [
     'sexo': 'gender',
     'correo': 'mail',
     'especialidades': ['specialty'],
-    'calificacion': 3,
+    'calificacion': 3.0,
     'photo':
         'https://drive.google.com/uc?export=view&id=1PvAN-EexVE_jiHRTg7kHJKb8HXUKSxyc',
   },
@@ -59,7 +59,7 @@ List<Map> doctorsf = [
     'sexo': 'gender',
     'correo': 'mail',
     'especialidades': ['specialty'],
-    'calificacion': 4,
+    'calificacion': 4.0,
     'photo':
         'https://drive.google.com/uc?export=view&id=1PvAN-EexVE_jiHRTg7kHJKb8HXUKSxyc',
   },
@@ -69,7 +69,7 @@ List<Map> doctorsf = [
     'sexo': 'gender',
     'correo': 'mail',
     'especialidades': ['specialty'],
-    'calificacion': 5,
+    'calificacion': 5.0,
     'photo':
         'https://drive.google.com/uc?export=view&id=1PvAN-EexVE_jiHRTg7kHJKb8HXUKSxyc',
   },
@@ -82,7 +82,7 @@ List<Map> doctorse = [
     'sexo': 'specialty',
     'correo': 'specialty',
     'especialidades': ['specialty', 'specialty0'],
-    'calificacion': 0,
+    'calificacion': 0.0,
     'photo':
         'https://drive.google.com/uc?export=view&id=1PvAN-EexVE_jiHRTg7kHJKb8HXUKSxyc',
   },
@@ -92,7 +92,7 @@ List<Map> doctorse = [
     'sexo': 'specialty',
     'correo': 'specialty',
     'especialidades': ['specialty', 'specialty1'],
-    'calificacion': 1,
+    'calificacion': 1.0,
     'photo':
         'https://drive.google.com/uc?export=view&id=1PvAN-EexVE_jiHRTg7kHJKb8HXUKSxyc',
   },
@@ -102,7 +102,7 @@ List<Map> doctorse = [
     'sexo': 'specialty',
     'correo': 'specialty',
     'especialidades': ['specialty', 'specialty2'],
-    'calificacion': 2,
+    'calificacion': 2.0,
     'photo':
         'https://drive.google.com/uc?export=view&id=1PvAN-EexVE_jiHRTg7kHJKb8HXUKSxyc',
   },
@@ -112,7 +112,7 @@ List<Map> doctorse = [
     'sexo': 'specialty',
     'correo': 'specialty',
     'especialidades': ['specialty', 'specialty3'],
-    'calificacion': 3,
+    'calificacion': 3.0,
     'photo':
         'https://drive.google.com/uc?export=view&id=1PvAN-EexVE_jiHRTg7kHJKb8HXUKSxyc',
   },
@@ -122,7 +122,7 @@ List<Map> doctorse = [
     'sexo': 'specialty',
     'correo': 'specialty',
     'especialidades': ['specialty', 'specialty4'],
-    'calificacion': 4,
+    'calificacion': 4.0,
     'photo':
         'https://drive.google.com/uc?export=view&id=1PvAN-EexVE_jiHRTg7kHJKb8HXUKSxyc',
   },
@@ -132,7 +132,7 @@ List<Map> doctorse = [
     'sexo': 'specialty',
     'correo': 'specialty',
     'especialidades': ['specialty', 'specialty5'],
-    'calificacion': 5,
+    'calificacion': 5.0,
     'photo':
         'https://drive.google.com/uc?export=view&id=1PvAN-EexVE_jiHRTg7kHJKb8HXUKSxyc',
   },
@@ -145,7 +145,7 @@ List<Map> doctorsna = [
     'sexo': 'name and lastname',
     'correo': 'name and lastname',
     'especialidades': ['name and lastname', 'name and lastname0'],
-    'calificacion': 0,
+    'calificacion': 0.0,
     'photo':
         'https://drive.google.com/uc?export=view&id=1PvAN-EexVE_jiHRTg7kHJKb8HXUKSxyc',
   },
@@ -155,7 +155,7 @@ List<Map> doctorsna = [
     'sexo': 'name and lastname',
     'correo': 'name and lastname',
     'especialidades': ['name and lastname', 'name and lastname1'],
-    'calificacion': 1,
+    'calificacion': 1.0,
     'photo':
         'https://drive.google.com/uc?export=view&id=1PvAN-EexVE_jiHRTg7kHJKb8HXUKSxyc',
   },
@@ -165,7 +165,7 @@ List<Map> doctorsna = [
     'sexo': 'name and lastname',
     'correo': 'name and lastname',
     'especialidades': ['name and lastname', 'name and lastname2'],
-    'calificacion': 2,
+    'calificacion': 2.0,
     'photo':
         'https://drive.google.com/uc?export=view&id=1PvAN-EexVE_jiHRTg7kHJKb8HXUKSxyc',
   },
@@ -175,7 +175,7 @@ List<Map> doctorsna = [
     'sexo': 'name and lastname',
     'correo': 'name and lastname',
     'especialidades': ['name and lastname', 'name and lastname3'],
-    'calificacion': 3,
+    'calificacion': 3.0,
     'photo':
         'https://drive.google.com/uc?export=view&id=1PvAN-EexVE_jiHRTg7kHJKb8HXUKSxyc',
   },
@@ -185,7 +185,7 @@ List<Map> doctorsna = [
     'sexo': 'name and lastname',
     'correo': 'name and lastname',
     'especialidades': ['name and lastname', 'name and lastname4'],
-    'calificacion': 4,
+    'calificacion': 4.0,
     'photo':
         'https://drive.google.com/uc?export=view&id=1PvAN-EexVE_jiHRTg7kHJKb8HXUKSxyc',
   },
@@ -195,7 +195,7 @@ List<Map> doctorsna = [
     'sexo': 'name and lastname',
     'correo': 'name and lastname',
     'especialidades': ['name and lastname', 'name and lastname5'],
-    'calificacion': 5,
+    'calificacion': 5.0,
     'photo':
         'https://drive.google.com/uc?export=view&id=1PvAN-EexVE_jiHRTg7kHJKb8HXUKSxyc',
   },
