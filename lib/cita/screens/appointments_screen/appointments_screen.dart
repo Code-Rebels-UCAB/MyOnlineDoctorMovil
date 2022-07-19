@@ -75,26 +75,35 @@ class _AppointmentsScreenState extends State<AppointmentsScreen> {
             child: Row(
               children: [
                 Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Padding(
-                        padding: const EdgeInsets.all(5.0),
-                        child: Text(
-                            verifyGender(
-                                appoinments[index]['name'], appoinments[index]['name']),
-                            style: const TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 14.0))),
-                    Padding(
-                        padding: const EdgeInsets.all(5.0),
-                        child: Text(appoinments[index]['modality'],
-                            style: const TextStyle(fontSize: 14.0))),
-                    Padding(
-                        padding: const EdgeInsets.all(5.0),
-                        child: Text(appoinments[index]['date'],
-                            style: const TextStyle(fontSize: 14.0))),
-                    Padding(
-                        padding: const EdgeInsets.all(5.0),
-                        child: Text(appoinments[index]['hour'],
-                            style: const TextStyle(fontSize: 14.0))),
+                    Row(
+                      children: [
+                        Padding(
+                            padding: const EdgeInsets.all(5.0),
+                            child: Text(
+                                verifyGender(
+                                    appoinments[index]['name'], appoinments[index]['name']),
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 14.0))),
+                        Padding(
+                            padding: const EdgeInsets.all(5.0),
+                            child: Text(appoinments[index]['modality'],
+                                style: const TextStyle(fontSize: 14.0))),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Padding(
+                            padding: const EdgeInsets.all(5.0),
+                            child: Text(appoinments[index]['date'],
+                                style: const TextStyle(fontSize: 14.0))),
+                        Padding(
+                            padding: const EdgeInsets.all(5.0),
+                            child: Text(appoinments[index]['hour'],
+                                style: const TextStyle(fontSize: 14.0))),
+                      ],
+                    ),
                     Padding(
                         padding: const EdgeInsets.all(5.0),
                         child: Text(appoinments[index]['duration'],
