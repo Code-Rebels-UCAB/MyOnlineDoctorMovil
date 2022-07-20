@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:myonlinedoctormovil/DELETE/doctors.dart';
 import 'package:myonlinedoctormovil/common/screen_header.dart';
+import 'package:myonlinedoctormovil/doctor/infraestructura/services/doctor_service.dart';
 import 'package:myonlinedoctormovil/doctor/screens/search_doctor_screen/screen_parts/doctors_list.dart';
 
 class SearchScreen extends StatefulWidget {
@@ -18,95 +18,100 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
+  DoctorService doctorService = DoctorService();
   // ignore: prefer_final_fields
   TextEditingController _textFieldFilter = TextEditingController();
   dynamic _dropdownSelectedFilterItem = ' ';
+  dynamic dropdownFlag = 0;
   dynamic _searchBarEnable = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
 
-      // FutureBuilde para la carga de dostores
-      body: FutureBuilder(
-        // Para obtener el futuro de uns busqueda, enviamos el filtro y el valor que desea el usuario de ese filtro
-        future: futureDoctorTask(_textFieldFilter.text, _dropdownSelectedFilterItem),
-        builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-          return CustomScrollView(
-            slivers: [
-              // Header de la applicacion
-              screenHeader(),
-              
-              // Dropdown Button y Barra de Busqueda (TextField) para la busqueda
-              SliverToBoxAdapter(
-                child: Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        const SizedBox(
-                          width: 8.0,
-                        ),
-                        const Text(
-                          'Filtrar por: ',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 16,
-                          ),
-                        ),
-                        Expanded(
-                          // Dropdown Button
-                          child: _filterDropdown(context)
-                        )
-                      ]
-                    ),
-                    // Barra de Busqueda (TextField)
-                    _searchBar(context),
-                  ]
-                )
+        // FutureBuilde para la carga de dostores
+        body: FutureBuilder(
+      // Para obtener el futuro de uns busqueda, enviamos el filtro y el valor que desea el usuario de ese filtro
+      future: doctorService.getDoctors(_dropdownSelectedFilterItem, 
+          _textFieldFilter.text),
+      //futureDoctorTask(_textFieldFilter.text, _dropdownSelectedFilterItem),
+      builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+        return CustomScrollView(slivers: [
+          // Header de la applicacion
+          screenHeader(),
+
+          // Dropdown Button y Barra de Busqueda (TextField) para la busqueda
+          SliverToBoxAdapter(
+              child: Column(children: [
+            Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+              const SizedBox(
+                width: 8.0,
               ),
+              const Text(
+                'Filtrar por: ',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 16,
+                ),
+              ),
+              Expanded(
+                  // Dropdown Button
+                  child: _filterDropdown(context))
+            ]),
+            // Barra de Busqueda (TextField)
+            _searchBar(context),
+          ])),
 
-              // Si el estado de la conexion esta en espera
-              (snapshot.connectionState == ConnectionState.waiting)
+          // Si el estado de la conexion esta en espera
+          (snapshot.connectionState == ConnectionState.waiting)
 
-                // Si el estado de la conexion esta en espera, genera un CircularProgressIndicator de cargo
-                ? const SliverFillRemaining(
-                  child: Center(
-                    child: CircularProgressIndicator(),
-                  )
-                )
+            // Si el estado de la conexion esta en espera, genera un CircularProgressIndicator de cargo
+            ? const SliverFillRemaining(
+              child: Center(
+                child: CircularProgressIndicator(),
+              )
+            )
 
-                // Si el estado de la conexion es lista
-                : (snapshot.connectionState == ConnectionState.done)
-                  ? (snapshot.hasData)
+            // Si el estado de la conexion es lista
+            : (snapshot.connectionState == ConnectionState.done)
+              ? (snapshot.hasData)
+                ? (snapshot.data.isNotEmpty)
 
-                    // Si el estado de la conexion es lista y hay data, crea el cuerpo de la pagina
-                    ? _doctorList(context, snapshot.data)
+                  // Si el estado de la conexion es lista y hay data, crea el cuerpo de la pagina
+                  ? _doctorList(context, snapshot.data)
 
-                    // Si el estado de la conexion es lista y no hay data, muestra Error
-                    : const SliverFillRemaining(
-                      child: Center(
-                        child: Text(
-                          'Error',
-                          style: TextStyle(fontSize: 18),
-                        ),
-                      )
-                    )
-
-                  // Si el estado de la conexion es lista y no hay data,
+                  // Si el estado de la conexion es lista, hay data y esta vacia
                   : const SliverFillRemaining(
                     child: Center(
                       child: Text(
-                        '??',
+                        'No hay coincidencias',
                         style: TextStyle(fontSize: 18),
-                      )
-                    ),
+                      ),
+                    )
                   )
-            ]
-          );
-        },
-      )
-    );
+
+                // Si el estado de la conexion es lista y no hay data, muestra Error
+                : const SliverFillRemaining(
+                    child: Center(
+                      child: Text(
+                        'Error',
+                        style: TextStyle(fontSize: 18),
+                      ),
+                    )
+                  )
+
+            // Si el estado de la conexion no esta lista
+            : const SliverFillRemaining(
+              child: Center(
+                child: Text(
+                  '??',
+                  style: TextStyle(fontSize: 18),
+                )
+              ),
+            )
+        ]);
+      },
+    ));
   }
 
   // Dropdown Button para la seleccion de filtro
@@ -152,9 +157,13 @@ class _SearchScreenState extends State<SearchScreen> {
               _dropdownSelectedFilterItem = newValue;
               if (_dropdownSelectedFilterItem == ' ') {
                 _searchBarEnable = false;
+              } else if (_dropdownSelectedFilterItem == 'Top Doctores'){
+                _searchBarEnable = false;
+                doctorService.getDoctors(
+                _dropdownSelectedFilterItem, _textFieldFilter.text);
               } else {
                 _searchBarEnable = true;
-              }
+              } 
             });
           },
         ),
@@ -175,21 +184,20 @@ class _SearchScreenState extends State<SearchScreen> {
       child: TextField(
         controller: _textFieldFilter,
         decoration: const InputDecoration(
-          border: InputBorder.none,
-          hintText: 'Buscar',
-          prefixIcon: Icon(
-            Icons.search,
-            color: Colors.blue,
-          ),
-          suffixIcon:
-            /////////////////////////////////////////////////////////////////FILTRO GEOGRAFICO
-            //IconButton(icon: Icon(Icons.location_on_sharp), color: Colors.blue, onPressed: () {}),
-            Icon(
+            border: InputBorder.none,
+            hintText: 'Buscar',
+            prefixIcon: Icon(
+              Icons.search,
+              color: Colors.blue,
+            ),
+            suffixIcon:
+                /////////////////////////////////////////////////////////////////FILTRO GEOGRAFICO
+                //IconButton(icon: Icon(Icons.location_on_sharp), color: Colors.blue, onPressed: () {}),
+                Icon(
               Icons.location_on_sharp,
               color: Colors.blue,
-            )
-        ),
-        
+            )),
+
         // Propiedad que habilita/deshabilita el TextField
         enabled: _searchBarEnable,
 
@@ -203,21 +211,23 @@ class _SearchScreenState extends State<SearchScreen> {
         // Cuando se de un cambio de estado en el TextField, reconstruye
         onChanged: (text) {
           setState(() {
-            futureDoctorTask(text, _dropdownSelectedFilterItem);
+            doctorService.getDoctors(
+                _dropdownSelectedFilterItem, _textFieldFilter.text);
+            //futureDoctorTask(text, _dropdownSelectedFilterItem);
           });
         },
       ),
     );
   }
 
-  // Lista de doctores 
-  Widget _doctorList(BuildContext context, doctorsfuture) {
+  // Lista de doctores
+  Widget _doctorList(BuildContext context, List doctorsfuture) {
     return SliverList(
       delegate: SliverChildBuilderDelegate(
         (context, index) => Card(
           child: Padding(
-            padding: const EdgeInsets.all(15.0),
-            child: DoctorList(doctorsfuture[index])
+              padding: const EdgeInsets.all(15.0),
+              child: DoctorList(doctorsfuture[index])
           ),
         ),
         childCount: doctorsfuture.length,

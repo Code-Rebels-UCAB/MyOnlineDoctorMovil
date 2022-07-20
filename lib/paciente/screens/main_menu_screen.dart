@@ -82,7 +82,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
             padding: EdgeInsets.all(15.0),
             child: CircleAvatar(
               backgroundImage: NetworkImage(
-                  'https://drive.google.com/uc?export=view&id=1kpnMhKnGuX_89C2RYtuaMy8jZJFte2Ad'
+                  'https://drive.google.com/uc?export=view&id=1j9q4f-fjoi5Gyc-WJRj5v4NMiU7KjOLj'
               ),
               radius: 50,
             ),

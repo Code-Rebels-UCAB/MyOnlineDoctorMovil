@@ -5,11 +5,11 @@ class DoctorItem extends StatelessWidget {
   final String name;
   final String gender;
   final String mail;
-  final List<String> specialties;
-  final double rating;
-  final String photoRoute;
+  final List<dynamic> specialties;
+  final String photo;
+  final dynamic rating;
 
-  const DoctorItem(this.idDoctor, this.name, this.gender, this.mail, this.specialties, this.rating, this.photoRoute, 
+  const DoctorItem(this.idDoctor, this.name, this.gender, this.mail, this.specialties, this.photo, this.rating, 
       {Key? key})
       : super(key: key);
 
@@ -18,15 +18,36 @@ class DoctorItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       leading: CircleAvatar(
-        backgroundImage: verifyPhoto(photoRoute),
+        backgroundImage: verifyPhoto(photo),
         radius: 30,
       ),
       title: Text('${verifyGender(gender)} $name'),
-      subtitle: Column(
-        crossAxisAlignment:  CrossAxisAlignment.start,
+      subtitle: Stack(
         children: [
-          Text(verifySpecialty(specialties)),
-          Text('$rating'),
+          Align(
+            alignment: Alignment.centerLeft, 
+            child: Text(
+              verifySpecialty(specialties),
+            )
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top:22.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Text(
+                  '$rating', 
+                  style: const TextStyle(
+                    color: Colors.black,
+                  ),
+                ),
+                const Icon(
+                  Icons.star,
+                  color: Colors.yellow,
+                ),
+              ],
+            ),
+          )
         ],
       ),
     );
@@ -36,7 +57,7 @@ class DoctorItem extends StatelessWidget {
   ImageProvider verifyPhoto(String? photoRoute) {
     if (photoRoute!.isEmpty) {
       return const NetworkImage(
-          'https://drive.google.com/uc?export=view&id=1PvAN-EexVE_jiHRTg7kHJKb8HXUKSxyc');
+          'https://drive.google.com/uc?export=view&id=1KkKZ0bCSwVhhqhS5zIqw3Y5MBlQq0zs3');
     } else {
       return NetworkImage(photoRoute);
     }
@@ -44,7 +65,7 @@ class DoctorItem extends StatelessWidget {
 
   // Verifica el genero del medico
   String verifyGender(String gender) {
-    if (gender == 'f') {
+    if (gender == 'F') {
       return "Dra.";
     } else {
       return "Dr.";

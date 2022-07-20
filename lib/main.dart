@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:myonlinedoctormovil/config/app_router.dart';
+import 'package:myonlinedoctormovil/common/config/app_router.dart';
 import 'package:myonlinedoctormovil/paciente/screens/main_menu_screen.dart';
 
 // Necesario para emulador samsung externo (Alines)
@@ -36,6 +36,7 @@ class MyApp extends StatelessWidget {
       //Generador de rutas para navegacion
       onGenerateRoute: AppRouter.onGenerateRoute,
       // Screen Inicial
+      //onGenerateInitialRoutes: 
       home: const MainMenuScreen(),
     );
   }
