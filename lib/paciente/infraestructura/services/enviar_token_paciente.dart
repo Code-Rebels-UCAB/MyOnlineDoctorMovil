@@ -1,4 +1,4 @@
-import '../modelo/token_firebase.dart';
+import '../models/token_firebase.dart';
 import '../puertos/token_paciente_request_abstract.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -12,7 +12,7 @@ class EnviarTokenPaciente implements TokenPacienteRequestAbstract {
       final apiUrl = Uri.parse(url + "/api/paciente/guardar/token");
       final response = await http.patch(
           apiUrl, body: tokenPaciente );
-      return void;
+      //return void;
     } catch (e) {
       throw Exception('Algo salió mal');
       }
