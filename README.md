@@ -4,8 +4,7 @@
 
 # MyOnlineDoctor Móvil
 
-Desarrollo del Software.
-
+Esta es la aplicacion movil de **MyOnlineDoctor**, la cual le permitara a los pacientes registrarse, buscar doctores por su especialidad, nombre, ubicacion o por los mejores doctores calificados en el sitema para asi poder solicitar una cita con ellos de manera virtual o presencial, en caso de la modalidad virtual, los pacientes recibiran una videollamada del doctor con el cual solicitaron la cita y despues podran calificarlo!.
 ## ℹ️ Pre-requisitos
 
 - [Flutter](https://flutter.dev/)
