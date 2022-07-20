@@ -24,7 +24,7 @@ class _AppointmentsScreenState extends State<AppointmentsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: FutureBuilder(
-          future: appointmentService.getAppointmentsOfPatient(''),
+          future: appointmentService.getAppointmentsOfPatient('ed649257-8091-4b77-827a-8532b5c4c826'),
           //futureAppoTask(3),
           builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
             return CustomScrollView(
@@ -53,14 +53,14 @@ class _AppointmentsScreenState extends State<AppointmentsScreen> {
 
                     // Si el estado de la conexion es lista
                     : (snapshot.connectionState == ConnectionState.done)
-                        ? (snapshot.hasData)
+                        /*? (snapshot.hasData)
                           ? (snapshot.data.isNotEmpty)
 
                             // Si el estado de la conexion es lista y hay data, crea el cuerpo de la pagina
-                            ? _appointments(snapshot.data, context)
+                            */? _appointments(snapshot.data, context)
 
                             // Si el estado de la conexion es lista, hay data y esta vacia
-                            : const SliverFillRemaining(
+                           /* : const SliverFillRemaining(
                                 child: Center(
                                 child: Text(
                                   'Aun no tiene citas',
@@ -77,7 +77,7 @@ class _AppointmentsScreenState extends State<AppointmentsScreen> {
                                   style: TextStyle(fontSize: 18),
                                 ),
                               )
-                            )
+                            )*/
 
                         // Si el estado de la conexion no esta lista
                         : const SliverFillRemaining(
@@ -107,8 +107,8 @@ class _AppointmentsScreenState extends State<AppointmentsScreen> {
           final dynamic durationAppointment = appoinments[index].durationAppointment;
           //final String idPatient = appoinments[index].idPatient;
           //final String idDoctor = appoinments[index].doctorAppointment.idDoctor;
-          final String nameDoctor = appoinments[index].doctorAppointment.name;
-          final String genderDoctor = appoinments[index].doctorAppointment.gender;
+          //final String nameDoctor = appoinments[index].doctorAppointment.name;
+          //final String genderDoctor = appoinments[index].doctorAppointment.gender;
           return Card(
             child: Row(
               children: [
@@ -120,8 +120,8 @@ class _AppointmentsScreenState extends State<AppointmentsScreen> {
                         // Nombre del Doctor
                         Padding(
                           padding: const EdgeInsets.all(5.0),
-                          child: Text(
-                            verifyGender(genderDoctor, nameDoctor),
+                          child: Text('',
+                            //verifyGender(genderDoctor, nameDoctor),
                             style: const TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 14.0

@@ -6,7 +6,7 @@ class AppointmentModel {
   final String hourAppointment;
   final dynamic durationAppointment;
   final String idPatient;
-  final DoctorAppoinmentModel doctorAppointment;
+  //final DoctorAppoinmentModel doctorAppointment;
 
   AppointmentModel(
       {required this.idAppointment,
@@ -16,18 +16,18 @@ class AppointmentModel {
       required this.hourAppointment,
       required this.durationAppointment,
       required this.idPatient,
-      required this.doctorAppointment});
+      //required this.doctorAppointment
+      });
 
   AppointmentModel.fromJson(Map<String, dynamic> parsedJson)
-      : idAppointment = parsedJson['id_cita'],
-        statusAppointment = parsedJson['statuscita'],
-        modality = parsedJson['modalidad'],
-        dateAppointment = parsedJson['fechaCita'],
-        hourAppointment = parsedJson['horacita'],
-        durationAppointment = parsedJson['duracion'],
-        idPatient = parsedJson['id_paciente'],
-        doctorAppointment =
-            DoctorAppoinmentModel.fromJson(parsedJson['doctor']);
+      : idAppointment = parsedJson["id_cita"],
+        statusAppointment = parsedJson["statuscita"],
+        modality = parsedJson["modalidad"],
+        dateAppointment = parsedJson["fechaCita"],
+        hourAppointment = parsedJson["horacita"],
+        durationAppointment = parsedJson["duracion"],
+        idPatient = parsedJson["id_paciente"];
+        //doctorAppointment = DoctorAppoinmentModel.fromJson(parsedJson["doctor"]);
 }
 
 class DoctorAppoinmentModel {
