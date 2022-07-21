@@ -6,24 +6,24 @@ import 'dart:convert';
 class AppointmentService {
   Future getAppointmentsOfPatient(String idPatient) async {
     var response = await http.get(Uri.parse(
-        //"http://localhost:3000/api/cita/getcitaspaciente/$idPatient"
+      //"http://localhost:3000/api/cita/getcitaspaciente/$idPatient"
 
-        // Alines 
-        "http://10.0.1.12:3005/api/cita/getcitaspaciente/$idPatient"
+      // Alines
+        "http://10.0.2.2:3000/api/cita/getcitaspaciente/$idPatient"
     ));
 
     var jsonResponse = json.decode(response.body);
 
     return List<dynamic>.from(jsonResponse['valor'].map((appointments) => {
-          "id_cita": appointments["id_cita"],
-          "statuscita": appointments["statuscita"],
-          "modalidad": appointments["modalidad"],
-          "fechaCita": appointments["fechaCita"],
-          "horacita": appointments["horacita"],
-          "duracion": appointments["duracion"],
-          "id_paciente": appointments["id_paciente"],
-          "doctor": appointments["doctor"]
-        }));
+      "id_cita": appointments["id_cita"],
+      "statuscita": appointments["statuscita"],
+      "modalidad": appointments["modalidad"],
+      "fechaCita": appointments["fechaCita"],
+      "horacita": appointments["horacita"],
+      "duracion": appointments["duracion"],
+      "id_paciente": appointments["id_paciente"],
+      "doctor": appointments["doctor"]
+    }));
 
     //return jsonResponse["valor"].map((appointments) => AppointmentModel.fromJson(appointments)).toList();
   }
@@ -33,11 +33,11 @@ class AppointmentService {
     var headers = {'Content-Type': 'application/json'};
     var request = http.Request(
         'POST', Uri.parse(
-          //'http://localhost:3000/api/cita/solicitarcita'
+      //'http://localhost:3000/api/cita/solicitarcita'
 
-          // Alines
-          'http://10.0.1.12:3005/api/cita/solicitarcita'
-        ));
+      // Alines
+        'http://10.0.2.2:3000/api/cita/solicitarcita'
+    ));
     request.body = json.encode({
       "id_paciente": idPatient,
       "id_doctor": idDoctor,
@@ -66,14 +66,14 @@ class AppointmentService {
         //'http://localhost:3000/api/cita/aceptarcita?citaId=$idAppointment'
 
         // Alines 
-        'http://10.0.1.12:3005/api/cita/aceptarcita?citaId=$idAppointment'
+          'http://10.0.2.2:3000/api/cita/aceptarcita?citaId=$idAppointment'
       ));
     } else if (statusAppointment == 'Aceptada') {
-       request = http.Request('PUT', Uri.parse(
+      request = http.Request('PUT', Uri.parse(
         //'http://localhost:3000/api/cita/cancelarcita?citaId=$idAppointment'
 
         // Alines 
-        'http://10.0.1.12:3005/api/cita/cancelarcita?citaId=$idAppointment'
+          'http://10.0.2.2:3000/api/cita/cancelarcita?citaId=$idAppointment'
       ));
     }
 

@@ -5,14 +5,14 @@ import 'dart:convert';
 
 class EnviarTokenPaciente implements TokenPacienteRequestAbstract {
 
-  String url = 'http://127.0.0.1:3000';
+  String url = 'http://10.0.2.2:3000';
 
-  Future<Null> guardarToken(TokenFirebase tokenPaciente) async {
+  Future<void> guardarToken(TokenFirebase tokenPaciente) async {
     try {
       final apiUrl = Uri.parse(url + "/api/paciente/guardar/token");
-      final response = await http.patch(
-          apiUrl, body: tokenPaciente );
-      //return void;
+      final response = await http.patch(apiUrl, body: json.encode({
+        'idPaciente':tokenPaciente.idPaciente,
+        'tokenF':tokenPaciente.tokenF}) ).timeout(const Duration(seconds: 15));
     } catch (e) {
       throw Exception('Algo salió mal');
       }

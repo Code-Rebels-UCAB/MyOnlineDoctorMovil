@@ -11,32 +11,32 @@ class DoctorService {
 
     if (dropdownFilter == 'Nombre y Apellido' && searchValue.isNotEmpty) {
       response = await http.get(Uri.parse(
-          //"http://localhost:3000/api/doctor/filtrar/nombre?nombre=$searchValue"
+        //"http://localhost:3000/api/doctor/filtrar/nombre?nombre=$searchValue"
 
         // Alines
-          "http://10.0.1.12:3005/api/doctor/filtrar/nombre?nombre=$searchValue"
-          ));
+          "http://10.0.2.2:3000/api/doctor/filtrar/nombre?nombre=$searchValue"
+      ));
     } else if (dropdownFilter == 'Especialidad' && searchValue.isNotEmpty) {
       response = await http.get(Uri.parse(
-          //"http://localhost:3000/api/doctor/filtrar/especialidad?especialidad=$searchValue"
+        //"http://localhost:3000/api/doctor/filtrar/especialidad?especialidad=$searchValue"
 
-          // Alines 
-          "http://10.0.1.12:3005/api/doctor/filtrar/especialidad?especialidad=$searchValue"
-          ));
+        // Alines
+          "http://10.0.2.2:3000/api/doctor/filtrar/especialidad?especialidad=$searchValue"
+      ));
     } else if (dropdownFilter == 'Top Doctores') {
       response = await http
           .get(Uri.parse(
-            //"http://localhost:3000/api/doctor/filtrar/top"
+        //"http://localhost:3000/api/doctor/filtrar/top"
 
-            // Alines
-            "http://10.0.1.12:3005/api/doctor/filtrar/top"
-              ));
+        // Alines
+          "http://10.0.2.2:3000/api/doctor/filtrar/top"
+      ));
     } else {
       response = await http.get(Uri.parse(
-          //"http://localhost:3000/api/doctor/todos"
+        //"http://localhost:3000/api/doctor/todos"
 
-          // Alines
-          "http://10.0.1.12:3005/api/doctor/todos"));
+        // Alines
+          "http://10.0.2.2:3000/api/doctor/todos"));
     }
 
     var jsonResponse = jsonDecode(response.body);
@@ -50,11 +50,11 @@ class DoctorService {
     var headers = {'Content-Type': 'application/json'};
     var request = http.Request(
         'PUT', Uri.parse(
-          //'http://localhost:3000/api/doctor/calificar'
+      //'http://localhost:3000/api/doctor/calificar'
 
-          // Alines 
-          'http://10.0.1.12:3005/api/doctor/calificar'
-        ));
+      // Alines
+        'http://10.0.2.2:3000/api/doctor/calificar'
+    ));
 
     request.body = json.encode({
       "idDoctor": idDoctor,
