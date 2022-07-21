@@ -19,22 +19,23 @@ class PushNotificationService {
     FirebaseMessaging.onBackgroundMessage((message) => _backgroundHandler(message));
     FirebaseMessaging.onMessage.listen(_onMessageHandler);
     FirebaseMessaging.onMessageOpenedApp.listen(_onMessageOpenApp);
+    return token;
   }
 
 
   static Future _backgroundHandler (RemoteMessage message) async {
     print('On background Handler ${message.messageId}');
-    _streamController.add(message.notification?.title ?? 'No title');
+    _streamController.add(message.notification?.body ?? 'No title');
   }
 
   static Future _onMessageHandler (RemoteMessage message) async {
     print('On message Handler ${message.messageId}');
-    _streamController.add(message.notification?.title ?? 'No title');
+    _streamController.add(message.notification?.body ?? 'No title');
   }
 
   static Future _onMessageOpenApp (RemoteMessage message) async {
     print('onMessageOpenApp ${message.messageId}');
-    _streamController.add(message.notification?.title ?? 'No title');
+    _streamController.add(message.notification?.body ?? 'No title');
   }
 
   static closeStreams(){

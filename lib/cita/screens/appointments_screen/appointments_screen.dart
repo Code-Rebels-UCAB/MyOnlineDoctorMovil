@@ -42,47 +42,47 @@ class _AppointmentsScreenState extends State<AppointmentsScreen> {
                 // Si el estado de la conexion esta en espera
                 (snapshot.connectionState == ConnectionState.waiting)
 
-                    // Si el estado de la conexion esta en espera, genera un CircularProgressIndicator de cargo
+                // Si el estado de la conexion esta en espera, genera un CircularProgressIndicator de cargo
                     ? const SliverFillRemaining(
-                        child: Center(
-                        child: CircularProgressIndicator(),
-                      ))
+                    child: Center(
+                      child: CircularProgressIndicator(),
+                    ))
 
-                    // Si el estado de la conexion es lista
+                // Si el estado de la conexion es lista
                     : (snapshot.connectionState == ConnectionState.done)
-                        ? (snapshot.hasData)
-                            ? (snapshot.data.isNotEmpty)
+                    ? (snapshot.hasData)
+                    ? (snapshot.data.isNotEmpty)
 
-                                // Si el estado de la conexion es lista y hay data, crea el cuerpo de la pagina
-                                ? _appointments(
-                                    appointmentService, snapshot.data, context)
+                // Si el estado de la conexion es lista y hay data, crea el cuerpo de la pagina
+                    ? _appointments(
+                    appointmentService, snapshot.data, context)
 
-                                // Si el estado de la conexion es lista, hay data y esta vacia
-                                : const SliverFillRemaining(
-                                    child: Center(
-                                    child: Text(
-                                      'No hay Data',
-                                      style: TextStyle(fontSize: 18),
-                                    ),
-                                  ))
+                // Si el estado de la conexion es lista, hay data y esta vacia
+                    : const SliverFillRemaining(
+                    child: Center(
+                      child: Text(
+                        'No hay Data',
+                        style: TextStyle(fontSize: 18),
+                      ),
+                    ))
 
-                            // Si el estado de la conexion es lista y no hay data, muestra Error
-                            : const SliverFillRemaining(
-                                child: Center(
-                                child: Text(
-                                  'Aun no tiene citas',
-                                  style: TextStyle(fontSize: 18),
-                                ),
-                              ))
+                // Si el estado de la conexion es lista y no hay data, muestra Error
+                    : const SliverFillRemaining(
+                    child: Center(
+                      child: Text(
+                        'Aun no tiene citas',
+                        style: TextStyle(fontSize: 18),
+                      ),
+                    ))
 
-                        // Si el estado de la conexion no esta lista
-                        : const SliverFillRemaining(
-                            child: Center(
-                                child: Text(
-                              '??',
-                              style: TextStyle(fontSize: 18),
-                            )),
-                          )
+                // Si el estado de la conexion no esta lista
+                    : const SliverFillRemaining(
+                  child: Center(
+                      child: Text(
+                        '??',
+                        style: TextStyle(fontSize: 18),
+                      )),
+                )
               ],
             );
           }),
@@ -93,7 +93,7 @@ class _AppointmentsScreenState extends State<AppointmentsScreen> {
       List<dynamic> appoinments, BuildContext context) {
     return SliverList(
       delegate: SliverChildBuilderDelegate(
-        (BuildContext context, int index) {
+            (BuildContext context, int index) {
           final String idAppointment = appoinments[index]['id_cita'];
           final String statusAppointment = appoinments[index]['statuscita'];
           final String modality = appoinments[index]['modalidad'];
@@ -108,9 +108,9 @@ class _AppointmentsScreenState extends State<AppointmentsScreen> {
           //final String idPatient = appoinments[index]['id_paciente'];
           //final String idDoctor = appoinments[index]['doctor']['id_doctor'];
           final String nameDoctor =
-              appoinments[index]['doctor']['nombreDoctor'];
+          appoinments[index]['doctor']['nombreDoctor'];
           final String genderDoctor =
-              appoinments[index]['doctor']['sexoDoctor'];
+          appoinments[index]['doctor']['sexoDoctor'];
           return Card(
             child: Row(
               children: [

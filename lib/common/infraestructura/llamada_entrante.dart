@@ -1,11 +1,16 @@
+import 'dart:developer';
+
 import 'package:agora_rtc_engine/rtc_engine.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_ringtone_player/flutter_ringtone_player.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'llamada.dart';
 
 class IncomingCall extends StatefulWidget {
   final String image;
-  const IncomingCall({Key? key, required this.image}) : super(key: key);
+  final String token;
+  final String channelName;
+  IncomingCall({Key? key, required this.image, required this.token, required this.channelName}) : super(key: key);
 
   @override
   State<IncomingCall> createState() => _IncomingCallState();
@@ -24,6 +29,11 @@ class _IncomingCallState extends State<IncomingCall> {
       volume: 1, // Android only - API >= 28
       asAlarm: false, // Android only - all APIs
     );
+  }
+
+  Future<void> _handleCameraAndMic(Permission permission) async {
+    final status = await permission.request();
+    log(status.toString());
   }
 
   @override
@@ -104,13 +114,16 @@ class _IncomingCallState extends State<IncomingCall> {
                         padding: const EdgeInsets.only(bottom: 24),
                         child: RawMaterialButton(
                           onPressed: () async {
+                            await _handleCameraAndMic(Permission.camera);
+                            await _handleCameraAndMic(Permission.microphone);
                             FlutterRingtonePlayer.stop();
                             await Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => const CallPage(
-                                    channelName: 'channel',
+                                  builder: (context) => CallPage(
+                                    channelName: widget.channelName,
                                     role: ClientRole.Broadcaster,
+                                    token: widget.token,
                                   ),
                                 ));
                           },

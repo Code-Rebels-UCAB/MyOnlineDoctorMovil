@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:myonlinedoctormovil/common/config/app_router.dart';
+import 'package:myonlinedoctormovil/common/providers/notification_provider.dart';
 import 'package:myonlinedoctormovil/doctor/providers/doctor_provider.dart';
 import 'package:myonlinedoctormovil/paciente/providers/patient_provider.dart';
 import 'package:myonlinedoctormovil/paciente/screens/main_menu_screen.dart';
@@ -42,9 +43,17 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     PushNotificationService.messagesStream.listen((event) async {
+      final split = event.split(",");
+      final channelName = split[0].split(':')[1];
+      final token = split[1].split(':')[1];
+      print('AQUi');
+      print(channelName);
+      print(token);
       navigatorKey.currentState?.push(MaterialPageRoute(
-        builder: (context) => const IncomingCall(
+        builder: (context) => IncomingCall(
           image: 'eeee',
+          channelName: channelName.trim(),
+          token: token.trim(),
         ),
       ));
     });
@@ -56,11 +65,13 @@ class _MyAppState extends State<MyApp> {
     return MultiProvider(
       providers: [
         Provider(create: (context) => IdPatientProvider()), 
-        Provider(create: (context) => IdDoctorProvider()), 
+        Provider(create: (context) => IdDoctorProvider()),
+        Provider(create: (context) => NotificationProvider()),
       ],
       builder: (context, child) {
         return MaterialApp(
           //debugShowCheckedModeBanner: false,
+          navigatorKey: navigatorKey,
           title: 'myOnlineDoctor',
           theme: ThemeData(
             primarySwatch: Colors.blue,
