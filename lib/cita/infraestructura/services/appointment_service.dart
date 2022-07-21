@@ -8,7 +8,7 @@ class AppointmentService {
     print('ServicioA Entro');
 
     var response = await http.get(Uri.parse(
-        "http://localhost:3000/api/cita/getcitaspaciente/$idPatient"
+        "http://10.0.2.2:3000/api/cita/getcitaspaciente/$idPatient"
         //"http://192.168.8.100:3005/api/cita/getcitaspaciente/ed649257-8091-4b77-827a-8532b5c4c826"
         //"http://10.0.1.12:3005/api/cita/getcitaspaciente/ed649257-8091-4b77-827a-8532b5c4c826"
         ));

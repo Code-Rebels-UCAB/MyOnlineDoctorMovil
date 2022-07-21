@@ -11,25 +11,25 @@ class DoctorService {
 
     if (dropdownFilter == 'Nombre y Apellido' && searchValue.isNotEmpty) {
       response = await http.get(Uri.parse(
-          "http://localhost:3000/api/doctor/filtrar/nombre?nombre=$searchValue"
+          "http://10.0.2.2:3000/api/doctor/filtrar/nombre?nombre=$searchValue"
           //"http://192.168.8.100:3005/api/doctor/filtrar/nombre?nombre=$searchValue"
           //"http://10.0.1.12:3005/api/doctor/filtrar/nombre?nombre=$searchValue"
           ));
     } else if (dropdownFilter == 'Especialidad' && searchValue.isNotEmpty) {
       response = await http.get(Uri.parse(
-          "http://localhost:3000/api/doctor/filtrar/especialidad?especialidad=$searchValue"
+          "http://10.0.2.2:3000/api/doctor/filtrar/especialidad?especialidad=$searchValue"
           //"http://192.168.8.100:3005/api/doctor/filtrar/especialidad?especialidad=$searchValue"
           //"http://10.0.1.12:3005/api/doctor/filtrar/especialidad?especialidad=$searchValue"
           ));
     } else if (dropdownFilter == 'Top Doctores') {
       response = await http
-          .get(Uri.parse("http://localhost:3000/api/doctor/filtrar/top"
+          .get(Uri.parse("http://10.0.2.2:3000/api/doctor/filtrar/top"
               //"http://192.168.8.100:3005/api/doctor/filtrar/top"
               //"http://10.0.1.12:3005/api/doctor/filtrar/top"
               ));
     } else {
       response =
-          await http.get(Uri.parse("http://localhost:3000/api/doctor/todos"
+          await http.get(Uri.parse("http://10.0.2.2:3000/api/doctor/todos"
               //"http://192.168.8.100:3005/api/doctor/todos"
               //"http://10.0.1.12:3005/api/doctor/todos"
               ));

@@ -7,7 +7,7 @@ class PatientService{
   Future<List<PatientModel>> getPatient() async {
     var response = await http.get(
       Uri.parse(
-        "http://127.0.0.1:3000"
+        "http://10.0.2.2:3000"
       )
     ); // Cambiar por el url de los doctores
     var jsonResponse = convert.jsonDecode(response.body) as List;

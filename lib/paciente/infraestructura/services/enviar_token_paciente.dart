@@ -5,7 +5,7 @@ import 'dart:convert';
 
 class EnviarTokenPaciente implements TokenPacienteRequestAbstract {
 
-  String url = 'http://127.0.0.1:3000';
+  String url = 'http://10.0.2.2:3000';
 
   Future<void> guardarToken(TokenFirebase tokenPaciente) async {
     try {
