@@ -9,15 +9,17 @@ class AppRouter {
     switch (settings.name) {
       // Listado de Citas
       case '/appointments':
-        return AppointmentsScreen.route();
+        return MaterialPageRoute(builder: (_) => const AppointmentsScreen());
       // Busqueda de Doctores
       case '/search':
-        return SearchScreen.route();
+        return MaterialPageRoute(builder: (_) => const SearchScreen());
       // Menu Principal
       case '/mainmenu':
-        return MainMenuScreen.route();
+        return MaterialPageRoute(builder: (_) => const MainMenuScreen());
       default:
-        return MaterialPageRoute(builder: (context) => Center(child: Text("404: No route found for path ${settings.name}")));
+        return MaterialPageRoute(
+            builder: (context) => Center(
+                child: Text("404: No route found for path ${settings.name}")));
     }
   }
 }

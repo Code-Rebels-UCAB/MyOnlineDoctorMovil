@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:myonlinedoctormovil/doctor/infraestructura/models/doctors_model.dart';
+import 'package:myonlinedoctormovil/doctor/providers/doctor_provider.dart';
 import 'package:myonlinedoctormovil/doctor/screens/search_doctor_screen/screen_parts/doctor_item.dart';
 import 'package:myonlinedoctormovil/cita/screens/request_appointment_screen.dart';
+import 'package:provider/provider.dart';
 
 
 class DoctorList extends StatelessWidget {
@@ -17,10 +19,11 @@ class DoctorList extends StatelessWidget {
         child: DoctorItem(item.idDoctor , item.name, item.gender, item.mail, item.specialties, item.photo, item.rating),
         // Al hacer click sobre el doctor se abre una ventana para Solicitar Cita
         onTap: () {
+          Provider.of<IdDoctorProvider>(context, listen: false).setIdPatient(item.idDoctor, item.name, item.gender);
           showDialog(
             context: context,
             builder: (BuildContext context) {
-              return const RequestAppoinment();
+              return const RequestAppoinment ();
             },
           );
         });
