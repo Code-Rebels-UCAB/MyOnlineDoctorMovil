@@ -75,7 +75,8 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
 
   Widget _mainMenuBody(BuildContext context, patient) {
     String idPatient = patient['id_paciente'];
-    Provider.of<IdPatientProvider>(context, listen: false).setIdPatient(idPatient);
+    Provider.of<IdPatientProvider>(context, listen: false)
+        .setIdPatient(idPatient);
     String name = patient['p_nombre'];
     String lastName = patient['p_apellido'];
     //String photo = patient['fofo'];
@@ -99,7 +100,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
             padding: EdgeInsets.all(15.0),
             child: CircleAvatar(
               backgroundImage: NetworkImage(
-                  'https://drive.google.com/uc?export=view&id=1j9q4f-fjoi5Gyc-WJRj5v4NMiU7KjOLj'),
+                  'https://images.pexels.com/photos/3769151/pexels-photo-3769151.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'),
               radius: 50,
             ),
           ),
