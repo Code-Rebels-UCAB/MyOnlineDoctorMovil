@@ -126,7 +126,7 @@ class _RequestAppoinmentState extends State<RequestAppoinment> {
           value: _dropdownSelectedModalityItem,
           items: <String>[
             ' ',
-            'Precencial',
+            'Presencial',
             'Virtual',
           ].map((String value) {
             return DropdownMenuItem<String>(

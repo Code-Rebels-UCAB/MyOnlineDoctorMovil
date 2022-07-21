@@ -16,14 +16,12 @@ class _AppointmentsScreenState extends State<AppointmentsScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     var idPatient =
         Provider.of<IdPatientProvider>(context, listen: false).idPatient;
 
     return Scaffold(
       body: FutureBuilder(
-          future: appointmentService
-              .getAppointmentsOfPatient(idPatient),
+          future: appointmentService.getAppointmentsOfPatient(idPatient),
           //futureAppoTask(3),
           builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
             return CustomScrollView(
@@ -99,11 +97,14 @@ class _AppointmentsScreenState extends State<AppointmentsScreen> {
           final String idAppointment = appoinments[index]['id_cita'];
           final String statusAppointment = appoinments[index]['statuscita'];
           final String modality = appoinments[index]['modalidad'];
-          final String dateAppointment = appoinments[index]['fechaCita'];
+          final String dateAppointment =
+              appoinments[index]['fechaCita'] ?? 'Por asignar';
           //final DateFormat formatter = DateFormat('dd/MM/yyyy');
           //final String dateAppointment = formatter.format(dateAppoint);
-          final String hourAppointment = appoinments[index]['horacita'];
-          final dynamic durationAppointment = appoinments[index]['duracion'];
+          final String hourAppointment =
+              appoinments[index]['horacita'] ?? 'Por asignar';
+          final dynamic durationAppointment =
+              appoinments[index]['duracion'] ?? 'Por asignar';
           //final String idPatient = appoinments[index]['id_paciente'];
           //final String idDoctor = appoinments[index]['doctor']['id_doctor'];
           final String nameDoctor =
@@ -155,7 +156,8 @@ class _AppointmentsScreenState extends State<AppointmentsScreen> {
                   ],
                 ),
                 const Spacer(),
-                verifyStatusAppointment(appointmentService, idAppointment, statusAppointment),
+                verifyStatusAppointment(
+                    appointmentService, idAppointment, statusAppointment),
               ],
             ),
           );
@@ -166,8 +168,8 @@ class _AppointmentsScreenState extends State<AppointmentsScreen> {
   }
 }
 
-Widget verifyStatusAppointment(
-    AppointmentService appointmentService, String idAppointment, String status) {
+Widget verifyStatusAppointment(AppointmentService appointmentService,
+    String idAppointment, String status) {
   if (status == 'Solicitada') {
     return const Text(
       'Solicitada',
