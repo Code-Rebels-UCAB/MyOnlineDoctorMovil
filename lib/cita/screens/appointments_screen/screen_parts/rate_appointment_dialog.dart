@@ -3,6 +3,7 @@ import 'package:myonlinedoctormovil/common/validations.dart';
 import 'package:myonlinedoctormovil/doctor/infraestructura/services/doctor_service.dart';
 import 'package:myonlinedoctormovil/doctor/providers/doctor_provider.dart';
 import 'package:myonlinedoctormovil/paciente/providers/patient_provider.dart';
+import 'package:myonlinedoctormovil/paciente/screens/main_menu_screen.dart';
 import 'package:provider/provider.dart';
 
 class RateDoctor extends StatefulWidget {
@@ -190,7 +191,12 @@ class _RateDoctorState extends State<RateDoctor> {
               } else if (star5) {
                 doctorService.postRatingDoctor(idDoctor, idPatient, 5);
               }
-              Navigator.of(context).pop();
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => MainMenuScreen()
+                ),
+              );
             }
           },
         ),

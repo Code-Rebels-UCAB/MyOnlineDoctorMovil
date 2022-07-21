@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:myonlinedoctormovil/cita/infraestructura/services/appointment_service.dart';
+import 'package:myonlinedoctormovil/common/infraestructura/push_notificaciones_servicio.dart';
 import 'package:myonlinedoctormovil/common/validations.dart';
 
 import 'package:myonlinedoctormovil/doctor/providers/doctor_provider.dart';
+import 'package:myonlinedoctormovil/paciente/infraestructura/models/token_firebase.dart';
 import 'package:myonlinedoctormovil/paciente/providers/patient_provider.dart';
 import 'package:provider/provider.dart';
 
+import '../../paciente/infraestructura/puertos/token_paciente_request_abstract.dart';
+
 class RequestAppoinment extends StatefulWidget {
-  const RequestAppoinment({Key? key}) : super(key: key);
+  TokenPacienteRequestAbstract tokenRequest;
+
+  RequestAppoinment(this.tokenRequest, {Key? key}) : super(key: key);
 
   @override
   State<RequestAppoinment> createState() => _RequestAppoinmentState();
@@ -72,10 +78,25 @@ class _RequestAppoinmentState extends State<RequestAppoinment> {
             'Solicitar Cita',
             style: TextStyle(color: Colors.blue),
           ),
-          onPressed: () {
+          onPressed: () async  {
             if (_dropdownSelectedModalityItem != ' ' &&
                 _textFieldMotive.text.isNotEmpty) {
               ////////////////////////////////////////////////////////////////Envia los datos
+                String token = await PushNotificationService.initializeApp();
+                print(token);
+
+                TokenFirebase tokenFirebase = TokenFirebase(idPaciente: idPatient, tokenF: token);
+                try {
+                  final response =  await widget.tokenRequest.guardarToken(tokenFirebase);
+                  const snackBar = SnackBar(
+                    content: Text('Pedido de cita exitoso'),
+                  );
+                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                }catch(e){
+                  print(e);
+                }
+
+
 
               appointmentService.postAppointmentRequest(idPatient, idDoctor,
                   _dropdownSelectedModalityItem, _textFieldMotive.text);
@@ -126,7 +147,7 @@ class _RequestAppoinmentState extends State<RequestAppoinment> {
           value: _dropdownSelectedModalityItem,
           items: <String>[
             ' ',
-            'Precencial',
+            'Presencial',
             'Virtual',
           ].map((String value) {
             return DropdownMenuItem<String>(

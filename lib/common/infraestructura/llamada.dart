@@ -2,14 +2,17 @@ import 'package:agora_rtc_engine/rtc_engine.dart';
 import 'package:flutter/material.dart';
 import 'package:agora_rtc_engine/rtc_local_view.dart' as rtc_local_view;
 import 'package:agora_rtc_engine/rtc_remote_view.dart' as rtc_remote_view;
+import 'package:myonlinedoctormovil/paciente/screens/main_menu_screen.dart';
 
+import '../../cita/screens/appointments_screen/screen_parts/rate_appointment_dialog.dart';
 import 'config.dart';
 
 
 class CallPage extends StatefulWidget {
   final String? channelName;
   final ClientRole? role;
-  const CallPage({Key? key, this.channelName, this.role}) : super(key: key);
+  final String token;
+  CallPage({Key? key, this.channelName, this.role, required this.token}) : super(key: key);
 
   @override
   State<CallPage> createState() => _CallPageState();
@@ -59,7 +62,7 @@ class _CallPageState extends State<CallPage> {
     VideoEncoderConfiguration configuration = VideoEncoderConfiguration();
     configuration.dimensions = VideoDimensions(width: 1920, height: 1080);
     await _engine.setVideoEncoderConfiguration(configuration);
-    await _engine.joinChannel(token, widget.channelName!, null, 0);
+    await _engine.joinChannel(widget.token, widget.channelName!, null, 0);
 
   }
 
@@ -178,7 +181,15 @@ class _CallPageState extends State<CallPage> {
             padding: const EdgeInsets.all(12.0),
           ),
           RawMaterialButton(
-            onPressed: ()=> Navigator.pop(context),
+            onPressed: () {
+                Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => RateDoctor()
+                          ),
+                    );
+
+            },
             child: const Icon(
               Icons.call_end,
               color: Colors.white,
@@ -266,6 +277,7 @@ class _CallPageState extends State<CallPage> {
       appBar: AppBar(
         title: const Text('MyOnlineDoctor'),
         centerTitle: true,
+        automaticallyImplyLeading: false,
         actions: [
           IconButton(
             onPressed: () {

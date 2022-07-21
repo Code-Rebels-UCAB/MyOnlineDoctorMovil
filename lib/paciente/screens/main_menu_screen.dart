@@ -12,7 +12,7 @@ class MainMenuScreen extends StatefulWidget {
 
 class _MainMenuScreenState extends State<MainMenuScreen> {
   PatientService patientService = PatientService();
-  dynamic idPatient = 'ed649257-8091-4b77-827a-8532b5c4c826';
+  dynamic idPatient = '649edad6-0795-4126-9398-f1728b7ef318';
 
   @override
   Widget build(BuildContext context) {

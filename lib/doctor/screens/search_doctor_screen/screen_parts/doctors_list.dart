@@ -5,6 +5,8 @@ import 'package:myonlinedoctormovil/doctor/screens/search_doctor_screen/screen_p
 import 'package:myonlinedoctormovil/cita/screens/request_appointment_screen.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../paciente/infraestructura/services/enviar_token_paciente.dart';
+
 
 class DoctorList extends StatelessWidget {
   // ignore: prefer_typing_uninitialized_variables
@@ -23,7 +25,7 @@ class DoctorList extends StatelessWidget {
           showDialog(
             context: context,
             builder: (BuildContext context) {
-              return const RequestAppoinment ();
+              return RequestAppoinment (EnviarTokenPaciente());
             },
           );
         });

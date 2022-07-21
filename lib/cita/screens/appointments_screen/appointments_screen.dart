@@ -16,14 +16,12 @@ class _AppointmentsScreenState extends State<AppointmentsScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     var idPatient =
         Provider.of<IdPatientProvider>(context, listen: false).idPatient;
 
     return Scaffold(
       body: FutureBuilder(
-          future: appointmentService
-              .getAppointmentsOfPatient(idPatient),
+          future: appointmentService.getAppointmentsOfPatient(idPatient),
           //futureAppoTask(3),
           builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
             return CustomScrollView(
@@ -44,47 +42,47 @@ class _AppointmentsScreenState extends State<AppointmentsScreen> {
                 // Si el estado de la conexion esta en espera
                 (snapshot.connectionState == ConnectionState.waiting)
 
-                    // Si el estado de la conexion esta en espera, genera un CircularProgressIndicator de cargo
+                // Si el estado de la conexion esta en espera, genera un CircularProgressIndicator de cargo
                     ? const SliverFillRemaining(
-                        child: Center(
-                        child: CircularProgressIndicator(),
-                      ))
+                    child: Center(
+                      child: CircularProgressIndicator(),
+                    ))
 
-                    // Si el estado de la conexion es lista
+                // Si el estado de la conexion es lista
                     : (snapshot.connectionState == ConnectionState.done)
-                        ? (snapshot.hasData)
-                            ? (snapshot.data.isNotEmpty)
+                    ? (snapshot.hasData)
+                    ? (snapshot.data.isNotEmpty)
 
-                                // Si el estado de la conexion es lista y hay data, crea el cuerpo de la pagina
-                                ? _appointments(
-                                    appointmentService, snapshot.data, context)
+                // Si el estado de la conexion es lista y hay data, crea el cuerpo de la pagina
+                    ? _appointments(
+                    appointmentService, snapshot.data, context)
 
-                                // Si el estado de la conexion es lista, hay data y esta vacia
-                                : const SliverFillRemaining(
-                                    child: Center(
-                                    child: Text(
-                                      'No hay Data',
-                                      style: TextStyle(fontSize: 18),
-                                    ),
-                                  ))
+                // Si el estado de la conexion es lista, hay data y esta vacia
+                    : const SliverFillRemaining(
+                    child: Center(
+                      child: Text(
+                        'No hay Data',
+                        style: TextStyle(fontSize: 18),
+                      ),
+                    ))
 
-                            // Si el estado de la conexion es lista y no hay data, muestra Error
-                            : const SliverFillRemaining(
-                                child: Center(
-                                child: Text(
-                                  'Aun no tiene citas',
-                                  style: TextStyle(fontSize: 18),
-                                ),
-                              ))
+                // Si el estado de la conexion es lista y no hay data, muestra Error
+                    : const SliverFillRemaining(
+                    child: Center(
+                      child: Text(
+                        'Aun no tiene citas',
+                        style: TextStyle(fontSize: 18),
+                      ),
+                    ))
 
-                        // Si el estado de la conexion no esta lista
-                        : const SliverFillRemaining(
-                            child: Center(
-                                child: Text(
-                              '??',
-                              style: TextStyle(fontSize: 18),
-                            )),
-                          )
+                // Si el estado de la conexion no esta lista
+                    : const SliverFillRemaining(
+                  child: Center(
+                      child: Text(
+                        '??',
+                        style: TextStyle(fontSize: 18),
+                      )),
+                )
               ],
             );
           }),
@@ -95,21 +93,24 @@ class _AppointmentsScreenState extends State<AppointmentsScreen> {
       List<dynamic> appoinments, BuildContext context) {
     return SliverList(
       delegate: SliverChildBuilderDelegate(
-        (BuildContext context, int index) {
+            (BuildContext context, int index) {
           final String idAppointment = appoinments[index]['id_cita'];
           final String statusAppointment = appoinments[index]['statuscita'];
           final String modality = appoinments[index]['modalidad'];
-          final String dateAppointment = appoinments[index]['fechaCita'];
+          final String dateAppointment =
+              appoinments[index]['fechaCita'] ?? 'Por asignar';
           //final DateFormat formatter = DateFormat('dd/MM/yyyy');
           //final String dateAppointment = formatter.format(dateAppoint);
-          final String hourAppointment = appoinments[index]['horacita'];
-          final dynamic durationAppointment = appoinments[index]['duracion'];
+          final String hourAppointment =
+              appoinments[index]['horacita'] ?? 'Por asignar';
+          final dynamic durationAppointment =
+              appoinments[index]['duracion'] ?? 'Por asignar';
           //final String idPatient = appoinments[index]['id_paciente'];
           //final String idDoctor = appoinments[index]['doctor']['id_doctor'];
           final String nameDoctor =
-              appoinments[index]['doctor']['nombreDoctor'];
+          appoinments[index]['doctor']['nombreDoctor'];
           final String genderDoctor =
-              appoinments[index]['doctor']['sexoDoctor'];
+          appoinments[index]['doctor']['sexoDoctor'];
           return Card(
             child: Row(
               children: [
@@ -155,7 +156,8 @@ class _AppointmentsScreenState extends State<AppointmentsScreen> {
                   ],
                 ),
                 const Spacer(),
-                verifyStatusAppointment(appointmentService, idAppointment, statusAppointment),
+                verifyStatusAppointment(
+                    appointmentService, idAppointment, statusAppointment),
               ],
             ),
           );
@@ -166,8 +168,8 @@ class _AppointmentsScreenState extends State<AppointmentsScreen> {
   }
 }
 
-Widget verifyStatusAppointment(
-    AppointmentService appointmentService, String idAppointment, String status) {
+Widget verifyStatusAppointment(AppointmentService appointmentService,
+    String idAppointment, String status) {
   if (status == 'Solicitada') {
     return const Text(
       'Solicitada',
