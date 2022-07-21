@@ -5,14 +5,6 @@ import 'package:myonlinedoctormovil/doctor/screens/search_doctor_screen/screen_p
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({Key? key}) : super(key: key);
-
-  static const String routeName = '/search';
-  static Route route() {
-    return MaterialPageRoute(
-        builder: (_) => const SearchScreen(),
-        settings: const RouteSettings(name: routeName));
-  }
-
   @override
   State<SearchScreen> createState() => _SearchScreenState();
 }
@@ -84,7 +76,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   : const SliverFillRemaining(
                     child: Center(
                       child: Text(
-                        'No hay coincidencias',
+                        'Data Vacia',
                         style: TextStyle(fontSize: 18),
                       ),
                     )
@@ -94,7 +86,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 : const SliverFillRemaining(
                     child: Center(
                       child: Text(
-                        'Error',
+                        'No hay coincidencias',
                         style: TextStyle(fontSize: 18),
                       ),
                     )

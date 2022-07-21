@@ -1,18 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'package:myonlinedoctormovil/cita/infraestructura/models/appointments_model.dart';
 import 'package:myonlinedoctormovil/cita/infraestructura/services/appointment_service.dart';
 import 'package:myonlinedoctormovil/common/screen_header.dart';
+import 'package:myonlinedoctormovil/common/validations.dart';
+import 'package:myonlinedoctormovil/paciente/providers/patient_provider.dart';
+import 'package:provider/provider.dart';
 
 class AppointmentsScreen extends StatefulWidget {
   const AppointmentsScreen({Key? key}) : super(key: key);
-  static const String routeName = '/appointments';
-  static Route route() {
-    return MaterialPageRoute(
-        builder: (_) => const AppointmentsScreen(),
-        settings: const RouteSettings(name: routeName));
-  }
-
   @override
   State<AppointmentsScreen> createState() => _AppointmentsScreenState();
 }
@@ -22,9 +16,14 @@ class _AppointmentsScreenState extends State<AppointmentsScreen> {
 
   @override
   Widget build(BuildContext context) {
+
+    var idPatient =
+        Provider.of<IdPatientProvider>(context, listen: false).idPatient;
+
     return Scaffold(
       body: FutureBuilder(
-          future: appointmentService.getAppointmentsOfPatient('649edad6-0795-4126-9398-f1728b7ef318'),
+          future: appointmentService
+              .getAppointmentsOfPatient(idPatient),
           //futureAppoTask(3),
           builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
             return CustomScrollView(
@@ -53,31 +52,30 @@ class _AppointmentsScreenState extends State<AppointmentsScreen> {
 
                     // Si el estado de la conexion es lista
                     : (snapshot.connectionState == ConnectionState.done)
-                        /*? (snapshot.hasData)
-                          ? (snapshot.data.isNotEmpty)
+                        ? (snapshot.hasData)
+                            ? (snapshot.data.isNotEmpty)
 
-                            // Si el estado de la conexion es lista y hay data, crea el cuerpo de la pagina
-                            */? _appointments(snapshot.data, context)
+                                // Si el estado de la conexion es lista y hay data, crea el cuerpo de la pagina
+                                ? _appointments(
+                                    appointmentService, snapshot.data, context)
 
-                            // Si el estado de la conexion es lista, hay data y esta vacia
-                           /* : const SliverFillRemaining(
+                                // Si el estado de la conexion es lista, hay data y esta vacia
+                                : const SliverFillRemaining(
+                                    child: Center(
+                                    child: Text(
+                                      'No hay Data',
+                                      style: TextStyle(fontSize: 18),
+                                    ),
+                                  ))
+
+                            // Si el estado de la conexion es lista y no hay data, muestra Error
+                            : const SliverFillRemaining(
                                 child: Center(
                                 child: Text(
                                   'Aun no tiene citas',
                                   style: TextStyle(fontSize: 18),
                                 ),
-                              )
-                            )
-
-                          // Si el estado de la conexion es lista y no hay data, muestra Error
-                          : const SliverFillRemaining(
-                                child: Center(
-                                child: Text(
-                                  'Error',
-                                  style: TextStyle(fontSize: 18),
-                                ),
-                              )
-                            )*/
+                              ))
 
                         // Si el estado de la conexion no esta lista
                         : const SliverFillRemaining(
@@ -93,22 +91,25 @@ class _AppointmentsScreenState extends State<AppointmentsScreen> {
     );
   }
 
-  Widget _appointments(List<AppointmentModel> appoinments, BuildContext context) {
+  Widget _appointments(AppointmentService appointmentService,
+      List<dynamic> appoinments, BuildContext context) {
     return SliverList(
       delegate: SliverChildBuilderDelegate(
         (BuildContext context, int index) {
-          //final String idAppointment = appoinments[index].idAppointment;
-          final String statusAppointment = appoinments[index].statusAppointment;
-          final String modality = appoinments[index].modality;
-          final DateTime dateAppoint = appoinments[index].dateAppointment;
-          final DateFormat formatter = DateFormat('dd/MM/yyyy');
-          final String dateAppointment = formatter.format(dateAppoint);
-          final String hourAppointment = appoinments[index].hourAppointment;
-          final dynamic durationAppointment = appoinments[index].durationAppointment;
-          //final String idPatient = appoinments[index].idPatient;
-          //final String idDoctor = appoinments[index].doctorAppointment.idDoctor;
-          //final String nameDoctor = appoinments[index].doctorAppointment.name;
-          //final String genderDoctor = appoinments[index].doctorAppointment.gender;
+          final String idAppointment = appoinments[index]['id_cita'];
+          final String statusAppointment = appoinments[index]['statuscita'];
+          final String modality = appoinments[index]['modalidad'];
+          final String dateAppointment = appoinments[index]['fechaCita'];
+          //final DateFormat formatter = DateFormat('dd/MM/yyyy');
+          //final String dateAppointment = formatter.format(dateAppoint);
+          final String hourAppointment = appoinments[index]['horacita'];
+          final dynamic durationAppointment = appoinments[index]['duracion'];
+          //final String idPatient = appoinments[index]['id_paciente'];
+          //final String idDoctor = appoinments[index]['doctor']['id_doctor'];
+          final String nameDoctor =
+              appoinments[index]['doctor']['nombreDoctor'];
+          final String genderDoctor =
+              appoinments[index]['doctor']['sexoDoctor'];
           return Card(
             child: Row(
               children: [
@@ -119,53 +120,42 @@ class _AppointmentsScreenState extends State<AppointmentsScreen> {
                       children: [
                         // Nombre del Doctor
                         Padding(
-                          padding: const EdgeInsets.all(5.0),
-                          child: Text('',
-                            //verifyGender(genderDoctor, nameDoctor),
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 14.0
-                            )
-                          )
-                        ),
+                            padding: const EdgeInsets.all(5.0),
+                            child: Text(
+                                '${verifyGender(genderDoctor)} $nameDoctor',
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 14.0))),
                         // Modalidad de la cita
                         Padding(
-                          padding: const EdgeInsets.all(5.0),
-                          child: Text(modality,
-                            style: const TextStyle(fontSize: 14.0)
-                          )
-                        ),
+                            padding: const EdgeInsets.all(5.0),
+                            child: Text(modality,
+                                style: const TextStyle(fontSize: 14.0))),
                       ],
                     ),
                     Row(
                       children: [
                         // Dia de la cita
                         Padding(
-                          padding: const EdgeInsets.all(5.0),
-                          child: Text('Dia: $dateAppointment',
-                            style: const TextStyle(fontSize: 14.0)
-                          )
-                        ),
+                            padding: const EdgeInsets.all(5.0),
+                            child: Text('Dia: $dateAppointment',
+                                style: const TextStyle(fontSize: 14.0))),
                         // Hora de la cita
                         Padding(
-                          padding: const EdgeInsets.all(5.0),
-                          child: Text('Hora: $hourAppointment',
-                            style: const TextStyle(fontSize: 14.0)
-                          )
-                        ),
+                            padding: const EdgeInsets.all(5.0),
+                            child: Text('Hora: $hourAppointment',
+                                style: const TextStyle(fontSize: 14.0))),
                       ],
                     ),
                     // Duracion de la cita
                     Padding(
-                      padding: const EdgeInsets.all(5.0),
-                      child: Text('Duración: $durationAppointment',
-                        style: const TextStyle(fontSize: 14.0)
-                      )
-                    ),
+                        padding: const EdgeInsets.all(5.0),
+                        child: Text('Duración: $durationAppointment',
+                            style: const TextStyle(fontSize: 14.0))),
                   ],
                 ),
                 const Spacer(),
-                verifyStatusAppointment(statusAppointment),
+                verifyStatusAppointment(appointmentService, idAppointment, statusAppointment),
               ],
             ),
           );
@@ -176,15 +166,8 @@ class _AppointmentsScreenState extends State<AppointmentsScreen> {
   }
 }
 
-String verifyGender(String gender, String name) {
-  if (gender == 'f') {
-    return "Dra. $name";
-  } else {
-    return "Dr. $name";
-  }
-}
-
-Widget verifyStatusAppointment(String status) {
+Widget verifyStatusAppointment(
+    AppointmentService appointmentService, String idAppointment, String status) {
   if (status == 'Solicitada') {
     return const Text(
       'Solicitada',
@@ -206,6 +189,8 @@ Widget verifyStatusAppointment(String status) {
             IconButton(
                 onPressed: () {
                   // Enviar estado y cargar futuro de citas
+                  appointmentService.postAcceptDeclineAppointment(
+                      idAppointment, 'Aceptada');
                 },
                 icon: const Icon(
                   Icons.check_circle_outline_rounded,
@@ -215,6 +200,8 @@ Widget verifyStatusAppointment(String status) {
             IconButton(
                 onPressed: () {
                   // Enviar estado y cargar futuro de citas
+                  appointmentService.postAcceptDeclineAppointment(
+                      idAppointment, 'Cancelada');
                 },
                 icon: const Icon(
                   Icons.cancel_outlined,

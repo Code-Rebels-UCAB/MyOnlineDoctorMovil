@@ -1,4 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:myonlinedoctormovil/cita/infraestructura/services/appointment_service.dart';
+import 'package:myonlinedoctormovil/common/validations.dart';
+
+import 'package:myonlinedoctormovil/doctor/providers/doctor_provider.dart';
+import 'package:myonlinedoctormovil/paciente/providers/patient_provider.dart';
+import 'package:provider/provider.dart';
 
 class RequestAppoinment extends StatefulWidget {
   const RequestAppoinment({Key? key}) : super(key: key);
@@ -8,22 +14,30 @@ class RequestAppoinment extends StatefulWidget {
 }
 
 class _RequestAppoinmentState extends State<RequestAppoinment> {
+  AppointmentService appointmentService = AppointmentService();
   final TextEditingController _textFieldMotive = TextEditingController();
   dynamic _dropdownSelectedModalityItem = ' ';
 
   // Ventana de Dialog para solicitar cita a un doctor
   @override
   Widget build(BuildContext context) {
+    var idDoctor =
+        Provider.of<IdDoctorProvider>(context, listen: false).idDoctor;
+    var nameDoctor = Provider.of<IdDoctorProvider>(context, listen: false).name;
+    var genderDoctor =
+        Provider.of<IdDoctorProvider>(context, listen: false).gender;
+    var idPatient =
+        Provider.of<IdPatientProvider>(context, listen: false).idPatient;
+
     return AlertDialog(
       // Titulo del Dialog
-      title: const Text(
-        '¿Desea solicitar una cita con el Dr. o Dra. Nombre Apellido?', // Agregar nombre y genero desde el provider 
-        style: TextStyle(
-          color: Colors.black,
-          fontSize: 17,
-        ),
-        overflow: TextOverflow.visible
-      ),
+      title: Text(
+          '¿Desea solicitar una cita con el  ${verifyGender(genderDoctor)} $nameDoctor?', // Agregar nombre y genero desde el provider
+          style: const TextStyle(
+            color: Colors.black,
+            fontSize: 17,
+          ),
+          overflow: TextOverflow.visible),
 
       content: SingleChildScrollView(
         child: ListBody(
@@ -52,7 +66,6 @@ class _RequestAppoinmentState extends State<RequestAppoinment> {
         ),
       ),
       actions: <Widget>[
-
         // Button para solicitar cita, con modalidad y motivo
         TextButton(
           child: const Text(
@@ -60,16 +73,21 @@ class _RequestAppoinmentState extends State<RequestAppoinment> {
             style: TextStyle(color: Colors.blue),
           ),
           onPressed: () {
-            if (_dropdownSelectedModalityItem != ' ' && _textFieldMotive.text.isNotEmpty) {
+            if (_dropdownSelectedModalityItem != ' ' &&
+                _textFieldMotive.text.isNotEmpty) {
               ////////////////////////////////////////////////////////////////Envia los datos
 
+              appointmentService.postAppointmentRequest(idPatient, idDoctor,
+                  _dropdownSelectedModalityItem, _textFieldMotive.text);
+
               Navigator.of(context).pop();
-            } else if (_dropdownSelectedModalityItem == ' ' && _textFieldMotive.text.isEmpty) {
+            } else if (_dropdownSelectedModalityItem == ' ' &&
+                _textFieldMotive.text.isEmpty) {
               //////////////////////////////////////////////////////////////// Falta informacion
               if (_dropdownSelectedModalityItem == ' ') {
-
+                //////////////////////////////////////////////////////////////// Falta informacion
               } else if (_textFieldMotive.text.isEmpty) {
-
+                //////////////////////////////////////////////////////////////// Falta informacion
               }
             }
           },
@@ -93,10 +111,9 @@ class _RequestAppoinmentState extends State<RequestAppoinment> {
       margin: const EdgeInsets.all(5),
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 0),
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.blue, width: 1)
-      ),
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: Colors.blue, width: 1)),
       child: DropdownButtonHideUnderline(
         child: DropdownButton(
           hint: const Text('Select'),
@@ -138,20 +155,18 @@ class _RequestAppoinmentState extends State<RequestAppoinment> {
       margin: const EdgeInsets.all(5),
       padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 0),
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.blue, width: 1)
-      ),
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: Colors.blue, width: 1)),
       child: TextFormField(
         controller: _textFieldMotive,
-        maxLines: 8, 
+        maxLines: 8,
         cursorHeight: 20,
         autofocus: false,
         decoration: const InputDecoration(
           border: InputBorder.none,
           hintText: "Enter your text here",
-          contentPadding:
-          EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+          contentPadding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
         ),
       ),
     );
