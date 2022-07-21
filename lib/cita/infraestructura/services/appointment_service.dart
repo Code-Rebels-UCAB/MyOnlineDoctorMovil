@@ -1,42 +1,92 @@
 import 'package:http/http.dart' as http;
-import 'dart:convert' as convert;
+import 'dart:convert';
 
-import 'package:myonlinedoctormovil/cita/infraestructura/models/appointments_model.dart';
+//import 'package:myonlinedoctormovil/cita/infraestructura/models/appointments_model.dart';
 
 class AppointmentService {
   Future getAppointmentsOfPatient(String idPatient) async {
-    print('ServicioA Entro');
-
     var response = await http.get(Uri.parse(
-        "http://localhost:3005/api/cita/getcitaspaciente/$idPatient"
-        //"http://192.168.8.100:3005/api/cita/getcitaspaciente/ed649257-8091-4b77-827a-8532b5c4c826"
-        //"http://10.0.1.12:3005/api/cita/getcitaspaciente/ed649257-8091-4b77-827a-8532b5c4c826"
-        ));
+        //"http://localhost:3000/api/cita/getcitaspaciente/$idPatient"
 
-    print('Paso await');
+        // Alines 
+        "http://10.0.1.12:3005/api/cita/getcitaspaciente/$idPatient"
+    ));
 
-    var jsonResponse = convert.jsonDecode(response.body);
+    var jsonResponse = json.decode(response.body);
 
-    print('Paso convert');
+    return List<dynamic>.from(jsonResponse['valor'].map((appointments) => {
+          "id_cita": appointments["id_cita"],
+          "statuscita": appointments["statuscita"],
+          "modalidad": appointments["modalidad"],
+          "fechaCita": appointments["fechaCita"],
+          "horacita": appointments["horacita"],
+          "duracion": appointments["duracion"],
+          "id_paciente": appointments["id_paciente"],
+          "doctor": appointments["doctor"]
+        }));
 
-    var hola;
-
-    print(jsonResponse['valor'][0]['id_cita']);
-
-    hola = jsonResponse["valor"].map((appointments) => AppointmentModel.fromJson(appointments))/*.toList()*/;
-    //print(hola[0]['id_cita']);
-
-    print('antes del return');
-
-    return hola;
+    //return jsonResponse["valor"].map((appointments) => AppointmentModel.fromJson(appointments)).toList();
   }
 
-  /*Future<RequestAppointmentModel> postAppointmentRequest (String idPatient, String idDoctor, String modality, String motive) async {
-    return 
-  }*/
+  Future postAppointmentRequest(
+      String idPatient, String idDoctor, String modality, String motive) async {
+    var headers = {'Content-Type': 'application/json'};
+    var request = http.Request(
+        'POST', Uri.parse(
+          //'http://localhost:3000/api/cita/solicitarcita'
 
-  /*Future<AcceptDeclineAppointmentModel> postAcceptDeclineAppointment (String idAppointment, String statusAppointment) async {
-    return 
-  }*/
+          // Alines
+          'http://10.0.1.12:3005/api/cita/solicitarcita'
+        ));
+    request.body = json.encode({
+      "id_paciente": idPatient,
+      "id_doctor": idDoctor,
+      "modalidad": modality,
+      "motivo": motive
+    });
+    request.headers.addAll(headers);
 
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      print(await response.stream.bytesToString());
+    } else {
+      print(response.reasonPhrase);
+    }
+  }
+
+  Future postAcceptDeclineAppointment(
+      String idAppointment, String statusAppointment) async {
+    var headers = {'Content-Type': 'application/json'};
+    // ignore: prefer_typing_uninitialized_variables
+    var request;
+
+    if (statusAppointment == 'Aceptada') {
+      request = http.Request('PUT', Uri.parse(
+        //'http://localhost:3000/api/cita/aceptarcita?citaId=$idAppointment'
+
+        // Alines 
+        'http://10.0.1.12:3005/api/cita/aceptarcita?citaId=$idAppointment'
+      ));
+    } else if (statusAppointment == 'Aceptada') {
+       request = http.Request('PUT', Uri.parse(
+        //'http://localhost:3000/api/cita/cancelarcita?citaId=$idAppointment'
+
+        // Alines 
+        'http://10.0.1.12:3005/api/cita/cancelarcita?citaId=$idAppointment'
+      ));
+    }
+
+    request.body = json.encode({"citaId": idAppointment});
+
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      print(await response.stream.bytesToString());
+    } else {
+      print(response.reasonPhrase);
+    }
+  }
 }

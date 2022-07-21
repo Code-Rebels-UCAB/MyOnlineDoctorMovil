@@ -1,5 +1,5 @@
 import 'package:http/http.dart' as http;
-import 'dart:convert' as convert;
+import 'dart:convert';
 
 import 'package:myonlinedoctormovil/doctor/infraestructura/models/doctors_model.dart';
 
@@ -11,39 +11,64 @@ class DoctorService {
 
     if (dropdownFilter == 'Nombre y Apellido' && searchValue.isNotEmpty) {
       response = await http.get(Uri.parse(
-          "http://localhost:3005/api/doctor/filtrar/nombre?nombre=$searchValue"
-          //"http://192.168.8.100:3005/api/doctor/filtrar/nombre?nombre=$searchValue"
-          //"http://10.0.1.12:3005/api/doctor/filtrar/nombre?nombre=$searchValue"
+          //"http://localhost:3000/api/doctor/filtrar/nombre?nombre=$searchValue"
+
+        // Alines
+          "http://10.0.1.12:3005/api/doctor/filtrar/nombre?nombre=$searchValue"
           ));
     } else if (dropdownFilter == 'Especialidad' && searchValue.isNotEmpty) {
       response = await http.get(Uri.parse(
-          "http://localhost:3005/api/doctor/filtrar/especialidad?especialidad=$searchValue"
-          //"http://192.168.8.100:3005/api/doctor/filtrar/especialidad?especialidad=$searchValue"
-          //"http://10.0.1.12:3005/api/doctor/filtrar/especialidad?especialidad=$searchValue"
+          //"http://localhost:3000/api/doctor/filtrar/especialidad?especialidad=$searchValue"
+
+          // Alines 
+          "http://10.0.1.12:3005/api/doctor/filtrar/especialidad?especialidad=$searchValue"
           ));
     } else if (dropdownFilter == 'Top Doctores') {
       response = await http
-          .get(Uri.parse("http://localhost:3005/api/doctor/filtrar/top"
-              //"http://192.168.8.100:3005/api/doctor/filtrar/top"
-              //"http://10.0.1.12:3005/api/doctor/filtrar/top"
+          .get(Uri.parse(
+            //"http://localhost:3000/api/doctor/filtrar/top"
+
+            // Alines
+            "http://10.0.1.12:3005/api/doctor/filtrar/top"
               ));
     } else {
-      response =
-          await http.get(Uri.parse("http://localhost:3005/api/doctor/todos"
-              //"http://192.168.8.100:3005/api/doctor/todos"
-              //"http://10.0.1.12:3005/api/doctor/todos"
-              ));
+      response = await http.get(Uri.parse(
+          //"http://localhost:3000/api/doctor/todos"
+
+          // Alines
+          "http://10.0.1.12:3005/api/doctor/todos"));
     }
 
-    var jsonResponse = convert.jsonDecode(response.body);
-    var hola;
-    hola = jsonResponse["valor"].map((doctors) => DoctorModel.fromJson(doctors)).toList();
-
-    print(hola[0].name);
-    return hola;
+    var jsonResponse = jsonDecode(response.body);
+    return jsonResponse["valor"]
+        .map((doctors) => DoctorModel.fromJson(doctors))
+        .toList();
   }
 
-  /*Future <DoctorRatingModel> postRatingDoctor (String idDoctor, dynamic raiting) async {
-    return
-  } */
+  Future postRatingDoctor(String idDoctor, String idPatient, dynamic raiting) async {
+
+    var headers = {'Content-Type': 'application/json'};
+    var request = http.Request(
+        'PUT', Uri.parse(
+          //'http://localhost:3000/api/doctor/calificar'
+
+          // Alines 
+          'http://10.0.1.12:3005/api/doctor/calificar'
+        ));
+
+    request.body = json.encode({
+      "idDoctor": idDoctor,
+      "idPaciente": idPatient,
+      "calificacionDoctor": raiting
+    });
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      print(await response.stream.bytesToString());
+    } else {
+      print(response.reasonPhrase);
+    }
+  }
 }

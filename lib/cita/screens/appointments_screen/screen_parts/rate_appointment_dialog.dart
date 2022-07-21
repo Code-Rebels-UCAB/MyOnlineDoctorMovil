@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:myonlinedoctormovil/common/validations.dart';
+import 'package:myonlinedoctormovil/doctor/infraestructura/services/doctor_service.dart';
+import 'package:myonlinedoctormovil/doctor/providers/doctor_provider.dart';
+import 'package:myonlinedoctormovil/paciente/providers/patient_provider.dart';
+import 'package:provider/provider.dart';
 
 class RateDoctor extends StatefulWidget {
   const RateDoctor({Key? key}) : super(key: key);
@@ -8,6 +13,8 @@ class RateDoctor extends StatefulWidget {
 }
 
 class _RateDoctorState extends State<RateDoctor> {
+  DoctorService doctorService = DoctorService();
+
   // Booleanos que manejan el cambio de apariencia de las estrellas de calificacion
   bool star1 = false;
   bool star2 = false;
@@ -18,10 +25,19 @@ class _RateDoctorState extends State<RateDoctor> {
   // Ventana Dialog para calificar cita
   @override
   Widget build(BuildContext context) {
+
+    var idPatient =
+        Provider.of<IdPatientProvider>(context, listen: false).idPatient;
+    var idDoctor =
+        Provider.of<IdDoctorProvider>(context, listen: false).idDoctor;
+    var nameDoctor = Provider.of<IdDoctorProvider>(context, listen: false).name;
+    var genderDoctor =
+        Provider.of<IdDoctorProvider>(context, listen: false).gender;
+
     return AlertDialog(
-      title: const Text(
-        '¿Cómo fue su experiencia con Dr. o Dra. Nombre Apellido?', // Agregar nombre y genero
-        style: TextStyle(
+      title:  Text(
+        '¿Cómo fue su experiencia con ${verifyGender(genderDoctor)} $nameDoctor?', // Agregar nombre y genero
+        style: const TextStyle(
           color: Colors.black,
           fontSize: 17,
         ),
@@ -162,7 +178,20 @@ class _RateDoctorState extends State<RateDoctor> {
           child: const Text('Enviar Calificarción'),
           onPressed: () {
             // Enviar Calificacion
-            Navigator.of(context).pop();
+            if (star1){
+              if (!star2) {
+                doctorService.postRatingDoctor(idDoctor, idPatient, 1);
+              } else if (!star3) {
+                doctorService.postRatingDoctor(idDoctor, idPatient, 2);
+              } else if (!star4) {
+                doctorService.postRatingDoctor(idDoctor, idPatient, 3);
+              } else if (!star5) {
+                doctorService.postRatingDoctor(idDoctor, idPatient, 4);
+              } else if (star5) {
+                doctorService.postRatingDoctor(idDoctor, idPatient, 5);
+              }
+              Navigator.of(context).pop();
+            }
           },
         ),
       ],
