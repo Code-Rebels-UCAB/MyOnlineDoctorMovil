@@ -9,8 +9,8 @@ import 'package:myonlinedoctormovil/paciente/providers/patient_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../../paciente/infraestructura/puertos/token_paciente_request_abstract.dart';
-import '../infraestructura/decoradores/abstract_appointment_service.dart';
-import '../infraestructura/decoradores/log_appointmentService.dart';
+import '../infraestructura/decorators/abstract_appointment_service.dart';
+import '../infraestructura/decorators/log_appointmentService.dart';
 
 class RequestAppoinment extends StatefulWidget {
   TokenPacienteRequestAbstract tokenRequest;
