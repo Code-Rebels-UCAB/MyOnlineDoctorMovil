@@ -25,6 +25,7 @@ void main() async {
   // Necesario para emulador samsung externo (Alines)
   HttpOverrides.global = MyHttpoverrides();
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   /////////////////////////////////////////////////////////////
   await Firebase.initializeApp();
   runApp(const MyApp());
