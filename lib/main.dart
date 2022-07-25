@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:myonlinedoctormovil/common/config/app_router.dart';
 import 'package:myonlinedoctormovil/common/providers/notification_provider.dart';
@@ -20,11 +21,12 @@ class MyHttpoverrides extends HttpOverrides {
 }
 
 /////////////////////////////////////////////////////////////
-void main() {
+void main() async {
   // Necesario para emulador samsung externo (Alines)
   HttpOverrides.global = MyHttpoverrides();
   WidgetsFlutterBinding.ensureInitialized();
   /////////////////////////////////////////////////////////////
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
   

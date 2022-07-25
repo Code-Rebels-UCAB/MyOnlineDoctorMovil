@@ -12,7 +12,7 @@ class LogAppointmentService implements  AbstractAppointmentService {
     var timeBefore = DateTime.now().millisecondsSinceEpoch;
     var data = await decoratee.getAppointmentsOfPatient(idPatient);
     var timeAfter = DateTime.now().millisecondsSinceEpoch - timeBefore;
-    FirebaseAnalytics.instance.logEvent(name: 'pedir_cita', parameters: {'event_name':'pedir_cita'});
+    FirebaseAnalytics.instance.logEvent(name: 'ver_lista_citas', parameters: {'event_name':'ver_lista_citas'});
     print('Log: El paciente con id: $idPatient pidio ver sus citas y la respuesta tardo: $timeAfter ms');
     return data;
   }
@@ -27,7 +27,7 @@ class LogAppointmentService implements  AbstractAppointmentService {
     return data;
   }
 
-
+  @override
   Future postAcceptDeclineAppointment(String idAppointment, String statusAppointment) async {
     var timeBefore = DateTime.now().millisecondsSinceEpoch;
     var data = await decoratee.postAcceptDeclineAppointment(idAppointment, statusAppointment);

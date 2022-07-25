@@ -5,8 +5,8 @@ import 'package:myonlinedoctormovil/common/validations.dart';
 import 'package:myonlinedoctormovil/paciente/providers/patient_provider.dart';
 import 'package:provider/provider.dart';
 
-import '../../infraestructura/models/abstract_appointment_service.dart';
 import '../../infraestructura/decorators/log_appointmentService.dart';
+import '../../infraestructura/models/abstract_appointment_service.dart';
 
 class AppointmentsScreen extends StatefulWidget {
   const AppointmentsScreen({Key? key}) : super(key: key);
@@ -15,7 +15,7 @@ class AppointmentsScreen extends StatefulWidget {
 }
 
 class _AppointmentsScreenState extends State<AppointmentsScreen> {
-  AbstractAppointmentService appointmentService = LogAppointmentService(AppointmentService()) ;
+  AbstractAppointmentService appointmentService = LogAppointmentService(AppointmentService());
 
   @override
   Widget build(BuildContext context) {
