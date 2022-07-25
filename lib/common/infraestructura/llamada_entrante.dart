@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_ringtone_player/flutter_ringtone_player.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'llamada.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 
 class IncomingCall extends StatefulWidget {
   final String image;
@@ -98,6 +99,8 @@ class _IncomingCallState extends State<IncomingCall> {
 
                             FlutterRingtonePlayer.stop();
                             Navigator.of(context).pop();
+                            FirebaseAnalytics.instance.logEvent(name: 'rechazo_videollamada', parameters: {'event_name':'rechazo_videollamada'});
+                            print('Log: El paciente rechazo la videollamada');
                           },
                           child: const Icon(
                             Icons.call_end,
@@ -114,6 +117,8 @@ class _IncomingCallState extends State<IncomingCall> {
                         padding: const EdgeInsets.only(bottom: 24),
                         child: RawMaterialButton(
                           onPressed: () async {
+                            FirebaseAnalytics.instance.logEvent(name: 'acepto_videollamada', parameters: {'event_name':'acepto_videollamada'});
+                            print('Log: El paciente acepto la videollamada');
                             await _handleCameraAndMic(Permission.camera);
                             await _handleCameraAndMic(Permission.microphone);
                             FlutterRingtonePlayer.stop();

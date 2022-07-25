@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:myonlinedoctormovil/common/screen_header.dart';
+import 'package:myonlinedoctormovil/doctor/infraestructura/decorators/log_doctors_service.dart';
+import 'package:myonlinedoctormovil/doctor/infraestructura/models/abstract_doctor_service.dart';
 import 'package:myonlinedoctormovil/doctor/infraestructura/services/doctor_service.dart';
 import 'package:myonlinedoctormovil/doctor/screens/search_doctor_screen/screen_parts/doctors_list.dart';
 
@@ -10,7 +12,7 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
-  DoctorService doctorService = DoctorService();
+  AbstractDoctorService doctorService = LogDoctorsService(DoctorService());
   // ignore: prefer_final_fields
   TextEditingController _textFieldFilter = TextEditingController();
   dynamic _dropdownSelectedFilterItem = ' ';
@@ -21,7 +23,7 @@ class _SearchScreenState extends State<SearchScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
 
-        // FutureBuilde para la carga de dostores
+        // FutureBuilder para la carga de doctores
         body: FutureBuilder(
       // Para obtener el futuro de uns busqueda, enviamos el filtro y el valor que desea el usuario de ese filtro
       future: doctorService.getDoctors(_dropdownSelectedFilterItem, 

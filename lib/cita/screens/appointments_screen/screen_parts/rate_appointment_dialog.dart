@@ -6,6 +6,9 @@ import 'package:myonlinedoctormovil/paciente/providers/patient_provider.dart';
 import 'package:myonlinedoctormovil/paciente/screens/main_menu_screen.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../doctor/infraestructura/decorators/log_doctors_service.dart';
+import '../../../../doctor/infraestructura/models/abstract_doctor_service.dart';
+
 class RateDoctor extends StatefulWidget {
   const RateDoctor({Key? key}) : super(key: key);
 
@@ -14,7 +17,7 @@ class RateDoctor extends StatefulWidget {
 }
 
 class _RateDoctorState extends State<RateDoctor> {
-  DoctorService doctorService = DoctorService();
+  AbstractDoctorService doctorService = LogDoctorsService(DoctorService());
 
   // Booleanos que manejan el cambio de apariencia de las estrellas de calificacion
   bool star1 = false;

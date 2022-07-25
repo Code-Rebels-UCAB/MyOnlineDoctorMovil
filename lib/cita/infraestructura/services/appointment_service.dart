@@ -1,9 +1,14 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+import '../models/abstract_appointment_service.dart';
+
+
+
 //import 'package:myonlinedoctormovil/cita/infraestructura/models/appointments_model.dart';
 
-class AppointmentService {
+class AppointmentService implements AbstractAppointmentService {
+  @override
   Future getAppointmentsOfPatient(String idPatient) async {
     var response = await http.get(Uri.parse(
       //"http://localhost:3000/api/cita/getcitaspaciente/$idPatient"
@@ -28,6 +33,7 @@ class AppointmentService {
     //return jsonResponse["valor"].map((appointments) => AppointmentModel.fromJson(appointments)).toList();
   }
 
+  @override
   Future postAppointmentRequest(
       String idPatient, String idDoctor, String modality, String motive) async {
     var headers = {'Content-Type': 'application/json'};
@@ -65,14 +71,14 @@ class AppointmentService {
       request = http.Request('PUT', Uri.parse(
         //'http://localhost:3000/api/cita/aceptarcita?citaId=$idAppointment'
 
-        // Alines 
+        // Alines
           'http://10.0.2.2:3000/api/cita/aceptarcita?citaId=$idAppointment'
       ));
-    } else if (statusAppointment == 'Aceptada') {
+    } else if (statusAppointment == 'Cancelada') {
       request = http.Request('PUT', Uri.parse(
         //'http://localhost:3000/api/cita/cancelarcita?citaId=$idAppointment'
 
-        // Alines 
+        // Alines
           'http://10.0.2.2:3000/api/cita/cancelarcita?citaId=$idAppointment'
       ));
     }
@@ -90,3 +96,4 @@ class AppointmentService {
     }
   }
 }
+

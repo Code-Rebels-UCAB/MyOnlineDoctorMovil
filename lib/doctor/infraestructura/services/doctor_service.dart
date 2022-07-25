@@ -1,9 +1,10 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-
 import 'package:myonlinedoctormovil/doctor/infraestructura/models/doctors_model.dart';
+import '../models/abstract_doctor_service.dart';
 
-class DoctorService {
+class DoctorService implements AbstractDoctorService{
+
   Future<List<dynamic>> getDoctors(
       String dropdownFilter, String searchValue) async {
     // ignore: prefer_typing_uninitialized_variables
