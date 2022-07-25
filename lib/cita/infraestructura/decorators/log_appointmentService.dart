@@ -1,5 +1,5 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
-import 'abstract_appointment_service.dart';
+import '../models/abstract_appointment_service.dart';
 
 class LogAppointmentService implements  AbstractAppointmentService {
   AbstractAppointmentService decoratee;

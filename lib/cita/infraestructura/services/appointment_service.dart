@@ -1,7 +1,7 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-import '../decorators/abstract_appointment_service.dart';
+import '../models/abstract_appointment_service.dart';
 
 
 
