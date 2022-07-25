@@ -5,6 +5,9 @@ import 'package:myonlinedoctormovil/common/validations.dart';
 import 'package:myonlinedoctormovil/paciente/providers/patient_provider.dart';
 import 'package:provider/provider.dart';
 
+import '../../infraestructura/decoradores/abstract_appointment_service.dart';
+import '../../infraestructura/decoradores/log_appointmentService.dart';
+
 class AppointmentsScreen extends StatefulWidget {
   const AppointmentsScreen({Key? key}) : super(key: key);
   @override
@@ -12,7 +15,7 @@ class AppointmentsScreen extends StatefulWidget {
 }
 
 class _AppointmentsScreenState extends State<AppointmentsScreen> {
-  AppointmentService appointmentService = AppointmentService();
+  AbstractAppointmentService appointmentService = LogAppointmentService(AppointmentService()) ;
 
   @override
   Widget build(BuildContext context) {
@@ -89,7 +92,7 @@ class _AppointmentsScreenState extends State<AppointmentsScreen> {
     );
   }
 
-  Widget _appointments(AppointmentService appointmentService,
+  Widget _appointments(AbstractAppointmentService appointmentService,
       List<dynamic> appoinments, BuildContext context) {
     return SliverList(
       delegate: SliverChildBuilderDelegate(
@@ -168,7 +171,7 @@ class _AppointmentsScreenState extends State<AppointmentsScreen> {
   }
 }
 
-Widget verifyStatusAppointment(AppointmentService appointmentService,
+Widget verifyStatusAppointment(AbstractAppointmentService appointmentService,
     String idAppointment, String status) {
   if (status == 'Solicitada') {
     return const Text(

@@ -23,10 +23,11 @@ class MyHttpoverrides extends HttpOverrides {
 void main() {
   // Necesario para emulador samsung externo (Alines)
   HttpOverrides.global = MyHttpoverrides();
+  WidgetsFlutterBinding.ensureInitialized();
   /////////////////////////////////////////////////////////////
   runApp(const MyApp());
 }
-
+  
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
 

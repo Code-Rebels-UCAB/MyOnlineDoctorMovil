@@ -98,6 +98,7 @@ class _IncomingCallState extends State<IncomingCall> {
 
                             FlutterRingtonePlayer.stop();
                             Navigator.of(context).pop();
+                            //ANALISIS FIREBASE
                           },
                           child: const Icon(
                             Icons.call_end,
@@ -114,6 +115,7 @@ class _IncomingCallState extends State<IncomingCall> {
                         padding: const EdgeInsets.only(bottom: 24),
                         child: RawMaterialButton(
                           onPressed: () async {
+                            //ANALISIS FIREBASE
                             await _handleCameraAndMic(Permission.camera);
                             await _handleCameraAndMic(Permission.microphone);
                             FlutterRingtonePlayer.stop();

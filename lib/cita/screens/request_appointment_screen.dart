@@ -9,6 +9,8 @@ import 'package:myonlinedoctormovil/paciente/providers/patient_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../../paciente/infraestructura/puertos/token_paciente_request_abstract.dart';
+import '../infraestructura/decoradores/abstract_appointment_service.dart';
+import '../infraestructura/decoradores/log_appointmentService.dart';
 
 class RequestAppoinment extends StatefulWidget {
   TokenPacienteRequestAbstract tokenRequest;
@@ -20,7 +22,7 @@ class RequestAppoinment extends StatefulWidget {
 }
 
 class _RequestAppoinmentState extends State<RequestAppoinment> {
-  AppointmentService appointmentService = AppointmentService();
+  AbstractAppointmentService appointmentService = LogAppointmentService(AppointmentService()) ;
   final TextEditingController _textFieldMotive = TextEditingController();
   dynamic _dropdownSelectedModalityItem = ' ';
 
@@ -82,19 +84,19 @@ class _RequestAppoinmentState extends State<RequestAppoinment> {
             if (_dropdownSelectedModalityItem != ' ' &&
                 _textFieldMotive.text.isNotEmpty) {
               ////////////////////////////////////////////////////////////////Envia los datos
-                String token = await PushNotificationService.initializeApp();
-                print(token);
+              String token = await PushNotificationService.initializeApp();
+              print(token);
 
-                TokenFirebase tokenFirebase = TokenFirebase(idPaciente: idPatient, tokenF: token);
-                try {
-                  final response =  await widget.tokenRequest.guardarToken(tokenFirebase);
-                  const snackBar = SnackBar(
-                    content: Text('Pedido de cita exitoso'),
-                  );
-                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                }catch(e){
-                  print(e);
-                }
+              TokenFirebase tokenFirebase = TokenFirebase(idPaciente: idPatient, tokenF: token);
+              try {
+                final response =  await widget.tokenRequest.guardarToken(tokenFirebase);
+                const snackBar = SnackBar(
+                  content: Text('Pedido de cita exitoso'),
+                );
+                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              }catch(e){
+                print(e);
+              }
 
 
 
