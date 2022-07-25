@@ -21,7 +21,7 @@ class LogDoctorsService implements  AbstractDoctorService {
     var data = await decoratee.postRatingDoctor(idDoctor,idPatient,raiting);
     var timeAfter = DateTime.now().millisecondsSinceEpoch - timeBefore;
     FirebaseAnalytics.instance.logEvent(name: 'calificar_doctor', parameters: {'event_name':'calificar_doctor'});
-    print('Log: El paciente con id: $idPatient calificó al doctor con id: $idDoctor con la calificación de $raiting estrella la respuesta tardo: $timeAfter ms');
+    print('Log: El paciente con id: $idPatient calificó al doctor con id: $idDoctor con la calificación de $raiting estrella y la respuesta tardo: $timeAfter ms');
     return data;
   }
 }
