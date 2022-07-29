@@ -40,12 +40,13 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   get doctorService => null;
 
-  final GlobalKey<NavigatorState> navigatorKey =
-       GlobalKey<NavigatorState>();
+  final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+  //final GlobalKey<ScaffoldMessengerState> messengerKey= GlobalKey<ScaffoldMessengerState>();
 
   @override
   void initState() {
     PushNotificationService.messagesStream.listen((event) async {
+      print(event);
       final split = event.split(",");
       final channelName = split[0].split(':')[1];
       final token = split[1].split(':')[1];
@@ -60,7 +61,7 @@ class _MyAppState extends State<MyApp> {
         ),
       ));
     });
-    super.initState();
+      super.initState();
   }
 
   @override
@@ -75,6 +76,7 @@ class _MyAppState extends State<MyApp> {
         return MaterialApp(
           //debugShowCheckedModeBanner: false,
           navigatorKey: navigatorKey,
+          //scaffoldMessengerKey: messengerKey,
           title: 'myOnlineDoctor',
           theme: ThemeData(
             primarySwatch: Colors.blue,
