@@ -2,7 +2,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:myonlinedoctormovil/doctor/infraestructura/models/doctors_model.dart';
 import '../models/abstract_doctor_service.dart';
-
+import '../../../common/environment.dart';
 class DoctorService implements AbstractDoctorService{
 
   Future<List<dynamic>> getDoctors(
@@ -15,14 +15,14 @@ class DoctorService implements AbstractDoctorService{
         //"http://localhost:3000/api/doctor/filtrar/nombre?nombre=$searchValue"
 
         // Alines
-          "http://10.0.2.2:3000/api/doctor/filtrar/nombre?nombre=$searchValue"
+          "${SERVER_API}/api/doctor/filtrar/nombre?nombre=$searchValue"
       ));
     } else if (dropdownFilter == 'Especialidad' && searchValue.isNotEmpty) {
       response = await http.get(Uri.parse(
         //"http://localhost:3000/api/doctor/filtrar/especialidad?especialidad=$searchValue"
 
         // Alines
-          "http://10.0.2.2:3000/api/doctor/filtrar/especialidad?especialidad=$searchValue"
+          "${SERVER_API}/api/doctor/filtrar/especialidad?especialidad=$searchValue"
       ));
     } else if (dropdownFilter == 'Top Doctores') {
       response = await http
@@ -30,14 +30,14 @@ class DoctorService implements AbstractDoctorService{
         //"http://localhost:3000/api/doctor/filtrar/top"
 
         // Alines
-          "http://10.0.2.2:3000/api/doctor/filtrar/top"
+          "${SERVER_API}/api/doctor/filtrar/top"
       ));
     } else {
       response = await http.get(Uri.parse(
         //"http://localhost:3000/api/doctor/todos"
 
         // Alines
-          "http://10.0.2.2:3000/api/doctor/todos"));
+          "${SERVER_API}/api/doctor/todos"));
     }
 
     var jsonResponse = jsonDecode(response.body);
@@ -54,7 +54,7 @@ class DoctorService implements AbstractDoctorService{
       //'http://localhost:3000/api/doctor/calificar'
 
       // Alines
-        'http://10.0.2.2:3000/api/doctor/calificar'
+        '${SERVER_API}/api/doctor/calificar'
     ));
 
     request.body = json.encode({
