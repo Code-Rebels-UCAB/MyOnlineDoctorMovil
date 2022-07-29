@@ -2,10 +2,10 @@ import '../models/token_firebase.dart';
 import '../puertos/token_paciente_request_abstract.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-
+import '../../../common/environment.dart';
 class EnviarTokenPaciente implements TokenPacienteRequestAbstract {
 
-  String url = 'http://10.0.2.2:3000';
+  String url = SERVER_API;
 
   Future<dynamic> guardarToken(TokenFirebase tokenPaciente) async {
     print('me llaman');

@@ -1,6 +1,7 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+import '../../../common/environment.dart';
 import '../models/abstract_appointment_service.dart';
 
 
@@ -14,7 +15,7 @@ class AppointmentService implements AbstractAppointmentService {
       //"http://localhost:3000/api/cita/getcitaspaciente/$idPatient"
 
       // Alines
-        "http://10.0.2.2:3000/api/cita/getcitaspaciente/$idPatient"
+        "${SERVER_API}/api/cita/getcitaspaciente/$idPatient"
     ));
 
     var jsonResponse = json.decode(response.body);
@@ -42,7 +43,7 @@ class AppointmentService implements AbstractAppointmentService {
       //'http://localhost:3000/api/cita/solicitarcita'
 
       // Alines
-        'http://10.0.2.2:3000/api/cita/solicitarcita'
+        '${SERVER_API}/api/cita/solicitarcita'
     ));
     request.body = json.encode({
       "id_paciente": idPatient,
@@ -72,14 +73,14 @@ class AppointmentService implements AbstractAppointmentService {
         //'http://localhost:3000/api/cita/aceptarcita?citaId=$idAppointment'
 
         // Alines
-          'http://10.0.2.2:3000/api/cita/aceptarcita?citaId=$idAppointment'
+          '${SERVER_API}/api/cita/aceptarcita?citaId=$idAppointment'
       ));
     } else if (statusAppointment == 'Cancelada') {
       request = http.Request('PUT', Uri.parse(
         //'http://localhost:3000/api/cita/cancelarcita?citaId=$idAppointment'
 
         // Alines
-          'http://10.0.2.2:3000/api/cita/cancelarcita?citaId=$idAppointment'
+          '${SERVER_API}/api/cita/cancelarcita?citaId=$idAppointment'
       ));
     }
 
