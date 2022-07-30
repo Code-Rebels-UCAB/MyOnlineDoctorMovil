@@ -109,7 +109,17 @@ class _CallPageState extends State<CallPage> {
             _users.remove(uid);
             _engine.leaveChannel();
           });
-          Navigator.pop(context);
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => RateDoctor(
+                  idDoctor: widget.idDoctor,
+                  nombre: widget.nombre,
+                  apellido: widget.apellido,
+                  sexo: widget.sexo
+              ),
+            ),
+          );
         },
 
         firstRemoteVideoFrame: (uid, width, height, elapsed) {

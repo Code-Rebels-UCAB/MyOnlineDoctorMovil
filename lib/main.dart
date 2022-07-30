@@ -58,7 +58,7 @@ class _MyAppState extends State<MyApp> {
           final apellido = split[5].split(':')[1];
           final idDoctor = split[6].split(':')[1];
           final foto = split[7].split(')')[0];
-          navigatorKey.currentState?.push(MaterialPageRoute(
+          navigatorKey.currentState?.pushReplacement(MaterialPageRoute(
             builder: (context) => IncomingCall(
               idDoctor: idDoctor.trim(),
               nombre: nombre.trim(),

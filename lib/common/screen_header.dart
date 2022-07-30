@@ -6,6 +6,7 @@ Widget screenHeader() {
     pinned: true,
     snap: false,
     centerTitle: false,
+    automaticallyImplyLeading: false,
     title: Center(
         child: Row(
       mainAxisAlignment: MainAxisAlignment.center,
