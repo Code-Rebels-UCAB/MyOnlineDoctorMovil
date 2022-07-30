@@ -2,7 +2,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 import '../../../common/environment.dart';
-import '../models/abstract_appointment_service.dart';
+import '../puertos/abstract_appointment_service.dart';
 
 
 
