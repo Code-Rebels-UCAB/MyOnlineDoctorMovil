@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:agora_rtc_engine/rtc_local_view.dart' as rtc_local_view;
 import 'package:agora_rtc_engine/rtc_remote_view.dart' as rtc_remote_view;
 import 'package:myonlinedoctormovil/paciente/screens/main_menu_screen.dart';
+import 'package:provider/provider.dart';
 
 import '../../cita/screens/appointments_screen/screen_parts/rate_appointment_dialog.dart';
 import 'config.dart';
@@ -106,7 +107,9 @@ class _CallPageState extends State<CallPage> {
             final info = 'User offline: $uid';
             _infoStrings.add(info);
             _users.remove(uid);
+            _engine.leaveChannel();
           });
+          Navigator.pop(context);
         },
 
         firstRemoteVideoFrame: (uid, width, height, elapsed) {
@@ -186,6 +189,7 @@ class _CallPageState extends State<CallPage> {
           ),
           RawMaterialButton(
             onPressed: () {
+                _engine.leaveChannel();
                 Navigator.push(
                       context,
                       MaterialPageRoute(
