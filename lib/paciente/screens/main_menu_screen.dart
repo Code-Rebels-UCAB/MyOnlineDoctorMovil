@@ -100,7 +100,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
             padding: EdgeInsets.all(15.0),
             child: CircleAvatar(
               backgroundImage: NetworkImage(
-                  'https://images.pexels.com/photos/3769151/pexels-photo-3769151.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'),
+                  'https://img.icons8.com/material/344/user-male-circle--v1.png'),
               radius: 50,
             ),
           ),
