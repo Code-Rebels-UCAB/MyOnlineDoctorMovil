@@ -6,7 +6,7 @@ import 'package:myonlinedoctormovil/paciente/providers/patient_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../../infraestructura/decorators/log_appointmentService.dart';
-import '../../infraestructura/models/abstract_appointment_service.dart';
+import '../../infraestructura/puertos/abstract_appointment_service.dart';
 
 class AppointmentsScreen extends StatefulWidget {
   const AppointmentsScreen({Key? key}) : super(key: key);
