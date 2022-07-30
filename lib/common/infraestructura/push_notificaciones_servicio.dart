@@ -7,8 +7,8 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 class PushNotificationService {
   static FirebaseMessaging messaging = FirebaseMessaging.instance;
   static String? token;
-  static StreamController<String> _streamController = new StreamController();
-  static Stream<String> get messagesStream => _streamController.stream;
+  static StreamController<RemoteMessage> _streamController = new StreamController();
+  static Stream<RemoteMessage> get messagesStream => _streamController.stream;
 
   static Future initializeApp() async {
     // Push Notifications
@@ -24,18 +24,19 @@ class PushNotificationService {
 
 
   static Future _backgroundHandler (RemoteMessage message) async {
+    var info = const <String, dynamic>{};
     print('On background Handler ${message.messageId}');
-    _streamController.add(message.notification?.body ?? 'No title');
+    _streamController.add(message);
   }
 
   static Future _onMessageHandler (RemoteMessage message) async {
     print('On message Handler ${message.messageId}');
-    _streamController.add(message.notification?.body ?? 'No title');
+    _streamController.add(message);
   }
 
   static Future _onMessageOpenApp (RemoteMessage message) async {
     print('onMessageOpenApp ${message.messageId}');
-    _streamController.add(message.notification?.body ?? 'No title');
+    _streamController.add(message);
   }
 
   static closeStreams(){

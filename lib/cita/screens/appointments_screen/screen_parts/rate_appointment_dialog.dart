@@ -10,7 +10,11 @@ import '../../../../doctor/infraestructura/decorators/log_doctors_service.dart';
 import '../../../../doctor/infraestructura/models/abstract_doctor_service.dart';
 
 class RateDoctor extends StatefulWidget {
-  const RateDoctor({Key? key}) : super(key: key);
+  final String idDoctor;
+  final String nombre;
+  final String apellido;
+  final String sexo;
+  const RateDoctor({Key? key, required this.idDoctor, required this.nombre, required this.apellido, required this.sexo}) : super(key: key);
 
   @override
   State<RateDoctor> createState() => _RateDoctorState();
@@ -32,15 +36,15 @@ class _RateDoctorState extends State<RateDoctor> {
 
     var idPatient =
         Provider.of<IdPatientProvider>(context, listen: false).idPatient;
-    var idDoctor =
-        Provider.of<IdDoctorProvider>(context, listen: false).idDoctor;
-    var nameDoctor = Provider.of<IdDoctorProvider>(context, listen: false).name;
+    //var idDoctor =
+      //  Provider.of<IdDoctorProvider>(context, listen: false).idDoctor;
+    //var nameDoctor = Provider.of<IdDoctorProvider>(context, listen: false).name;
     var genderDoctor =
         Provider.of<IdDoctorProvider>(context, listen: false).gender;
 
     return AlertDialog(
       title:  Text(
-        '¿Cómo fue su experiencia con ${verifyGender(genderDoctor)} $nameDoctor?', // Agregar nombre y genero
+        '¿Cómo fue su experiencia con ${verifyGender(widget.sexo)} ${widget.nombre} ${widget.apellido} ?', // Agregar nombre y genero
         style: const TextStyle(
           color: Colors.black,
           fontSize: 17,
@@ -184,15 +188,15 @@ class _RateDoctorState extends State<RateDoctor> {
             // Enviar Calificacion
             if (star1){
               if (!star2) {
-                doctorService.postRatingDoctor(idDoctor, idPatient, 1);
+                doctorService.postRatingDoctor(widget.idDoctor, idPatient, 1);
               } else if (!star3) {
-                doctorService.postRatingDoctor(idDoctor, idPatient, 2);
+                doctorService.postRatingDoctor(widget.idDoctor, idPatient, 2);
               } else if (!star4) {
-                doctorService.postRatingDoctor(idDoctor, idPatient, 3);
+                doctorService.postRatingDoctor(widget.idDoctor, idPatient, 3);
               } else if (!star5) {
-                doctorService.postRatingDoctor(idDoctor, idPatient, 4);
+                doctorService.postRatingDoctor(widget.idDoctor, idPatient, 4);
               } else if (star5) {
-                doctorService.postRatingDoctor(idDoctor, idPatient, 5);
+                doctorService.postRatingDoctor(widget.idDoctor, idPatient, 5);
               }
               Navigator.push(
                 context,

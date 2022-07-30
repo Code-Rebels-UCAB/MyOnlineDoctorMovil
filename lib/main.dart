@@ -7,6 +7,7 @@ import 'package:myonlinedoctormovil/doctor/providers/doctor_provider.dart';
 import 'package:myonlinedoctormovil/paciente/providers/patient_provider.dart';
 import 'package:myonlinedoctormovil/paciente/screens/main_menu_screen.dart';
 import 'package:provider/provider.dart';
+import 'cita/screens/appointments_screen/appointments_screen.dart';
 import 'common/infraestructura/llamada_entrante.dart';
 import 'common/infraestructura/push_notificaciones_servicio.dart';
 
@@ -40,27 +41,56 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   get doctorService => null;
 
-  final GlobalKey<NavigatorState> navigatorKey =
-       GlobalKey<NavigatorState>();
+  final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+  //final GlobalKey<ScaffoldMessengerState> messengerKey= GlobalKey<ScaffoldMessengerState>();
 
   @override
   void initState() {
     PushNotificationService.messagesStream.listen((event) async {
-      final split = event.split(",");
-      final channelName = split[0].split(':')[1];
-      final token = split[1].split(':')[1];
-      print('AQUi');
-      print(channelName);
-      print(token);
-      navigatorKey.currentState?.push(MaterialPageRoute(
-        builder: (context) => IncomingCall(
-          image: 'eeee',
-          channelName: channelName.trim(),
-          token: token.trim(),
-        ),
-      ));
+      try {
+        final split = event.data.values.toString().split(",");
+        final title =  split[0].split(':')[1];
+        if(title == 'llamada entrante'){
+          final channelName = split[1].split(':')[1];
+          final token = split[2].split(':')[1];
+          final sexo = split[3].split(':')[1];
+          final nombre = split[4].split(':')[1];
+          final apellido = split[5].split(':')[1];
+          final idDoctor = split[6].split(':')[1];
+          final foto = split[7].split(')')[0];
+          navigatorKey.currentState?.push(MaterialPageRoute(
+            builder: (context) => IncomingCall(
+              idDoctor: idDoctor.trim(),
+              nombre: nombre.trim(),
+              apellido: apellido.trim(),
+              sexo: sexo.trim(),
+              image: foto.trim(),
+              channelName: channelName.trim(),
+              token: token.trim(),
+            ),
+          ));
+        }
+        else if(title == 'doctor agenda cita'){
+
+          navigatorKey.currentState?.push(MaterialPageRoute(
+            builder: (context) => AppointmentsScreen(),
+          ));
+        }
+        else if(title == 'doctor suspende cita'){
+          navigatorKey.currentState?.push(MaterialPageRoute(
+            builder: (context) => AppointmentsScreen(),
+          ));
+        }
+        else if(title == 'doctor registra historia medica'){
+          //navigatorKey.currentState?.push(MaterialPageRoute(
+            //builder: (context) => medicalRecordScreen(),
+          //));
+        }
+      } catch (e) {
+        //catch
+      }
     });
-    super.initState();
+      super.initState();
   }
 
   @override
@@ -75,6 +105,7 @@ class _MyAppState extends State<MyApp> {
         return MaterialApp(
           //debugShowCheckedModeBanner: false,
           navigatorKey: navigatorKey,
+          //scaffoldMessengerKey: messengerKey,
           title: 'myOnlineDoctor',
           theme: ThemeData(
             primarySwatch: Colors.blue,
