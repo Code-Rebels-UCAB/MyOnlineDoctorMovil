@@ -200,7 +200,7 @@ class _CallPageState extends State<CallPage> {
           RawMaterialButton(
             onPressed: () {
                 _engine.leaveChannel();
-                Navigator.push(
+                Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
                         builder: (context) => RateDoctor(
