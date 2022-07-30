@@ -9,10 +9,14 @@ import 'config.dart';
 
 
 class CallPage extends StatefulWidget {
+  final String idDoctor;
+  final String nombre;
+  final String apellido;
+  final String sexo;
   final String? channelName;
   final ClientRole? role;
   final String token;
-  CallPage({Key? key, this.channelName, this.role, required this.token}) : super(key: key);
+  CallPage({Key? key, required this.idDoctor, required this.nombre, required this.apellido, required this.sexo ,this.channelName, this.role, required this.token}) : super(key: key);
 
   @override
   State<CallPage> createState() => _CallPageState();
@@ -185,8 +189,13 @@ class _CallPageState extends State<CallPage> {
                 Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => RateDoctor()
-                          ),
+                        builder: (context) => RateDoctor(
+                            idDoctor: widget.idDoctor,
+                            nombre: widget.nombre,
+                            apellido: widget.apellido,
+                            sexo: widget.sexo
+                        ),
+                      ),
                     );
 
             },

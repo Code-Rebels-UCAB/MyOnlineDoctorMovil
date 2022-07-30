@@ -4,14 +4,20 @@ import 'package:agora_rtc_engine/rtc_engine.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_ringtone_player/flutter_ringtone_player.dart';
 import 'package:permission_handler/permission_handler.dart';
+import '../validations.dart';
 import 'llamada.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 
 class IncomingCall extends StatefulWidget {
+  final String idDoctor;
+  final String nombre;
+  final String apellido;
+  final String sexo;
   final String image;
   final String token;
   final String channelName;
-  IncomingCall({Key? key, required this.image, required this.token, required this.channelName}) : super(key: key);
+
+  IncomingCall({Key? key, required this.idDoctor, required this.nombre, required this.apellido, required this.sexo, required this.image, required this.token, required this.channelName}) : super(key: key);
 
   @override
   State<IncomingCall> createState() => _IncomingCallState();
@@ -39,6 +45,9 @@ class _IncomingCallState extends State<IncomingCall> {
 
   @override
   Widget build(BuildContext context) {
+    final gender = verifyGender(widget.sexo);
+    final nombreDoctor = '${gender} ${widget.nombre} ${widget.apellido}';
+
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
@@ -75,10 +84,13 @@ class _IncomingCallState extends State<IncomingCall> {
                           ),
                         ),
                       ),
-                      Text('Dr Nombre', style: TextStyle(
+                      Text(' '),
+                      Text(' '),
+                      Text('${nombreDoctor}', style: TextStyle(
                         color: Colors.white,
                         fontSize: 40,
                       ),),
+                      Text(' '),
                       Text('Cita entrante', style: TextStyle(
                         color: Colors.white,
                         fontSize: 20,
@@ -126,6 +138,10 @@ class _IncomingCallState extends State<IncomingCall> {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => CallPage(
+                                    idDoctor: widget.idDoctor,
+                                    nombre: widget.nombre,
+                                    apellido: widget.apellido,
+                                    sexo: widget.sexo,
                                     channelName: widget.channelName,
                                     role: ClientRole.Broadcaster,
                                     token: widget.token,
