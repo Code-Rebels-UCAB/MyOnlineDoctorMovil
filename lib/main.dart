@@ -113,8 +113,10 @@ class _MyAppState extends State<MyApp> {
           //Generador de rutas para navegacion
           onGenerateRoute: AppRouter.onGenerateRoute,
           // Screen Inicial
-          initialRoute: '/mainmenu',
-          home: const MainMenuScreen(),
+          initialRoute: 'home',
+          routes: {
+            'home': (_) => MainMenuScreen(),
+          }
         );
       },
     );
