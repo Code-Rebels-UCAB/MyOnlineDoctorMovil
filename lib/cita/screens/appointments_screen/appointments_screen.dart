@@ -21,7 +21,7 @@ class _AppointmentsScreenState extends State<AppointmentsScreen> {
   @override
   Widget build(BuildContext context) {
     var idPatient =
-        Provider.of<IdPatientProvider>(context, listen: false).idPatient;
+        Provider.of<PatientProvider>(context, listen: false).idPatient;
 
     var _futureAppoinments =
         appointmentService.getAppointmentsOfPatient(idPatient);

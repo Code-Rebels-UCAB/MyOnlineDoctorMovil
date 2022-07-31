@@ -7,7 +7,7 @@ import '../../../common/environment.dart';
 class PatientService {
   Future<dynamic> getPatient(String idPatient) async {
     var response = await http.get(Uri.parse(
-      "${SERVER_API}/api/paciente/user?id=649edad6-0795-4126-9398-f1728b7ef318"
+      "${SERVER_API}/api/paciente/info?id=$idPatient"
     )); // Cambiar por el url de los doctores
     var jsonResponse = convert.jsonDecode(response.body);
 
