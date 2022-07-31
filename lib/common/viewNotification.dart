@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import '../cita/screens/appointments_screen/appointments_screen.dart';
 import 'infraestructura/llamada_entrante.dart';
+import 'infraestructura/notificaction_cita_suspendida.dart';
 import 'infraestructura/notification_cita_agendada.dart';
 import 'infraestructura/notification_llamada_entrante.dart';
 import 'infraestructura/ports/abstract_notification_view.dart';
@@ -11,6 +12,7 @@ import 'infraestructura/ports/abstract_notification_view.dart';
 class ViewNotificacion{
   final llamadaEntrante = new NotificacionLlamadaEntrante();
   final citaAgendada = new NotificacionCitaAgendada();
+  final citaSuspendida = new NotificacionCitaSuspendida();
 
   void ViewNotification(RemoteMessage event, BuildContext context, GlobalKey<NavigatorState> navigatorKey) {
     try {
@@ -24,6 +26,8 @@ class ViewNotificacion{
         citaAgendada.update(splitt, title, context, navigatorKey);
       }
       else if(title == 'doctor suspende cita'){
+        print('aquiaqui');
+        citaSuspendida.update(splitt, title, context, navigatorKey);
       }
       else if(title == 'doctor registra historia medica'){
       }
