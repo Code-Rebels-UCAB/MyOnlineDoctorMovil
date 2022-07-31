@@ -103,7 +103,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        Provider(create: (context) => IdPatientProvider()), 
+        Provider(create: (context) => PatientProvider()), 
         Provider(create: (context) => IdDoctorProvider()),
         Provider(create: (context) => NotificationProvider()),
       ],

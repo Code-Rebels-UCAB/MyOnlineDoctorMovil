@@ -35,7 +35,7 @@ class _RequestAppoinmentState extends State<RequestAppoinment> {
     var genderDoctor =
         Provider.of<IdDoctorProvider>(context, listen: false).gender;
     var idPatient =
-        Provider.of<IdPatientProvider>(context, listen: false).idPatient;
+        Provider.of<PatientProvider>(context, listen: false).idPatient;
 
     return AlertDialog(
       // Titulo del Dialog

@@ -35,7 +35,7 @@ class _RateDoctorState extends State<RateDoctor> {
   Widget build(BuildContext context) {
 
     var idPatient =
-        Provider.of<IdPatientProvider>(context, listen: false).idPatient;
+        Provider.of<PatientProvider>(context, listen: false).idPatient;
     //var idDoctor =
       //  Provider.of<IdDoctorProvider>(context, listen: false).idDoctor;
     //var nameDoctor = Provider.of<IdDoctorProvider>(context, listen: false).name;

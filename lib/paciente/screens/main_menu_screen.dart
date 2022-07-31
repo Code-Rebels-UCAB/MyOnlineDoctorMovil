@@ -12,7 +12,7 @@ class MainMenuScreen extends StatefulWidget {
 
 class _MainMenuScreenState extends State<MainMenuScreen> {
   PatientService patientService = PatientService();
-  dynamic idPatient = '649edad6-0795-4126-9398-f1728b7ef318';
+  dynamic idPatient = 'ed649257-8091-4b77-827a-8532b5c4c826';
 
   @override
   Widget build(BuildContext context) {
@@ -74,11 +74,12 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
   }
 
   Widget _mainMenuBody(BuildContext context, patient) {
-    String idPatient = patient['id_paciente'];
-    Provider.of<IdPatientProvider>(context, listen: false)
-        .setIdPatient(idPatient);
-    String name = patient['p_nombre'];
-    String lastName = patient['p_apellido'];
+    Provider.of<PatientProvider>(context, listen: false)
+        .setPatient(patient);
+    String name = Provider.of<PatientProvider>(context, listen: false)
+        .firstNamePatient;
+    String lastName = Provider.of<PatientProvider>(context, listen: false)
+        .lastNamePatient;
     //String photo = patient['fofo'];
 
     return SliverToBoxAdapter(
@@ -175,7 +176,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                   fixedSize: const Size(200, 40),
                 ),
                 onPressed: () {
-                  Navigator.of(context).pushNamed('/search');
+                  Navigator.of(context).pushNamed('/patientinfo');
                 },
                 child: const Text(
                   'Información Personal',
