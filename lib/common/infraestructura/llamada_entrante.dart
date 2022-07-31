@@ -4,6 +4,7 @@ import 'package:agora_rtc_engine/rtc_engine.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_ringtone_player/flutter_ringtone_player.dart';
 import 'package:permission_handler/permission_handler.dart';
+import '../../paciente/screens/main_menu_screen.dart';
 import '../validations.dart';
 import 'llamada.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
@@ -110,7 +111,12 @@ class _IncomingCallState extends State<IncomingCall> {
                           onPressed: () {
 
                             FlutterRingtonePlayer.stop();
-                            Navigator.of(context).pop();
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => MainMenuScreen()
+                              ),
+                            );
                             FirebaseAnalytics.instance.logEvent(name: 'rechazo_videollamada', parameters: {'event_name':'rechazo_videollamada'});
                             print('Log: El paciente rechazo la videollamada');
                           },
@@ -134,7 +140,7 @@ class _IncomingCallState extends State<IncomingCall> {
                             await _handleCameraAndMic(Permission.camera);
                             await _handleCameraAndMic(Permission.microphone);
                             FlutterRingtonePlayer.stop();
-                            await Navigator.push(
+                            await Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => CallPage(

@@ -198,7 +198,7 @@ class _RateDoctorState extends State<RateDoctor> {
               } else if (star5) {
                 doctorService.postRatingDoctor(widget.idDoctor, idPatient, 5);
               }
-              Navigator.push(
+              Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
                     builder: (context) => MainMenuScreen()

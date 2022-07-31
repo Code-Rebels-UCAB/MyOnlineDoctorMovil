@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:myonlinedoctormovil/common/config/app_router.dart';
 import 'package:myonlinedoctormovil/common/providers/notification_provider.dart';
 import 'package:myonlinedoctormovil/doctor/providers/doctor_provider.dart';
@@ -58,7 +59,7 @@ class _MyAppState extends State<MyApp> {
           final apellido = split[5].split(':')[1];
           final idDoctor = split[6].split(':')[1];
           final foto = split[7].split(')')[0];
-          navigatorKey.currentState?.push(MaterialPageRoute(
+          navigatorKey.currentState?.pushReplacement(MaterialPageRoute(
             builder: (context) => IncomingCall(
               idDoctor: idDoctor.trim(),
               nombre: nombre.trim(),
@@ -71,10 +72,15 @@ class _MyAppState extends State<MyApp> {
           ));
         }
         else if(title == 'doctor agenda cita'){
-
-          navigatorKey.currentState?.push(MaterialPageRoute(
-            builder: (context) => AppointmentsScreen(),
-          ));
+          Fluttertoast.showToast(
+              msg: "Nueva cita agendada",
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.BOTTOM,
+              fontSize: 15,
+              backgroundColor: Colors.blueAccent,
+              textColor: Colors.white,
+              timeInSecForIosWeb: 3,
+          );
         }
         else if(title == 'doctor suspende cita'){
           navigatorKey.currentState?.push(MaterialPageRoute(
@@ -113,8 +119,10 @@ class _MyAppState extends State<MyApp> {
           //Generador de rutas para navegacion
           onGenerateRoute: AppRouter.onGenerateRoute,
           // Screen Inicial
-          initialRoute: '/mainmenu',
-          home: const MainMenuScreen(),
+          initialRoute: 'home',
+          routes: {
+            'home': (_) => MainMenuScreen(),
+          }
         );
       },
     );
