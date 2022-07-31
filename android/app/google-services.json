@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "427098612619",
+    "project_id": "flutter-myonlinedoctor",
+    "storage_bucket": "flutter-myonlinedoctor.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:427098612619:android:7bbeabd1b1a9bc9aed458e",
+        "android_client_info": {
+          "package_name": "com.example.myonlinedoctormovil"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "427098612619-bptq7l545fiobjecrlsiq873theuaut0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.myonlinedoctormovil",
+            "certificate_hash": "21d3a9d8f2969cf370d2bd9dd1da60add9be3c98"
+          }
+        },
+        {
+          "client_id": "427098612619-00kpta5p8r87n9df57k463j2c1gdcr16.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAzmOjG3q_lUaSFYwq6ZNfVciQCr4zuJEQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "427098612619-00kpta5p8r87n9df57k463j2c1gdcr16.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
