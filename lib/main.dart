@@ -11,6 +11,7 @@ import 'package:provider/provider.dart';
 import 'cita/screens/appointments_screen/appointments_screen.dart';
 import 'common/infraestructura/llamada_entrante.dart';
 import 'common/infraestructura/push_notificaciones_servicio.dart';
+import 'common/viewNotification.dart';
 
 // Necesario para emulador samsung externo (Alines)
 class MyHttpoverrides extends HttpOverrides {
@@ -41,60 +42,14 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   get doctorService => null;
-
+  final ViewNotificacions = new ViewNotificacion();
   final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
-  //final GlobalKey<ScaffoldMessengerState> messengerKey= GlobalKey<ScaffoldMessengerState>();
-
+  
   @override
   void initState() {
+
     PushNotificationService.messagesStream.listen((event) async {
-      try {
-        final split = event.data.values.toString().split(",");
-        final title =  split[0].split(':')[1];
-        if(title == 'llamada entrante'){
-          final channelName = split[1].split(':')[1];
-          final token = split[2].split(':')[1];
-          final sexo = split[3].split(':')[1];
-          final nombre = split[4].split(':')[1];
-          final apellido = split[5].split(':')[1];
-          final idDoctor = split[6].split(':')[1];
-          final foto = split[7].split(')')[0];
-          navigatorKey.currentState?.pushReplacement(MaterialPageRoute(
-            builder: (context) => IncomingCall(
-              idDoctor: idDoctor.trim(),
-              nombre: nombre.trim(),
-              apellido: apellido.trim(),
-              sexo: sexo.trim(),
-              image: foto.trim(),
-              channelName: channelName.trim(),
-              token: token.trim(),
-            ),
-          ));
-        }
-        else if(title == 'doctor agenda cita'){
-          Fluttertoast.showToast(
-              msg: "Nueva cita agendada",
-              toastLength: Toast.LENGTH_SHORT,
-              gravity: ToastGravity.BOTTOM,
-              fontSize: 15,
-              backgroundColor: Colors.blueAccent,
-              textColor: Colors.white,
-              timeInSecForIosWeb: 3,
-          );
-        }
-        else if(title == 'doctor suspende cita'){
-          navigatorKey.currentState?.push(MaterialPageRoute(
-            builder: (context) => AppointmentsScreen(),
-          ));
-        }
-        else if(title == 'doctor registra historia medica'){
-          //navigatorKey.currentState?.push(MaterialPageRoute(
-            //builder: (context) => medicalRecordScreen(),
-          //));
-        }
-      } catch (e) {
-        //catch
-      }
+      ViewNotificacions.ViewNotification(event,context,navigatorKey);
     });
       super.initState();
   }
