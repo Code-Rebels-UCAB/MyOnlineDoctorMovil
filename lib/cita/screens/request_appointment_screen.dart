@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:myonlinedoctormovil/cita/infraestructura/services/appointment_service.dart';
+import 'package:myonlinedoctormovil/common/empty_textfield_warning.dart';
 import 'package:myonlinedoctormovil/common/infraestructura/push_notificaciones_servicio.dart';
 import 'package:myonlinedoctormovil/common/validations.dart';
 
@@ -106,12 +107,12 @@ class _RequestAppoinmentState extends State<RequestAppoinment> {
               Navigator.of(context).pop();
             } else if (_dropdownSelectedModalityItem == ' ' &&
                 _textFieldMotive.text.isEmpty) {
-              //////////////////////////////////////////////////////////////// Falta informacion
-              if (_dropdownSelectedModalityItem == ' ') {
-                //////////////////////////////////////////////////////////////// Falta informacion
-              } else if (_textFieldMotive.text.isEmpty) {
-                //////////////////////////////////////////////////////////////// Falta informacion
-              }
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return const EmptyTextFiledWarning ();
+                },
+              );
             }
           },
         ),

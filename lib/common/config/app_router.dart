@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:myonlinedoctormovil/cita/screens/appointments_screen/appointments_screen.dart';
 import 'package:myonlinedoctormovil/doctor/screens/search_doctor_screen/search_screen.dart';
+import 'package:myonlinedoctormovil/paciente/screens/login_screen.dart';
 import 'package:myonlinedoctormovil/paciente/screens/main_menu_screen.dart';
 import 'package:myonlinedoctormovil/paciente/screens/patient_info_screen.dart';
 
@@ -8,7 +9,10 @@ import 'package:myonlinedoctormovil/paciente/screens/patient_info_screen.dart';
 class AppRouter {
   static Route onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
-       // Informacion Paciente
+      // Inicio de Sesion de Paciente
+      case '/login':
+        return MaterialPageRoute(builder: (_) => const LoginScreen());
+      // Informacion Paciente
       case '/patientinfo':
         return MaterialPageRoute(builder: (_) => const PatientInfoScreen());
       // Listado de Citas

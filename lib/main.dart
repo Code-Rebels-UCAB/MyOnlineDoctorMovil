@@ -6,6 +6,7 @@ import 'package:myonlinedoctormovil/common/config/app_router.dart';
 import 'package:myonlinedoctormovil/common/providers/notification_provider.dart';
 import 'package:myonlinedoctormovil/doctor/providers/doctor_provider.dart';
 import 'package:myonlinedoctormovil/paciente/providers/patient_provider.dart';
+import 'package:myonlinedoctormovil/paciente/screens/login_screen.dart';
 import 'package:myonlinedoctormovil/paciente/screens/main_menu_screen.dart';
 import 'package:provider/provider.dart';
 import 'cita/screens/appointments_screen/appointments_screen.dart';
@@ -76,7 +77,7 @@ class _MyAppState extends State<MyApp> {
           // Screen Inicial
           initialRoute: 'home',
           routes: {
-            'home': (_) => MainMenuScreen(),
+            'home': (_) => const MainMenuScreen(), //LoginScreen(),
           }
         );
       },
