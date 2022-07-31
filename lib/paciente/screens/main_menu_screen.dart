@@ -82,10 +82,11 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
         .lastNamePatient;
     //String photo = patient['fofo'];
 
-    return SliverToBoxAdapter(
+    return SliverFillRemaining(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
+          const SizedBox(height: 25,),
           Padding(
             padding:
                 const EdgeInsets.only(top: 40, bottom: 10, left: 8, right: 8),
@@ -93,10 +94,11 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
               '¡Bienvenido $name $lastName!', //Aqui agregar el nombre del paciente
               style: const TextStyle(
                   color: Colors.black,
-                  fontSize: 18,
+                  fontSize: 20,
                   fontWeight: FontWeight.bold),
             ),
           ),
+          const Spacer(),
           const Padding(
             padding: EdgeInsets.all(15.0),
             child: CircleAvatar(
@@ -105,14 +107,18 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
               radius: 50,
             ),
           ),
+          const Spacer(),
 
           // Button de Buscar Doctores
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: OutlinedButton(
                 style: OutlinedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12.0),
+                  ),
                   side: const BorderSide(width: 1.0, color: Colors.blue),
-                  fixedSize: const Size(200, 40),
+                  fixedSize: const Size(300, 50),
                 ),
                 onPressed: () {
                   Navigator.of(context).pushNamed('/search');
@@ -121,59 +127,71 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                   'Buscar Doctores',
                   style: TextStyle(
                     color: Colors.black,
-                    fontSize: 16,
+                    fontSize: 18,
                     //fontWeight: FontWeight.normal
                   ),
                 )),
           ),
+          const Spacer(),
 
           // Button de Ver Historia Medica
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: OutlinedButton(
                 style: OutlinedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12.0),
+                  ),
                   side: const BorderSide(width: 1.0, color: Colors.blue),
-                  fixedSize: const Size(200, 40),
+                  fixedSize: const Size(300, 50),
                 ),
                 onPressed: () {
-                  Navigator.of(context).pushNamed('/search');
+                  Navigator.of(context).pushNamed('/login');
                 },
                 child: const Text(
-                  'Ver Historia Medica',
+                  'Historia Medica',
                   style: TextStyle(
                     color: Colors.black,
-                    fontSize: 16,
+                    fontSize: 18,
                   ),
                 )),
           ),
+          const Spacer(),
 
           // Button de Ver Listado de Citas
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: OutlinedButton(
                 style: OutlinedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12.0),
+                  ),
                   side: const BorderSide(width: 1.0, color: Colors.blue),
-                  fixedSize: const Size(200, 40),
+                  fixedSize: const Size(300, 50),
                 ),
                 onPressed: () {
                   Navigator.of(context).pushNamed('/appointments');
                 },
                 child: const Text(
-                  'Ver Listado de Citas',
+                  'Listado de Citas',
                   style: TextStyle(
                     color: Colors.black,
-                    fontSize: 16,
+                    fontSize: 18,
                   ),
                 )),
           ),
+          const Spacer(),
 
           // Button de Informacion Personal
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: OutlinedButton(
                 style: OutlinedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12.0),
+                  ),
                   side: const BorderSide(width: 1.0, color: Colors.blue),
-                  fixedSize: const Size(200, 40),
+                  fixedSize: const Size(300, 50),
                 ),
                 onPressed: () {
                   Navigator.of(context).pushNamed('/patientinfo');
@@ -182,19 +200,23 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                   'Información Personal',
                   style: TextStyle(
                     color: Colors.black,
-                    fontSize: 16,
+                    fontSize: 18,
                   ),
                 )),
           ),
+          const Spacer(),
 
           // Button de Cerrar Sesión
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: OutlinedButton(
                 style: OutlinedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12.0),
+                  ),
                   backgroundColor: Colors.red,
                   side: const BorderSide(width: 1.0, color: Colors.red),
-                  fixedSize: const Size(200, 40),
+                  fixedSize: const Size(300, 50),
                 ),
                 onPressed: () {
                   Navigator.of(context).pushNamed('/search');
@@ -203,10 +225,11 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                   'Cerrar Sesión',
                   style: TextStyle(
                     color: Colors.white,
-                    fontSize: 16,
+                    fontSize: 18,
                   ),
                 )),
           ),
+          const SizedBox(height: 80,)
         ],
       ),
     );
