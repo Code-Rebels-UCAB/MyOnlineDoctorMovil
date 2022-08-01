@@ -81,7 +81,7 @@ class PatientInfoScreen extends StatelessWidget {
                   ),
                   const Spacer(),
                   Text(
-                    'Altura: $heightPatient',
+                    'Altura: $heightPatient cm',
                     style: const TextStyle(
                       color: Colors.black,
                       fontSize: 18,
@@ -89,7 +89,7 @@ class PatientInfoScreen extends StatelessWidget {
                   ),
                   const Spacer(),
                   Text(
-                    'Peso: $weightPatient',
+                    'Peso: $weightPatient kg',
                     style: const TextStyle(
                       color: Colors.black,
                       fontSize: 18,
