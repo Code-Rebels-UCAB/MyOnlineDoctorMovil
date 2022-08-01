@@ -41,7 +41,9 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                           ? (snapshot.data.isNotEmpty)
 
                               // Si el estado de la conexion es lista y hay data, crea el cuerpo de la pagina
-                              ? _mainMenuBody(context, snapshot.data)
+                              ? SliverSafeArea(
+                                sliver: _mainMenuBody(context, snapshot.data)
+                              )
 
                               // Si el estado de la conexion es lista, hay data y esta vacia
                               : const SliverFillRemaining(
@@ -83,13 +85,14 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
     //String photo = patient['fofo'];
 
     return SliverFillRemaining(
+      hasScrollBody: false,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          const SizedBox(height: 25,),
+          const Spacer(),
           Padding(
             padding:
-                const EdgeInsets.only(top: 40, bottom: 10, left: 8, right: 8),
+                const EdgeInsets.only(top: 10, bottom: 10, left: 8, right: 8),
             child: Text(
               '¡Bienvenido $name $lastName!', //Aqui agregar el nombre del paciente
               style: const TextStyle(
@@ -146,7 +149,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                   fixedSize: const Size(300, 50),
                 ),
                 onPressed: () {
-                  Navigator.of(context).pushNamed('/login');
+                  Navigator.of(context).pushNamed('/register');
                 },
                 child: const Text(
                   'Historia Medica',
@@ -229,7 +232,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                   ),
                 )),
           ),
-          const SizedBox(height: 80,)
+          const Spacer()
         ],
       ),
     );
