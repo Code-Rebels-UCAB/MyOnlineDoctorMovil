@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 
+import 'registration_values.dart';
+
 // ignore: must_be_immutable
 class GenderPatientRegistration extends StatefulWidget {
-
-  dynamic _dropdownSelectedGenderItem = ' ';
-
-  GenderPatientRegistration(this._dropdownSelectedGenderItem, {Key? key}) : super(key: key);
+  const GenderPatientRegistration({Key? key}) : super(key: key);
 
   @override
   State<GenderPatientRegistration> createState() => _GenderPatientRegistrationState();
@@ -53,7 +52,7 @@ class _GenderPatientRegistrationState extends State<GenderPatientRegistration> {
               ),
 
               // Valor actual del Dropdown
-              value: widget._dropdownSelectedGenderItem,
+              value: RegistrationValues.dropdownSelectedGenderItem,
               items: <String>[
                 ' ',
                 'Femenina',
@@ -71,7 +70,7 @@ class _GenderPatientRegistrationState extends State<GenderPatientRegistration> {
               // Cuando cambie el estado del Dropdown Button: asigna el nuevo valor
               onChanged: (newValue) {
                 setState(() {
-                  widget._dropdownSelectedGenderItem = newValue!;
+                  RegistrationValues.dropdownSelectedGenderItem = newValue!;
                 });
               },
             ),

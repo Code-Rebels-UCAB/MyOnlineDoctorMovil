@@ -25,23 +25,6 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
-  final TextEditingController _firstName = TextEditingController();
-  final TextEditingController _middleName = TextEditingController();
-  final TextEditingController _lastName = TextEditingController();
-  final TextEditingController _surName = TextEditingController();
-  final TextEditingController _birthday = TextEditingController();
-  final TextEditingController _height = TextEditingController();
-  final TextEditingController _weight = TextEditingController();
-  final TextEditingController _phone = TextEditingController();
-  final TextEditingController _email = TextEditingController();
-  final TextEditingController _password = TextEditingController();
-  final TextEditingController _record = TextEditingController();
-  final TextEditingController _operations = TextEditingController();
-  final TextEditingController _alergies = TextEditingController();
-
-  final dynamic _dropdownSelectedGenderItem = ' ';
-  bool _hidePassword = true;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -70,30 +53,30 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 crossAxisCount: 2,
                 crossAxisSpacing: 10.0,
                 childAspectRatio: 2,
-                children: [
+                children: const [
                   // Primer Nombre
-                  FirstNamePatientRegistration(_firstName),
+                  FirstNamePatientRegistration(),
 
                   // Segundo Nombre
-                  MiddleNamePatientRegistration(_middleName),
+                  MiddleNamePatientRegistration(),
 
                   // Primer Apellido
-                  LastNamePatientRegistration(_lastName),
+                  LastNamePatientRegistration(),
 
                   // Segundo Apellido
-                  SurNamePatientRegistration(_surName),
+                  SurNamePatientRegistration(),
 
                   // Genero
-                  GenderPatientRegistration(_dropdownSelectedGenderItem),
+                  GenderPatientRegistration(),
 
                   // Fecha de Nacimiento
-                  BirthdayPatientRegistration(_birthday),
+                  BirthdayPatientRegistration(),
 
                   // Altura
-                  HeightPatientRegistration(_height),
+                  HeightPatientRegistration(),
 
                   // Peso
-                  WeightPatientRegistration(_weight),
+                  WeightPatientRegistration(),
                 ],
               ),
             ),
@@ -107,27 +90,27 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ),
 
                     // Telefono
-                    PhonePatientRegistration(_phone),
+                    const PhonePatientRegistration(),
                     const SizedBox(height: 15,),
 
                      // Correo Electronico
-                    EmailPatientRegistration(_email),
+                    const EmailPatientRegistration(),
                     const SizedBox(height: 15,),
 
                     // Contraseña
-                    PasswordPatientRegistration(_password, _hidePassword),
+                    const PasswordPatientRegistration(),
                     const SizedBox(height: 15,),
 
                     // Antecedentes
-                    RecordPatientRegistration(_record),
+                    const RecordPatientRegistration(),
                     const SizedBox(height: 15,),
 
                     // Operaciones
-                    OperationsPatientRegistration(_operations),
+                    const OperationsPatientRegistration(),
                     const SizedBox(height: 15,),
 
                     // Alergias
-                    AlergiesPatientRegistration(_alergies),
+                    const AlergiesPatientRegistration(),
                     const SizedBox(height: 20,),
 
                     const Text(
@@ -140,7 +123,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ),
                     const SizedBox(height: 20,),
 
-                    RegisterButtonPatient(_firstName, _middleName, _lastName, _surName, _birthday, _height, _weight, _phone, _email, _password, _record, _operations, _alergies, _dropdownSelectedGenderItem),
+                    const RegisterButtonPatient(),
                     const SizedBox(height: 20,),
                   ]
                 )

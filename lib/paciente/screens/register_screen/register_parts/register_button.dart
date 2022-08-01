@@ -1,61 +1,50 @@
 import 'package:flutter/material.dart';
 import 'package:myonlinedoctormovil/common/empty_textfield_warning.dart';
+import 'package:myonlinedoctormovil/paciente/screens/register_screen/register_parts/registration_values.dart';
 
-// ignore: must_be_immutable
-class RegisterButtonPatient extends StatelessWidget {
+class RegisterButtonPatient extends StatefulWidget {
+  const RegisterButtonPatient({Key? key}) : super(key: key);
 
-  TextEditingController _firstName = TextEditingController();
-  TextEditingController _middleName = TextEditingController();
-  TextEditingController _lastName = TextEditingController();
-  TextEditingController _surName = TextEditingController();
-  TextEditingController _birthday = TextEditingController();
-  TextEditingController _height = TextEditingController();
-  TextEditingController _weight = TextEditingController();
-  TextEditingController _phone = TextEditingController();
-  TextEditingController _email = TextEditingController();
-  TextEditingController _password = TextEditingController();
-  TextEditingController _record = TextEditingController();
-  TextEditingController _operations = TextEditingController();
-  TextEditingController _alergies = TextEditingController();
+  @override
+  State<RegisterButtonPatient> createState() => _RegisterButtonPatientState();
+}
 
-  dynamic _dropdownSelectedGenderItem = ' ';
-
-  RegisterButtonPatient(
-    this._firstName, this._middleName, this._lastName, this._surName, this._birthday, this._height, this._weight, this._phone, this._email, this._password, this._record, this._operations, this._alergies, this._dropdownSelectedGenderItem, {Key? key}) : super(key: key);
-
+class _RegisterButtonPatientState extends State<RegisterButtonPatient> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: OutlinedButton(
-        style: OutlinedButton.styleFrom(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12.0),
-          ),
-          backgroundColor: Colors.blue,
-          side: const BorderSide(width: 1.0, color: Colors.blue),
-          fixedSize: const Size(200, 40),
-        ),
-        onPressed: () {
-          if (_firstName.text.isNotEmpty && _lastName.text.isNotEmpty && _surName.text.isNotEmpty && _dropdownSelectedGenderItem != ' ' && _birthday.text.isNotEmpty && _height.text.isNotEmpty && _weight.text.isNotEmpty && _phone.text.isNotEmpty && _email.text.isNotEmpty && _password.text.isNotEmpty && _record.text.isNotEmpty ) {
-            //Navigator.of(context).pushNamed('/search');//////////////////////////////////
-          } else {
-            showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return const EmptyTextFiledWarning ();
-              },
-            );
-          }
-        },
-        child: const Text(
-          'Registrar',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 18,
-          ),
-        )
-      ),
-    );
+                      padding: const EdgeInsets.all(8.0),
+                      child: OutlinedButton(
+                        style: OutlinedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12.0),
+                          ),
+                          backgroundColor: Colors.blue,
+                          side: const BorderSide(width: 1.0, color: Colors.blue),
+                          fixedSize: const Size(200, 40),
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            if (RegistrationValues.firstName.text.isNotEmpty && RegistrationValues.lastName.text.isNotEmpty && RegistrationValues.surName.text.isNotEmpty && RegistrationValues.dropdownSelectedGenderItem != ' ' && RegistrationValues.birthday.text.isNotEmpty && RegistrationValues.height.text.isNotEmpty && RegistrationValues.weight.text.isNotEmpty && RegistrationValues.phone.text.isNotEmpty && RegistrationValues.email.text.isNotEmpty && RegistrationValues.password.text.isNotEmpty && RegistrationValues.record.text.isNotEmpty ) {
+                              //Navigator.of(context).pushNamed('/search');//////////////////////////////////
+                            } else {
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return const EmptyTextFiledWarning ();
+                                },
+                              );
+                            }
+                          });
+                        },
+                        child: const Text(
+                          'Registrar',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                          ),
+                        )
+                      ),
+                    );
   }
 }

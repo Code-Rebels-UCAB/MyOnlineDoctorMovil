@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 
+import 'registration_values.dart';
+
 // ignore: must_be_immutable
 class BirthdayPatientRegistration extends StatelessWidget {
-
-  TextEditingController _birthday = TextEditingController();
-
-  BirthdayPatientRegistration(this._birthday, {Key? key}) : super(key: key);
+  const BirthdayPatientRegistration({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +41,7 @@ class BirthdayPatientRegistration extends StatelessWidget {
             border: Border.all(color: Colors.blue, width: 1)
           ),
           child: TextFormField(
-            controller: _birthday,
+            controller: RegistrationValues.birthday,
             autofocus: false,
             decoration: const InputDecoration(
               hintText: '2000/02/26',

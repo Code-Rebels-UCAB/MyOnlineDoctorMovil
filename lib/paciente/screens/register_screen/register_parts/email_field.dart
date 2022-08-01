@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 
+import 'registration_values.dart';
+
 // ignore: must_be_immutable
 class EmailPatientRegistration extends StatelessWidget {
-
-  TextEditingController _email = TextEditingController();
-
-  EmailPatientRegistration(this._email,{Key? key}) : super(key: key);
+  const EmailPatientRegistration({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +41,7 @@ class EmailPatientRegistration extends StatelessWidget {
             border: Border.all(color: Colors.blue, width: 1)
           ),
           child: TextFormField(
-            controller: _email,
+            controller: RegistrationValues.email,
             autofocus: false,
             decoration: const InputDecoration(
               hintText: 'alinesortiz22@gmail.com',

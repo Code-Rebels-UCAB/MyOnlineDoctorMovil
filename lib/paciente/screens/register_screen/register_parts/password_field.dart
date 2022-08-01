@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 
+import 'registration_values.dart';
+
 // ignore: must_be_immutable
 class PasswordPatientRegistration extends StatefulWidget {
-  TextEditingController _password = TextEditingController();
-  bool _hidePassword;
-
-  PasswordPatientRegistration(this._password, this._hidePassword, {Key? key}) : super(key: key);
+  const PasswordPatientRegistration({Key? key}) : super(key: key);
 
   @override
   State<PasswordPatientRegistration> createState() =>
@@ -49,20 +48,20 @@ class _PasswordPatientRegistrationState
             border: Border.all(color: Colors.blue, width: 1)
           ),
           child: TextFormField(
-            controller: widget._password,
-            obscureText: widget._hidePassword,
+            controller: RegistrationValues.password,
+            obscureText: RegistrationValues.hidePassword,
             autofocus: false,
             decoration:  InputDecoration(
               hintText: '*********',
               suffixIcon: IconButton(
                 icon: Icon(
-                  widget._hidePassword
+                  RegistrationValues.hidePassword
                   ? Icons.visibility_off
                   : Icons.visibility
                 ),
                 onPressed: () {
                   setState(() {
-                    widget._hidePassword = !widget._hidePassword;
+                    RegistrationValues.hidePassword = !RegistrationValues.hidePassword;
                   });
                 }
               ),

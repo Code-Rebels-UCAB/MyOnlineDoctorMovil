@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 
+import 'registration_values.dart';
+
 // ignore: must_be_immutable
 class OperationsPatientRegistration extends StatelessWidget {
-
-  TextEditingController _operations = TextEditingController();
-
-  OperationsPatientRegistration(this._operations, {Key? key}) : super(key: key);
+  const OperationsPatientRegistration({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +30,7 @@ class OperationsPatientRegistration extends StatelessWidget {
             border: Border.all(color: Colors.blue, width: 1)
           ),
           child: TextFormField(
-            controller: _operations,
+            controller: RegistrationValues.operations,
             cursorHeight: 20,
             maxLines: null,
             expands: true,
