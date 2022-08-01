@@ -5,6 +5,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:myonlinedoctormovil/common/config/app_router.dart';
 import 'package:myonlinedoctormovil/common/providers/notification_provider.dart';
 import 'package:myonlinedoctormovil/doctor/providers/doctor_provider.dart';
+import 'package:myonlinedoctormovil/paciente/providers/iniciar_sesion_estado.dart';
 import 'package:myonlinedoctormovil/paciente/providers/patient_provider.dart';
 import 'package:myonlinedoctormovil/paciente/screens/login_screen.dart';
 import 'package:myonlinedoctormovil/paciente/screens/main_menu_screen.dart';
@@ -13,6 +14,7 @@ import 'cita/screens/appointments_screen/appointments_screen.dart';
 import 'common/infraestructura/llamada_entrante.dart';
 import 'common/infraestructura/push_notificaciones_servicio.dart';
 import 'common/viewNotification.dart';
+import 'paciente/infraestructura/services/iniciar_sesion_paciente.dart';
 
 // Necesario para emulador samsung externo (Alines)
 class MyHttpoverrides extends HttpOverrides {
@@ -26,6 +28,7 @@ class MyHttpoverrides extends HttpOverrides {
 
 /////////////////////////////////////////////////////////////
 void main() async {
+  Provider.debugCheckInvalidValueType = null;
   // Necesario para emulador samsung externo (Alines)
   HttpOverrides.global = MyHttpoverrides();
   WidgetsFlutterBinding.ensureInitialized();
@@ -62,6 +65,7 @@ class _MyAppState extends State<MyApp> {
         Provider(create: (context) => PatientProvider()), 
         Provider(create: (context) => IdDoctorProvider()),
         Provider(create: (context) => NotificationProvider()),
+        Provider(create: (context) => IniciarSesionEstado(IniciarSesionPacienteService()))
       ],
       builder: (context, child) {
         return MaterialApp(
@@ -77,7 +81,7 @@ class _MyAppState extends State<MyApp> {
           // Screen Inicial
           initialRoute: 'home',
           routes: {
-            'home': (_) => const MainMenuScreen(), //LoginScreen(),
+            'home': (_) => const LoginScreen(), //LoginScreen(),
           }
         );
       },

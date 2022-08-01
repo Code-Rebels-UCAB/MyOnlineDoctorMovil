@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:myonlinedoctormovil/common/empty_textfield_warning.dart';
+import 'package:myonlinedoctormovil/common/infraestructura/validaciones.dart';
 import 'package:myonlinedoctormovil/common/screen_header.dart';
+import 'package:myonlinedoctormovil/paciente/screens/register_screen/register_screen.dart';
+import 'package:provider/provider.dart';
+
+import '../infraestructura/models/iniciar_sesion_paciente.dart';
+import '../providers/iniciar_sesion_estado.dart';
+import 'main_menu_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -12,6 +19,38 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _email = TextEditingController();
   final TextEditingController _password = TextEditingController();
+  bool _isLoading = false;
+
+  void login() async {
+    setState((){
+      _isLoading = true;
+    });
+    final credenciales = IniciarSesionPacienteModelo(correoPaciente:_email.text, passwordPaciente:_password.text);
+    try {
+      await Provider.of<IniciarSesionEstado>(context,  listen: false).iniciarSesion(credenciales);
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => const MainMenuScreen()
+        ),
+      );
+    }catch(e){
+      print(e.toString());
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return const EmptyTextFiledWarning (message:"Revise sus credenciales");
+        },
+      );
+    } finally {
+      setState((){
+        _isLoading = false;
+      });
+
+    }
+
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -99,6 +138,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           child: TextFormField(
                             controller: _password,
                             autofocus: false,
+                            obscureText: true,
                             decoration: const InputDecoration(
                               border: InputBorder.none,
                               contentPadding: EdgeInsets.symmetric(
@@ -112,7 +152,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     // Button de Inicio de Sesion
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: OutlinedButton(
+                      child: _isLoading ? const CircularProgressIndicator() : OutlinedButton(
                           style: OutlinedButton.styleFrom(
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(12.0),
@@ -123,19 +163,23 @@ class _LoginScreenState extends State<LoginScreen> {
                             fixedSize: const Size(200, 40),
                           ),
                           onPressed: () {
-                            setState(() {
-                              if (_email.text.isNotEmpty &&
-                                _password.text.isNotEmpty) {
-                                //Navigator.of(context).pushNamed('/search');//////////////////////////////////
-                              } else if (_email.text.isEmpty || _password.text.isEmpty) {
-                                showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return const EmptyTextFiledWarning ();
-                                  },
-                                );
-                              }
-                            });
+                            if(!Validaciones.validarCorreo(_email.text)){
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return const EmptyTextFiledWarning (message:"Correo Invalido");
+                                },
+                              );
+                            }
+                            if(!Validaciones.validarContrasena(_password.text)){
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return const EmptyTextFiledWarning (message:"La contraseña debe tener al menos 8 caracteres y una mayuscula");
+                                },
+                              );
+                            }
+                            login();
                           },
                           child: const Text(
                             'Iniciar Sesión',
