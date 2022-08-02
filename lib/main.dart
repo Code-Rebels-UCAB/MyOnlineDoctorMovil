@@ -13,6 +13,7 @@ import 'cita/screens/appointments_screen/appointments_screen.dart';
 import 'common/infraestructura/llamada_entrante.dart';
 import 'common/infraestructura/push_notificaciones_servicio.dart';
 import 'common/viewNotification.dart';
+import 'registro_medico/providers/medical_record_provider.dart';
 
 // Necesario para emulador samsung externo (Alines)
 class MyHttpoverrides extends HttpOverrides {
@@ -62,6 +63,7 @@ class _MyAppState extends State<MyApp> {
         Provider(create: (context) => PatientProvider()), 
         Provider(create: (context) => IdDoctorProvider()),
         Provider(create: (context) => NotificationProvider()),
+        Provider(create: (context) => MedicalRecordProvider()),
       ],
       builder: (context, child) {
         return MaterialApp(

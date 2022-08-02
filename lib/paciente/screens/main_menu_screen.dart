@@ -149,7 +149,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                   fixedSize: const Size(300, 50),
                 ),
                 onPressed: () {
-                  Navigator.of(context).pushNamed('/register');
+                  Navigator.of(context).pushNamed('/medicalRecord');
                 },
                 child: const Text(
                   'Historia Medica',
