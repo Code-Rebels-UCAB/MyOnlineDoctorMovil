@@ -98,12 +98,12 @@ class _AppointmentsScreenState extends State<AppointmentsScreen> {
                                                             '${verifyGender(genderDoctor)} $nameDoctor',
                                                             style: const TextStyle(
                                                                 fontWeight: FontWeight.bold,
-                                                                fontSize: 14.0))),
+                                                                fontSize: 18.0))),
                                                     // Modalidad de la cita
                                                     Padding(
                                                         padding: const EdgeInsets.all(5.0),
                                                         child: Text(modality,
-                                                            style: const TextStyle(fontSize: 14.0))),
+                                                            style: const TextStyle(fontSize: 16.0))),
                                                   ],
                                                 ),
                                                 Row(
@@ -112,19 +112,19 @@ class _AppointmentsScreenState extends State<AppointmentsScreen> {
                                                     Padding(
                                                         padding: const EdgeInsets.all(5.0),
                                                         child: Text('Dia: $dateAppointment',
-                                                            style: const TextStyle(fontSize: 14.0))),
+                                                            style: const TextStyle(fontSize: 16.0))),
                                                     // Hora de la cita
                                                     Padding(
                                                         padding: const EdgeInsets.all(5.0),
                                                         child: Text('Hora: $hourAppointment',
-                                                            style: const TextStyle(fontSize: 14.0))),
+                                                            style: const TextStyle(fontSize: 16.0))),
                                                   ],
                                                 ),
                                                 // Duracion de la cita
                                                 Padding(
                                                     padding: const EdgeInsets.all(5.0),
                                                     child: Text('Duración: $durationAppointment',
-                                                        style: const TextStyle(fontSize: 14.0))),
+                                                        style: const TextStyle(fontSize: 16.0))),
                                               ],
                                             ),
                                             const Spacer(),
@@ -132,7 +132,7 @@ class _AppointmentsScreenState extends State<AppointmentsScreen> {
                                               const Text(
                                                 'Solicitada',
                                                 style: TextStyle(
-                                                    fontSize: 16, color: Colors.amber, fontWeight: FontWeight.bold),
+                                                    fontSize: 18, color: Colors.amber, fontWeight: FontWeight.bold),
                                               )
                                             else if (statusAppointment == 'Agendada') 
                                               Column(
@@ -141,7 +141,7 @@ class _AppointmentsScreenState extends State<AppointmentsScreen> {
                                                   const Text(
                                                     'Agendada',
                                                     style: TextStyle(
-                                                        fontSize: 16, color: Colors.blue, fontWeight: FontWeight.bold),
+                                                        fontSize: 18, color: Colors.blue, fontWeight: FontWeight.bold),
                                                   ),
                                                   //SizedBox()
                                                   Row(
@@ -178,37 +178,37 @@ class _AppointmentsScreenState extends State<AppointmentsScreen> {
                                               const Text(
                                                 'Aceptada',
                                                 style: TextStyle(
-                                                    fontSize: 16, color: Colors.green, fontWeight: FontWeight.bold),
+                                                    fontSize: 18, color: Colors.green, fontWeight: FontWeight.bold),
                                               )
                                             else if (statusAppointment == 'Cancelada')
                                               const Text(
                                                 'Cancelada',
                                                 style: TextStyle(
-                                                    fontSize: 16, color: Colors.red, fontWeight: FontWeight.bold),
+                                                    fontSize: 18, color: Colors.red, fontWeight: FontWeight.bold),
                                               )
                                             else if (statusAppointment == 'Suspendida')
                                               const Text(
                                                 'Suspendida',
                                                 style: TextStyle(
-                                                    fontSize: 16, color: Colors.red, fontWeight: FontWeight.bold),
+                                                    fontSize: 18, color: Colors.red, fontWeight: FontWeight.bold),
                                               )
                                             else if (statusAppointment == 'Finalizada')
                                               const Text(
                                                 'Finalizada',
                                                 style: TextStyle(
-                                                    fontSize: 16, color: Colors.black, fontWeight: FontWeight.bold),
+                                                    fontSize: 18, color: Colors.black, fontWeight: FontWeight.bold),
                                               )
                                             else if (statusAppointment == 'Iniciada')
                                               const Text(
                                                 'Iniciada',
                                                 style: TextStyle(
-                                                    fontSize: 16, color: Colors.blue, fontWeight: FontWeight.bold),
+                                                    fontSize: 18, color: Colors.blue, fontWeight: FontWeight.bold),
                                               )
                                             else if (statusAppointment == 'Bloqueada')
                                               const Text(
                                                 'Bloqueada',
                                                 style: TextStyle(
-                                                    fontSize: 16, color: Colors.red, fontWeight: FontWeight.bold),
+                                                    fontSize: 18, color: Colors.red, fontWeight: FontWeight.bold),
                                               )
                                           ],
                                         ),
