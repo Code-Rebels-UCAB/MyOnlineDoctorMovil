@@ -43,6 +43,7 @@ dependencies:
   flutter_ringtone_player: ^3.2.0
   firebase_analytics: ^9.2.1
   fluttertoast: ^8.0.9
+  flutter_secure_storage: ^5.0.2
 
 
 

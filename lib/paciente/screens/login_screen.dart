@@ -35,7 +35,6 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       );
     }catch(e){
-      print(e.toString());
       showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -46,10 +45,7 @@ class _LoginScreenState extends State<LoginScreen> {
       setState((){
         _isLoading = false;
       });
-
     }
-
-
   }
 
   @override
