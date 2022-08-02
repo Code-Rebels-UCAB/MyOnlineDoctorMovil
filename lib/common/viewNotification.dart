@@ -1,6 +1,7 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:myonlinedoctormovil/common/infraestructura/notification_registro_creado.dart';
 import '../cita/screens/appointments_screen/appointments_screen.dart';
 import 'infraestructura/llamada_entrante.dart';
 import 'infraestructura/notificaction_cita_suspendida.dart';
@@ -13,6 +14,7 @@ class ViewNotificacion{
   final llamadaEntrante = new NotificacionLlamadaEntrante();
   final citaAgendada = new NotificacionCitaAgendada();
   final citaSuspendida = new NotificacionCitaSuspendida();
+  final registroCreado = new NotificacionRegistroCreado();
 
   void ViewNotification(RemoteMessage event, BuildContext context, GlobalKey<NavigatorState> navigatorKey) {
     try {
@@ -30,6 +32,7 @@ class ViewNotificacion{
         citaSuspendida.update(splitt, title, context, navigatorKey);
       }
       else if(title == 'doctor registra historia medica'){
+        registroCreado.update(splitt, title, context, navigatorKey);
       }
     } catch (e) {
       //catch
