@@ -25,7 +25,7 @@ class DoctorList extends StatelessWidget {
           showDialog(
             context: context,
             builder: (BuildContext context) {
-              return RequestAppoinment (EnviarTokenPaciente());
+              return RequestAppoinment ();
             },
           );
         });

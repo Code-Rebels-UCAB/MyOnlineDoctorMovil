@@ -7,6 +7,10 @@ import 'package:myonlinedoctormovil/paciente/screens/patient_info_screen.dart';
 import 'package:myonlinedoctormovil/paciente/screens/register_screen/register_screen.dart';
 import 'package:myonlinedoctormovil/registro_medico/screens/medical_records_screen/medical_records_screen.dart';
 
+import '../../paciente/infraestructura/services/enviar_token_paciente.dart';
+import '../infraestructura/authentication/auth_service.dart';
+import '../infraestructura/authentication/storage/guardado_token_jwt.dart';
+
 // Router de interfaces de aplicacion
 class AppRouter {
   static Route onGenerateRoute(RouteSettings settings) {
@@ -19,7 +23,7 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => const RegisterScreen());
       // Inicio de Sesion de Paciente
       case '/login':
-        return MaterialPageRoute(builder: (_) => const LoginScreen());
+        return MaterialPageRoute(builder: (_) => LoginScreen());
       // Informacion Paciente
       case '/patientinfo':
         return MaterialPageRoute(builder: (_) => const PatientInfoScreen());

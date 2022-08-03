@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 import '../../common/infraestructura/authentication/auth_service.dart';
 import '../../common/infraestructura/authentication/ports/auth_service_abstract.dart';
 import '../../common/infraestructura/authentication/storage/guardado_token_jwt.dart';
+import '../infraestructura/services/enviar_token_paciente.dart';
 
 class MainMenuScreen extends StatefulWidget {
   const MainMenuScreen({Key? key}) : super(key: key);
@@ -16,10 +17,8 @@ class MainMenuScreen extends StatefulWidget {
 }
 
 class _MainMenuScreenState extends State<MainMenuScreen> {
-  PatientService patientService = PatientService();
-  dynamic idPatient = '649edad6-0795-4126-9398-f1728b7ef318';
+  PatientService patientService = PatientService(AuthService(authToken: GuardadoTokenJwt()));
   final AuthServiceAbstract authToken;
-
   _MainMenuScreenState(this.authToken);
 
   @override
@@ -29,7 +28,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
 
   Widget mainMenu() {
     return FutureBuilder<dynamic>(
-        future: patientService.getPatient(idPatient),
+        future: patientService.getPatient(),
         builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
           return CustomScrollView(
             slivers: [
@@ -234,7 +233,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                   Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const LoginScreen()
+                        builder: (context) => LoginScreen()
                     ),
                   );
                 },

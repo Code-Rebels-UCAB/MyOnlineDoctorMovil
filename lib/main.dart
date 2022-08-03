@@ -16,6 +16,7 @@ import 'common/infraestructura/authentication/storage/guardado_token_jwt.dart';
 import 'common/infraestructura/llamada_entrante.dart';
 import 'common/infraestructura/push_notificaciones_servicio.dart';
 import 'common/viewNotification.dart';
+import 'paciente/infraestructura/services/enviar_token_paciente.dart';
 import 'paciente/infraestructura/services/iniciar_sesion_paciente.dart';
 import 'registro_medico/providers/medical_record_provider.dart';
 
@@ -85,7 +86,7 @@ class _MyAppState extends State<MyApp> {
           // Screen Inicial
           initialRoute: 'home',
           routes: {
-            'home': (_) => const LoginScreen(), //LoginScreen(),
+            'home': (_) => LoginScreen(), //LoginScreen(),
           }
         );
       },
