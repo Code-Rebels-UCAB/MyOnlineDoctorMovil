@@ -7,7 +7,7 @@ class RegistroPacienteService {
   Future registrarPaciente(RegistrarPacienteModelo registro) async {
     var headers = {'Content-Type': 'application/json'};
     var request = http.Request(
-        'PUT', Uri.parse('${SERVER_API}/api/paciente/registrarse'));
+        'POST', Uri.parse('${SERVER_API}/api/paciente/registrarse'));
 
     String id = registro.birthday;
 

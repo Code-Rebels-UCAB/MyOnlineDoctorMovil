@@ -37,6 +37,7 @@ class _RegisterButtonPatientState extends State<RegisterButtonPatient> {
                   RegistrationValues.phone.text.isNotEmpty &&
                   RegistrationValues.email.text.isNotEmpty &&
                   RegistrationValues.password.text.isNotEmpty &&
+                  RegistrationValues.password.text.length >= 8 &&
                   RegistrationValues.record.text.isNotEmpty) {
                 RegistrarPacienteModelo registro = RegistrarPacienteModelo(
                     firstName: RegistrationValues.firstName.text,
