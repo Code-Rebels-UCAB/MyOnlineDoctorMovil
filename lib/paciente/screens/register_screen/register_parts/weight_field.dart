@@ -32,23 +32,20 @@ class WeightPatientRegistration extends StatelessWidget {
         Container(
           height: 50,
           margin: const EdgeInsets.all(5),
-          padding: const EdgeInsets.symmetric(
-            horizontal: 5, vertical: 0
-          ),
+          padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 0),
           decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: Colors.blue, width: 1)
-          ),
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(color: Colors.blue, width: 1)),
           child: TextFormField(
+            keyboardType: TextInputType.number,
             controller: RegistrationValues.weight,
             autofocus: false,
             decoration: const InputDecoration(
               hintText: '00',
               border: InputBorder.none,
-              contentPadding: EdgeInsets.symmetric(
-                vertical: 10, horizontal: 10
-              ),
+              contentPadding:
+                  EdgeInsets.symmetric(vertical: 10, horizontal: 10),
             ),
           ),
         ),

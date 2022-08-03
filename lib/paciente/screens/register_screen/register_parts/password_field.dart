@@ -39,36 +39,31 @@ class _PasswordPatientRegistrationState
         Container(
           height: 50,
           margin: const EdgeInsets.all(5),
-          padding: const EdgeInsets.symmetric(
-            horizontal: 5, vertical: 0
-          ),
+          padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 0),
           decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: Colors.blue, width: 1)
-          ),
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(color: Colors.blue, width: 1)),
           child: TextFormField(
+            keyboardType: TextInputType.text,
             controller: RegistrationValues.password,
             obscureText: RegistrationValues.hidePassword,
             autofocus: false,
-            decoration:  InputDecoration(
+            decoration: InputDecoration(
               hintText: '*********',
               suffixIcon: IconButton(
-                icon: Icon(
-                  RegistrationValues.hidePassword
-                  ? Icons.visibility_off
-                  : Icons.visibility
-                ),
-                onPressed: () {
-                  setState(() {
-                    RegistrationValues.hidePassword = !RegistrationValues.hidePassword;
-                  });
-                }
-              ),
+                  icon: Icon(RegistrationValues.hidePassword
+                      ? Icons.visibility_off
+                      : Icons.visibility),
+                  onPressed: () {
+                    setState(() {
+                      RegistrationValues.hidePassword =
+                          !RegistrationValues.hidePassword;
+                    });
+                  }),
               border: InputBorder.none,
-              contentPadding: const EdgeInsets.symmetric(
-                vertical: 10, horizontal: 10
-              ),
+              contentPadding:
+                  const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
             ),
           ),
         ),

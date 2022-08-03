@@ -38,6 +38,7 @@ class FirstNamePatientRegistration extends StatelessWidget {
               borderRadius: BorderRadius.circular(12),
               border: Border.all(color: Colors.blue, width: 1)),
           child: TextFormField(
+            keyboardType: TextInputType.name,
             controller: RegistrationValues.firstName,
             autofocus: false,
             decoration: const InputDecoration(

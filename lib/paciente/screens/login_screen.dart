@@ -17,7 +17,6 @@ import '../providers/iniciar_sesion_estado.dart';
 import 'main_menu_screen.dart';
 
 class LoginScreen extends StatefulWidget {
-
   LoginScreen({Key? key}) : super(key: key);
 
   @override
@@ -30,34 +29,35 @@ class _LoginScreenState extends State<LoginScreen> {
   //final TokenPacienteRequestAbstract tokenPacienteRequestAbstract = TokenPacienteRequestAbstract();
   bool _isLoading = false;
 
-
   void login() async {
-    setState((){
+    setState(() {
       _isLoading = true;
     });
-    final credenciales = IniciarSesionPacienteModelo(correoPaciente:_email.text, passwordPaciente:_password.text);
+    final credenciales = IniciarSesionPacienteModelo(
+        correoPaciente: _email.text, passwordPaciente: _password.text);
     try {
-      await Provider.of<IniciarSesionEstado>(context,  listen: false).iniciarSesion(credenciales);
+      await Provider.of<IniciarSesionEstado>(context, listen: false)
+          .iniciarSesion(credenciales);
 
       String token = await PushNotificationService.initializeApp();
       TokenFirebase tokenFirebase = TokenFirebase(tokenF: token);
-      EnviarTokenPaciente tokenRequest = EnviarTokenPaciente(AuthService(authToken: GuardadoTokenJwt()));
-      final response =  tokenRequest.guardarToken(tokenFirebase);
+      EnviarTokenPaciente tokenRequest =
+          EnviarTokenPaciente(AuthService(authToken: GuardadoTokenJwt()));
+      final response = tokenRequest.guardarToken(tokenFirebase);
       Navigator.push(
         context,
-        MaterialPageRoute(
-            builder: (context) => const MainMenuScreen()
-        ),
+        MaterialPageRoute(builder: (context) => const MainMenuScreen()),
       );
-    }catch(e){
+    } catch (e) {
       showDialog(
         context: context,
         builder: (BuildContext context) {
-          return const EmptyTextFiledWarning (message:"Revise sus credenciales");
+          return const EmptyTextFiledWarning(
+              message: "Revise sus credenciales");
         },
       );
     } finally {
-      setState((){
+      setState(() {
         _isLoading = false;
       });
     }
@@ -67,8 +67,8 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: FutureBuilder(
-        //future: ,
-        builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+          //future: ,
+          builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
         return CustomScrollView(
           slivers: [
             screenHeader(),
@@ -163,42 +163,48 @@ class _LoginScreenState extends State<LoginScreen> {
                     // Button de Inicio de Sesion
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: _isLoading ? const CircularProgressIndicator() : OutlinedButton(
-                          style: OutlinedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12.0),
-                            ),
-                            backgroundColor: Colors.blue,
-                            side:
-                                const BorderSide(width: 1.0, color: Colors.blue),
-                            fixedSize: const Size(200, 40),
-                          ),
-                          onPressed: () {
-                            if(!Validaciones.validarCorreo(_email.text)){
-                              showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return const EmptyTextFiledWarning (message:"Correo Invalido");
-                                },
-                              );
-                            }
-                            if(!Validaciones.validarContrasena(_password.text)){
-                              showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return const EmptyTextFiledWarning (message:"La contraseña debe tener al menos 8 caracteres y una mayuscula");
-                                },
-                              );
-                            }
-                            login();
-                          },
-                          child: const Text(
-                            'Iniciar Sesión',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 18,
-                            ),
-                          )),
+                      child: _isLoading
+                          ? const CircularProgressIndicator()
+                          : OutlinedButton(
+                              style: OutlinedButton.styleFrom(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(12.0),
+                                ),
+                                backgroundColor: Colors.blue,
+                                side: const BorderSide(
+                                    width: 1.0, color: Colors.blue),
+                                fixedSize: const Size(200, 40),
+                              ),
+                              onPressed: () {
+                                if (!Validaciones.validarCorreo(_email.text)) {
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return const EmptyTextFiledWarning(
+                                          message: "Correo Invalido");
+                                    },
+                                  );
+                                }
+                                if (!Validaciones.validarContrasena(
+                                    _password.text)) {
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return const EmptyTextFiledWarning(
+                                          message:
+                                              "La contraseña debe tener al menos 8 caracteres y una mayuscula");
+                                    },
+                                  );
+                                }
+                                login();
+                              },
+                              child: const Text(
+                                'Iniciar Sesión',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                ),
+                              )),
                     ),
                     const Spacer(),
                     const Text(
@@ -217,7 +223,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                       onPressed: () {
-                        ///////////////////////////////////////////////////
+                        Navigator.of(context).pushNamed('/register');
                       },
                     ),
                     const Spacer(),
