@@ -14,9 +14,8 @@ import '../infraestructura/puertos/abstract_appointment_service.dart';
 import '../infraestructura/decorators/log_appointmentService.dart';
 
 class RequestAppoinment extends StatefulWidget {
-  TokenPacienteRequestAbstract tokenRequest;
 
-  RequestAppoinment(this.tokenRequest, {Key? key}) : super(key: key);
+  RequestAppoinment({Key? key}) : super(key: key);
 
   @override
   State<RequestAppoinment> createState() => _RequestAppoinmentState();
@@ -85,12 +84,8 @@ class _RequestAppoinmentState extends State<RequestAppoinment> {
             if (_dropdownSelectedModalityItem != ' ' &&
                 _textFieldMotive.text.isNotEmpty) {
               ////////////////////////////////////////////////////////////////Envia los datos
-              String token = await PushNotificationService.initializeApp();
-              print(token);
 
-              TokenFirebase tokenFirebase = TokenFirebase(idPaciente: idPatient, tokenF: token);
               try {
-                final response =  await widget.tokenRequest.guardarToken(tokenFirebase);
                 const snackBar = SnackBar(
                   content: Text('Pedido de cita exitoso'),
                 );

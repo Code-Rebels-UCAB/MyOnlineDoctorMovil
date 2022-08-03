@@ -1,22 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:myonlinedoctormovil/common/infraestructura/authentication/auth_service.dart';
 import 'package:myonlinedoctormovil/common/screen_header.dart';
 import 'package:myonlinedoctormovil/paciente/infraestructura/services/patient_services.dart';
 import 'package:myonlinedoctormovil/paciente/providers/patient_provider.dart';
 import 'package:myonlinedoctormovil/paciente/screens/login_screen.dart';
 import 'package:provider/provider.dart';
 
+import '../../common/infraestructura/authentication/auth_service.dart';
+import '../../common/infraestructura/authentication/ports/auth_service_abstract.dart';
 import '../../common/infraestructura/authentication/storage/guardado_token_jwt.dart';
+import '../infraestructura/services/enviar_token_paciente.dart';
 
 class MainMenuScreen extends StatefulWidget {
   const MainMenuScreen({Key? key}) : super(key: key);
   @override
-  State<MainMenuScreen> createState() => _MainMenuScreenState();
+  State<MainMenuScreen> createState() => _MainMenuScreenState(AuthService(authToken: GuardadoTokenJwt()));
 }
 
 class _MainMenuScreenState extends State<MainMenuScreen> {
-  PatientService patientService = PatientService();
-  dynamic idPatient = '649edad6-0795-4126-9398-f1728b7ef318';
+  PatientService patientService = PatientService(AuthService(authToken: GuardadoTokenJwt()));
+  final AuthServiceAbstract authToken;
+  _MainMenuScreenState(this.authToken);
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +28,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
 
   Widget mainMenu() {
     return FutureBuilder<dynamic>(
-        future: patientService.getPatient(idPatient),
+        future: patientService.getPatient(),
         builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
           return CustomScrollView(
             slivers: [
@@ -226,11 +229,11 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                   fixedSize: const Size(300, 50),
                 ),
                 onPressed: () async {
-                  await AuthService().borrarToken();
+                  await authToken.borrarToken();
                   Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const LoginScreen()
+                        builder: (context) => LoginScreen()
                     ),
                   );
                 },

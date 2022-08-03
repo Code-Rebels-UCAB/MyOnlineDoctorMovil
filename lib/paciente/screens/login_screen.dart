@@ -1,16 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:myonlinedoctormovil/common/empty_textfield_warning.dart';
+import 'package:myonlinedoctormovil/common/infraestructura/authentication/ports/auth_service_abstract.dart';
 import 'package:myonlinedoctormovil/common/infraestructura/validaciones.dart';
 import 'package:myonlinedoctormovil/common/screen_header.dart';
 import 'package:myonlinedoctormovil/paciente/screens/register_screen/register_screen.dart';
 import 'package:provider/provider.dart';
 
+import '../../common/infraestructura/authentication/auth_service.dart';
+import '../../common/infraestructura/authentication/storage/guardado_token_jwt.dart';
+import '../../common/infraestructura/push_notificaciones_servicio.dart';
 import '../infraestructura/models/iniciar_sesion_paciente.dart';
+import '../infraestructura/models/token_firebase.dart';
+import '../infraestructura/puertos/token_paciente_request_abstract.dart';
+import '../infraestructura/services/enviar_token_paciente.dart';
 import '../providers/iniciar_sesion_estado.dart';
 import 'main_menu_screen.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+  LoginScreen({Key? key}) : super(key: key);
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -19,6 +26,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _email = TextEditingController();
   final TextEditingController _password = TextEditingController();
+  //final TokenPacienteRequestAbstract tokenPacienteRequestAbstract = TokenPacienteRequestAbstract();
   bool _isLoading = false;
 
   void login() async {
@@ -30,6 +38,12 @@ class _LoginScreenState extends State<LoginScreen> {
     try {
       await Provider.of<IniciarSesionEstado>(context, listen: false)
           .iniciarSesion(credenciales);
+
+      String token = await PushNotificationService.initializeApp();
+      TokenFirebase tokenFirebase = TokenFirebase(tokenF: token);
+      EnviarTokenPaciente tokenRequest =
+          EnviarTokenPaciente(AuthService(authToken: GuardadoTokenJwt()));
+      final response = tokenRequest.guardarToken(tokenFirebase);
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => const MainMenuScreen()),

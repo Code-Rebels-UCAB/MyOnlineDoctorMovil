@@ -4,6 +4,8 @@ import 'package:myonlinedoctormovil/paciente/providers/patient_provider.dart';
 import 'package:myonlinedoctormovil/registro_medico/infraestructura/services/medical_record_service.dart';
 import 'package:provider/provider.dart';
 
+import '../../../common/infraestructura/authentication/auth_service.dart';
+import '../../../common/infraestructura/authentication/storage/guardado_token_jwt.dart';
 import 'medical_records_parts/records_list.dart';
 
 // ignore: must_be_immutable
@@ -12,13 +14,13 @@ class MedicalRecordsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    MedicalRecordsService medicalRecordsService = MedicalRecordsService();
+    MedicalRecordsService medicalRecordsService = MedicalRecordsService(AuthService(authToken: GuardadoTokenJwt()));
     var idPatient =
         Provider.of<PatientProvider>(context, listen: false).idPatient;
     
     return Scaffold(
       body: FutureBuilder(
-        future: medicalRecordsService.getPatientMedicalRecords('ed649257-8091-4b77-827a-8532b5c4c826'),
+        future: medicalRecordsService.getPatientMedicalRecords(),
         builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
           return CustomScrollView(
             slivers: [
