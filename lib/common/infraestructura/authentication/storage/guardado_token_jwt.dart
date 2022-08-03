@@ -10,15 +10,11 @@ class GuardadoTokenJwt {
         key: 'token', value: token.token.toString());
   }
 
-  Future<String> obtenerToken() async{
-    return await _almacenamiento.read(key: 'token') as String ;
-  }
-
   borrarToken() async {
     await _almacenamiento.deleteAll();
   }
 
-  Future<String?> leerToken() async {
-    return await _almacenamiento.read(key: 'token');
+  Future<String> leerToken() async {
+    return await _almacenamiento.read(key: 'token') as String;
   }
 }

@@ -66,7 +66,7 @@ class _MyAppState extends State<MyApp> {
         Provider(create: (context) => PatientProvider()), 
         Provider(create: (context) => IdDoctorProvider()),
         Provider(create: (context) => NotificationProvider()),
-        Provider(create: (context) => IniciarSesionEstado(IniciarSesionPacienteService()))
+        Provider(create: (context) => IniciarSesionEstado(IniciarSesionPacienteService())),
         Provider(create: (context) => MedicalRecordProvider()),
       ],
       builder: (context, child) {
