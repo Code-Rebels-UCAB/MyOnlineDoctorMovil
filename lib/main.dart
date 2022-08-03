@@ -15,6 +15,7 @@ import 'common/infraestructura/llamada_entrante.dart';
 import 'common/infraestructura/push_notificaciones_servicio.dart';
 import 'common/viewNotification.dart';
 import 'paciente/infraestructura/services/iniciar_sesion_paciente.dart';
+import 'registro_medico/providers/medical_record_provider.dart';
 
 // Necesario para emulador samsung externo (Alines)
 class MyHttpoverrides extends HttpOverrides {
@@ -66,6 +67,7 @@ class _MyAppState extends State<MyApp> {
         Provider(create: (context) => IdDoctorProvider()),
         Provider(create: (context) => NotificationProvider()),
         Provider(create: (context) => IniciarSesionEstado(IniciarSesionPacienteService()))
+        Provider(create: (context) => MedicalRecordProvider()),
       ],
       builder: (context, child) {
         return MaterialApp(
