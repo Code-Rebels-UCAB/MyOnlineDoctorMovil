@@ -11,6 +11,8 @@ import 'package:myonlinedoctormovil/paciente/screens/login_screen.dart';
 import 'package:myonlinedoctormovil/paciente/screens/main_menu_screen.dart';
 import 'package:provider/provider.dart';
 import 'cita/screens/appointments_screen/appointments_screen.dart';
+import 'common/infraestructura/authentication/auth_service.dart';
+import 'common/infraestructura/authentication/storage/guardado_token_jwt.dart';
 import 'common/infraestructura/llamada_entrante.dart';
 import 'common/infraestructura/push_notificaciones_servicio.dart';
 import 'common/viewNotification.dart';
@@ -66,7 +68,7 @@ class _MyAppState extends State<MyApp> {
         Provider(create: (context) => PatientProvider()), 
         Provider(create: (context) => IdDoctorProvider()),
         Provider(create: (context) => NotificationProvider()),
-        Provider(create: (context) => IniciarSesionEstado(IniciarSesionPacienteService())),
+        ChangeNotifierProvider(create: (_) => IniciarSesionEstado(IniciarSesionPacienteService(AuthService(authToken: GuardadoTokenJwt())))),
         Provider(create: (context) => MedicalRecordProvider()),
       ],
       builder: (context, child) {

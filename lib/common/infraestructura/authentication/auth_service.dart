@@ -1,21 +1,30 @@
 
 
 import 'package:myonlinedoctormovil/common/infraestructura/authentication/ports/auth_service_abstract.dart';
-import 'package:myonlinedoctormovil/common/infraestructura/authentication/storage/guardado_token_jwt.dart';
+
+import '../models/token_jwt.dart';
 
 
 class AuthService implements AuthServiceAbstract {
 
+  final AuthServiceAbstract authToken;
+
+  AuthService({required this.authToken});
+
   Future<bool> tieneToken() async {
-    String? token = await GuardadoTokenJwt().leerToken();
-    if (token != null) {
-      return true;
-    }
-    return false;
+    return await authToken.tieneToken();
   }
 
   Future<void> borrarToken() async {
-    await GuardadoTokenJwt().borrarToken();
+    await authToken.borrarToken();
+  }
+
+  Future<void> escribirDataToken(TokenJwtModelo token) async {
+    await authToken.escribirDataToken(token);
+  }
+
+  Future<String> leerToken() async {
+    return await authToken.leerToken();
   }
 
 }

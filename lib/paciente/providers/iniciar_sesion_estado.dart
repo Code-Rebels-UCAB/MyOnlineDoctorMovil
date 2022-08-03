@@ -7,7 +7,8 @@ import '../../common/infraestructura/models/token_jwt.dart';
 import '../infraestructura/models/iniciar_sesion_paciente.dart';
 
 class IniciarSesionEstado with ChangeNotifier {
-  final IniciarSesionPacienteRequest request;
+
+  final IniciarSesionPacienteRequestAbstract request;
 
   IniciarSesionEstado(this.request);
 
@@ -15,8 +16,6 @@ class IniciarSesionEstado with ChangeNotifier {
   Future<void> iniciarSesion(IniciarSesionPacienteModelo credenciales) async{
     try{
       final response = await request.iniciarSesionPacienteRequest(credenciales);
-      print("aqui");
-      print(response);
       notifyListeners();
     }catch(e){
       throw Exception("Algo Salio mal");
