@@ -9,7 +9,10 @@ class RegistroPacienteService {
     var request = http.Request(
         'PUT', Uri.parse('${SERVER_API}/api/paciente/registrarse'));
 
+    String id = registro.birthday;
+
     request.body = json.encode({
+      "id_paciente": id,
       "p_nombre": registro.firstName,
       "s_nombre": registro.middleName,
       "p_apellido": registro.lastName,
@@ -24,6 +27,7 @@ class RegistroPacienteService {
       "antecedentes": registro.record,
       "operacion": registro.operations,
       "alergia": registro.alergies,
+      "status_suscripcion": "Activa",
     });
     request.headers.addAll(headers);
 
