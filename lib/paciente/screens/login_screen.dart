@@ -28,6 +28,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _password = TextEditingController();
   //final TokenPacienteRequestAbstract tokenPacienteRequestAbstract = TokenPacienteRequestAbstract();
   bool _isLoading = false;
+  bool _hidepass = true;
 
   void login() async {
     setState(() {
@@ -52,8 +53,7 @@ class _LoginScreenState extends State<LoginScreen> {
       showDialog(
         context: context,
         builder: (BuildContext context) {
-          return const EmptyTextFiledWarning(
-              message: "Revise sus credenciales");
+          return const EmptyTextFiledWarning("Revise sus credenciales", '');
         },
       );
     } finally {
@@ -112,6 +112,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               borderRadius: BorderRadius.circular(12),
                               border: Border.all(color: Colors.blue, width: 1)),
                           child: TextFormField(
+                            keyboardType: TextInputType.emailAddress,
                             controller: _email,
                             autofocus: false,
                             decoration: const InputDecoration(
@@ -149,10 +150,20 @@ class _LoginScreenState extends State<LoginScreen> {
                           child: TextFormField(
                             controller: _password,
                             autofocus: false,
-                            obscureText: true,
-                            decoration: const InputDecoration(
+                            obscureText: _hidepass,
+                            decoration: InputDecoration(
+                              hintText: '*********',
+                              suffixIcon: IconButton(
+                                  icon: Icon(_hidepass
+                                      ? Icons.visibility_off
+                                      : Icons.visibility),
+                                  onPressed: () {
+                                    setState(() {
+                                      _hidepass = !_hidepass;
+                                    });
+                                  }),
                               border: InputBorder.none,
-                              contentPadding: EdgeInsets.symmetric(
+                              contentPadding: const EdgeInsets.symmetric(
                                   vertical: 20, horizontal: 10),
                             ),
                           ),
@@ -181,7 +192,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     context: context,
                                     builder: (BuildContext context) {
                                       return const EmptyTextFiledWarning(
-                                          message: "Correo Invalido");
+                                          "Correo Invalido", "");
                                     },
                                   );
                                 }
@@ -191,8 +202,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                     context: context,
                                     builder: (BuildContext context) {
                                       return const EmptyTextFiledWarning(
-                                          message:
-                                              "La contraseña debe tener al menos 8 caracteres y una mayuscula");
+                                          "La contraseña debe tener al menos 8 caracteres y una mayuscula",
+                                          "");
                                     },
                                   );
                                 }

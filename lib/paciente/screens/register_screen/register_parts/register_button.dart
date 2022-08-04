@@ -12,6 +12,9 @@ class RegisterButtonPatient extends StatefulWidget {
 }
 
 class _RegisterButtonPatientState extends State<RegisterButtonPatient> {
+  RegExp regex =
+      RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!.@#\$&*~]).{8,}$');
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -37,34 +40,43 @@ class _RegisterButtonPatientState extends State<RegisterButtonPatient> {
                   RegistrationValues.phone.text.isNotEmpty &&
                   RegistrationValues.email.text.isNotEmpty &&
                   RegistrationValues.password.text.isNotEmpty &&
-                  RegistrationValues.password.text.length >= 8 &&
                   RegistrationValues.record.text.isNotEmpty) {
-                RegistrarPacienteModelo registro = RegistrarPacienteModelo(
-                    firstName: RegistrationValues.firstName.text,
-                    middleName: RegistrationValues.middleName.text,
-                    lastName: RegistrationValues.lastName.text,
-                    surName: RegistrationValues.surName.text,
-                    gender: RegistrationValues.dropdownSelectedGenderItem,
-                    birthday: RegistrationValues.birthday.text,
-                    height: RegistrationValues.height.text,
-                    weight: RegistrationValues.weight.text,
-                    phone: RegistrationValues.phone.text,
-                    email: RegistrationValues.email.text,
-                    password: RegistrationValues.password.text,
-                    record: RegistrationValues.record.text,
-                    operations: RegistrationValues.operations.text,
-                    alergies: RegistrationValues.alergies.text);
+                if (regex.hasMatch(RegistrationValues.password.text)) {
+                  RegistrarPacienteModelo registro = RegistrarPacienteModelo(
+                      firstName: RegistrationValues.firstName.text,
+                      middleName: RegistrationValues.middleName.text,
+                      lastName: RegistrationValues.lastName.text,
+                      surName: RegistrationValues.surName.text,
+                      gender: RegistrationValues.dropdownSelectedGenderItem,
+                      birthday: RegistrationValues.birthday.text,
+                      height: RegistrationValues.height.text,
+                      weight: RegistrationValues.weight.text,
+                      phone: RegistrationValues.phone.text,
+                      email: RegistrationValues.email.text,
+                      password: RegistrationValues.password.text,
+                      record: RegistrationValues.record.text,
+                      operations: RegistrationValues.operations.text,
+                      alergies: RegistrationValues.alergies.text);
 
-                RegistroPacienteService registroPacienteService =
-                    RegistroPacienteService();
-                registroPacienteService.registrarPaciente(registro);
+                  RegistroPacienteService registroPacienteService =
+                      RegistroPacienteService();
+                  registroPacienteService.registrarPaciente(registro);
 
-                Navigator.of(context).pushNamed('/login');
+                  Navigator.of(context).pushNamed('/login');
+                } else {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return const EmptyTextFiledWarning('Contraseña invalidad',
+                          'Se necesita \n - 1 mayúscula\n - 1 minúscula\n - 1 número\n -  8 carácteres');
+                    },
+                  );
+                }
               } else {
                 showDialog(
                   context: context,
                   builder: (BuildContext context) {
-                    return const EmptyTextFiledWarning();
+                    return const EmptyTextFiledWarning(null, null);
                   },
                 );
               }

@@ -14,7 +14,6 @@ import '../infraestructura/puertos/abstract_appointment_service.dart';
 import '../infraestructura/decorators/log_appointmentService.dart';
 
 class RequestAppoinment extends StatefulWidget {
-
   RequestAppoinment({Key? key}) : super(key: key);
 
   @override
@@ -22,7 +21,8 @@ class RequestAppoinment extends StatefulWidget {
 }
 
 class _RequestAppoinmentState extends State<RequestAppoinment> {
-  AbstractAppointmentService appointmentService = LogAppointmentService(AppointmentService()) ;
+  AbstractAppointmentService appointmentService =
+      LogAppointmentService(AppointmentService());
   final TextEditingController _textFieldMotive = TextEditingController();
   dynamic _dropdownSelectedModalityItem = ' ';
 
@@ -80,7 +80,7 @@ class _RequestAppoinmentState extends State<RequestAppoinment> {
             'Solicitar Cita',
             style: TextStyle(color: Colors.blue),
           ),
-          onPressed: () async  {
+          onPressed: () async {
             if (_dropdownSelectedModalityItem != ' ' &&
                 _textFieldMotive.text.isNotEmpty) {
               ////////////////////////////////////////////////////////////////Envia los datos
@@ -90,11 +90,9 @@ class _RequestAppoinmentState extends State<RequestAppoinment> {
                   content: Text('Pedido de cita exitoso'),
                 );
                 ScaffoldMessenger.of(context).showSnackBar(snackBar);
-              }catch(e){
+              } catch (e) {
                 print(e);
               }
-
-
 
               appointmentService.postAppointmentRequest(idPatient, idDoctor,
                   _dropdownSelectedModalityItem, _textFieldMotive.text);
@@ -105,7 +103,7 @@ class _RequestAppoinmentState extends State<RequestAppoinment> {
               showDialog(
                 context: context,
                 builder: (BuildContext context) {
-                  return const EmptyTextFiledWarning ();
+                  return const EmptyTextFiledWarning(null, null);
                 },
               );
             }
