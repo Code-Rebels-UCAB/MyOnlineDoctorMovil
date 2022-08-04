@@ -1,42 +1,43 @@
+import 'dart:io';
+
 import 'package:http/http.dart' as http;
 import 'package:myonlinedoctormovil/paciente/infraestructura/models/registro_paciente.dart';
 import 'dart:convert';
 import '../../../common/environment.dart';
 
 class RegistroPacienteService {
+  String url = SERVER_API;
+
   Future registrarPaciente(RegistrarPacienteModelo registro) async {
-    var headers = {'Content-Type': 'application/json'};
-    var request = http.Request(
-        'POST', Uri.parse('${SERVER_API}/api/paciente/registrarse'));
-
     String id = registro.birthday;
-
-    request.body = json.encode({
-      "id_paciente": id,
-      "p_nombre": registro.firstName,
-      "s_nombre": registro.middleName,
-      "p_apellido": registro.lastName,
-      "s_apellido": registro.surName,
-      "sexo": registro.gender,
-      "fecha_nacimiento": registro.birthday,
-      "altura": registro.height,
-      "peso": registro.weight,
-      "telefono": registro.phone,
-      "correo": registro.email,
-      "contrasena": registro.password,
-      "antecedentes": registro.record,
-      "operacion": registro.operations,
-      "alergia": registro.alergies,
-      "status_suscripcion": "Activa",
-    });
-    request.headers.addAll(headers);
-
-    http.StreamedResponse response = await request.send();
-
-    if (response.statusCode == 200) {
-      print(await response.stream.bytesToString());
-    } else {
-      print(response.reasonPhrase);
+    try {
+      final apiUrl = Uri.parse(url + "/api/paciente/registrarse");
+      final response = await http.post(
+        apiUrl,
+        headers: {
+          HttpHeaders.contentTypeHeader: 'application/json',
+        },
+        body: json.encode({
+          "id_paciente": id,
+          "p_nombre": registro.firstName,
+          "s_nombre": registro.middleName,
+          "p_apellido": registro.lastName,
+          "s_apellido": registro.surName,
+          "sexo": registro.gender  == "Masculino" ? "M" : "F",
+          "fecha_nacimiento": registro.birthday,
+          "altura": int.parse(registro.height),
+          "peso": int.parse( registro.weight),
+          "telefono": registro.phone,
+          "correo": registro.email,
+          "contrasena": registro.password,
+          "antecedentes": registro.record,
+          "operacion": registro.operations,
+          "alergia": registro.alergies,
+          "status_suscripcion": "Activo",
+        }),
+      );//.timeout(const Duration(seconds: 15));
+    } catch (e) {
+      throw Exception('Algo salio mal');
     }
   }
 }
